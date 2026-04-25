@@ -52,6 +52,8 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
   const handleOrgSelect = async (companyId) => {
     setLoading(true);
     try {
