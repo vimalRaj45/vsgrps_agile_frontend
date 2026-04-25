@@ -75,9 +75,10 @@ const TopBar = ({ handleDrawerToggle }) => {
         boxShadow: 'none',
         height: 72,
         justifyContent: 'center',
-        background: 'var(--glass-bg)',
+        bgcolor: mode === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(255, 255, 255, 0.8)',
         backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid var(--glass-border)'
+        borderBottom: `1px solid ${mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+        borderRadius: 0
       }}
     >
       <Toolbar sx={{ px: { xs: 2, sm: 4 } }}>

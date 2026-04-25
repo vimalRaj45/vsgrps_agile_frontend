@@ -37,9 +37,10 @@ const BottomNav = () => {
         overflow: 'hidden',
         boxShadow: theme.palette.mode === 'dark' ? '0 -10px 40px rgba(0,0,0,0.5)' : '0 -4px 20px rgba(0,0,0,0.08)',
         borderTop: `1px solid ${theme.palette.divider}`,
-        background: theme.palette.mode === 'dark' ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+        background: theme.palette.mode === 'dark' ? '#0f172a' : '#ffffff',
         backdropFilter: 'blur(20px)',
-        pb: 'env(safe-area-inset-bottom)'
+        pb: 'env(safe-area-inset-bottom)',
+        borderRadius: 0
       }} 
       elevation={0}
     >
