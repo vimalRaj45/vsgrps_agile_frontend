@@ -57,7 +57,7 @@ const RegisterPage = () => {
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Grid container sx={{ 
           bgcolor: 'rgba(15, 23, 42, 0.6)', 
-          borderRadius: 8, 
+          borderRadius: 3, 
           overflow: 'hidden',
           border: '1px solid rgba(255,255,255,0.05)',
           backdropFilter: 'blur(25px)',
