@@ -167,10 +167,12 @@ const InvitePage = () => {
             }}>
               <Box sx={{ textAlign: 'center', mb: 4 }}>
                 <Typography variant="h4" fontWeight="800" gutterBottom>
-                  Create Your Profile
+                  {invite?.userExists ? `Welcome Back, ${invite.existingName}` : 'Create Your Profile'}
                 </Typography>
                 <Typography color="text.secondary">
-                  Join your team at {invite?.company_name}
+                  {invite?.userExists 
+                    ? `You're already a member of Sprintora. Join ${invite?.company_name} with your existing account.` 
+                    : `Join your team at ${invite?.company_name}`}
                 </Typography>
               </Box>
 
@@ -180,104 +182,138 @@ const InvitePage = () => {
                 </Alert>
               )}
 
-              <form onSubmit={handleSubmit}>
-                <Stack spacing={3}>
-                  <TextField
-                    fullWidth
-                    label="Full Name"
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PersonOutlineIcon sx={{ color: 'text.secondary' }} />
-                        </InputAdornment>
-                      ),
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: 3,
-                        bgcolor: 'rgba(0,0,0,0.2)'
-                      }
-                    }}
-                  />
-
-                  <TextField
-                    fullWidth
-                    label="Email Address"
-                    value={invite?.email || ''}
-                    disabled
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <EmailOutlinedIcon sx={{ color: 'text.secondary' }} />
-                        </InputAdornment>
-                      ),
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: 3,
-                        bgcolor: 'rgba(0,0,0,0.1)'
-                      }
-                    }}
-                  />
-
-                  <TextField
-                    fullWidth
-                    label="Create Password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="At least 8 characters"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    required
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockOutlinedIcon sx={{ color: 'text.secondary' }} />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: 3,
-                        bgcolor: 'rgba(0,0,0,0.2)'
-                      }
-                    }}
-                  />
-
-                  <Typography variant="caption" color="text.secondary" sx={{ px: 1 }}>
-                    By continuing, you agree to the Terms of Service and Privacy Policy.
+              {invite?.userExists ? (
+                <Box sx={{ textAlign: 'center' }}>
+                   <Box sx={{ 
+                    p: 4, 
+                    bgcolor: 'rgba(99, 102, 241, 0.05)', 
+                    borderRadius: 4, 
+                    border: '1px solid rgba(99, 102, 241, 0.1)',
+                    mb: 4
+                  }}>
+                    <Typography variant="body1" sx={{ mb: 3 }}>
+                      Click the button below to instantly join <strong>{invite.company_name}</strong>. Your existing name and password will be used.
+                    </Typography>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      onClick={handleSubmit}
+                      disabled={loading}
+                      sx={{ 
+                        height: 56, 
+                        borderRadius: 3, 
+                        fontWeight: 800,
+                        boxShadow: '0 10px 15px -3px rgba(99, 102, 241, 0.4)'
+                      }}
+                    >
+                      {loading ? <CircularProgress size={24} color="inherit" /> : `Join ${invite.company_name}`}
+                    </Button>
+                  </Box>
+                  <Typography variant="caption" color="text.secondary">
+                    You'll be able to switch between organizations after logging in.
                   </Typography>
+                </Box>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  <Stack spacing={3}>
+                    <TextField
+                      fullWidth
+                      label="Full Name"
+                      placeholder="Enter your full name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PersonOutlineIcon sx={{ color: 'text.secondary' }} />
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: 3,
+                          bgcolor: 'rgba(0,0,0,0.2)'
+                        }
+                      }}
+                    />
 
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    size="large"
-                    type="submit"
-                    disabled={loading}
-                    sx={{ 
-                      mt: 2, 
-                      height: 56, 
-                      borderRadius: 3, 
-                      fontWeight: 800,
-                      fontSize: '1rem',
-                      textTransform: 'none',
-                      boxShadow: '0 10px 15px -3px rgba(99, 102, 241, 0.4)'
-                    }}
-                  >
-                    {loading ? <CircularProgress size={24} color="inherit" /> : 'Continue to Workspace'}
-                  </Button>
-                </Stack>
-              </form>
+                    <TextField
+                      fullWidth
+                      label="Email Address"
+                      value={invite?.email || ''}
+                      disabled
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <EmailOutlinedIcon sx={{ color: 'text.secondary' }} />
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: 3,
+                          bgcolor: 'rgba(0,0,0,0.1)'
+                        }
+                      }}
+                    />
+
+                    <TextField
+                      fullWidth
+                      label="Create Password"
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="At least 8 characters"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      required
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockOutlinedIcon sx={{ color: 'text.secondary' }} />
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        )
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: 3,
+                          bgcolor: 'rgba(0,0,0,0.2)'
+                        }
+                      }}
+                    />
+
+                    <Typography variant="caption" color="text.secondary" sx={{ px: 1 }}>
+                      By continuing, you agree to the Terms of Service and Privacy Policy.
+                    </Typography>
+
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      type="submit"
+                      disabled={loading}
+                      sx={{ 
+                        mt: 2, 
+                        height: 56, 
+                        borderRadius: 3, 
+                        fontWeight: 800,
+                        fontSize: '1rem',
+                        textTransform: 'none',
+                        boxShadow: '0 10px 15px -3px rgba(99, 102, 241, 0.4)'
+                      }}
+                    >
+                      {loading ? <CircularProgress size={24} color="inherit" /> : 'Continue to Workspace'}
+                    </Button>
+                  </Stack>
+                </form>
+              )}
               
               <Box sx={{ mt: 4, textAlign: 'center' }}>
                 <Typography variant="body2" color="text.secondary">
