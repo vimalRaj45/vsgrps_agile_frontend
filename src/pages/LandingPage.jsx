@@ -305,8 +305,8 @@ const SprintoraLanding = () => {
                   <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>LESS PLANNING</Typography>
                 </Box>
                 <Box>
-                  <Typography variant="h3" fontWeight="950" sx={{ color: '#fb7185' }}>99.9%</Typography>
-                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>SYSTEM UPTIME</Typography>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#fb7185' }}>98.2%</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TEAM VELOCITY</Typography>
                 </Box>
               </Stack>
             </Grid>
@@ -496,7 +496,6 @@ const SprintoraLanding = () => {
                   <Typography variant="caption" fontWeight="900" color="#818cf8">SYSTEM</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/features')}>Features</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/mission')}>Our Mission</Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/status')}>Status</Typography>
                 </Stack>
                 <Stack spacing={1.5}>
                   <Typography variant="caption" fontWeight="900" color="#c084fc">LEGAL</Typography>

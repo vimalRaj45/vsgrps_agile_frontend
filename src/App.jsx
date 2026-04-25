@@ -27,7 +27,6 @@ import SuperAdminPage from './pages/SuperAdminPage';
 import ReportsPage from './pages/ReportsPage';
 import OnboardingPage from './pages/OnboardingPage';
 import MissionPage from './pages/MissionPage';
-import StatusPage from './pages/StatusPage';
 import FeaturesPage from './pages/FeaturesPage';
 import { PrivacyPage, TermsPage } from './pages/LegalPages';
 import AppLayout from './components/shared/AppLayout';
@@ -75,7 +74,6 @@ function App() {
               <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
               <Route path="/onboarding" element={<OnboardingPage />} />
               <Route path="/mission" element={<MissionPage />} />
-              <Route path="/status" element={<StatusPage />} />
               <Route path="/features" element={<FeaturesPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/terms" element={<TermsPage />} />
