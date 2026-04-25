@@ -89,7 +89,7 @@ const SuperAdminPage = () => {
             bgcolor: 'rgba(255,255,255,0.03)', 
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 4,
+            borderRadius: 3,
             textAlign: 'center'
           }}
         >
@@ -183,7 +183,7 @@ const SuperAdminPage = () => {
 
           {step === 3 && (
             <Stack spacing={4}>
-              <Box sx={{ p: 2, bgcolor: 'rgba(16, 185, 129, 0.1)', borderRadius: 2, border: '1px solid #10b981' }}>
+              <Box sx={{ p: 2, bgcolor: 'rgba(16, 185, 129, 0.1)', borderRadius: 3, border: '1px solid #10b981' }}>
                 <Typography variant="h6" color="#10b981" fontWeight="bold">Access Granted</Typography>
                 <Typography variant="body2">System identity verified as Vimal Raj.</Typography>
               </Box>

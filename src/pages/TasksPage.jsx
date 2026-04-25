@@ -107,7 +107,7 @@ const TasksPage = () => {
             ...filters, 
             assigned_to: filters.assigned_to === user?.id ? '' : user?.id 
           })}
-          sx={{ borderRadius: 2, height: 40, px: 3 }}
+          sx={{ borderRadius: 3, height: 40, px: 3 }}
         >
           Your Tasks
         </Button>

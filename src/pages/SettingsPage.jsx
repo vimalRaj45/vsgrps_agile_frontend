@@ -74,7 +74,7 @@ const SettingsPage = () => {
 
       <Grid container spacing={3} sx={{ mt: 2 }}>
         <Grid item="true" xs={12} md={6}>
-          <Card sx={{ borderRadius: 2, mb: 3 }}>
+          <Card sx={{ borderRadius: 3, mb: 3 }}>
             <CardContent>
               <Typography variant="h6" fontWeight="bold" gutterBottom>My Profile</Typography>
               <Box sx={{ 
@@ -136,7 +136,7 @@ const SettingsPage = () => {
         </Grid>
 
         <Grid item="true" xs={12} md={6}>
-          <Card sx={{ borderRadius: 2 }}>
+          <Card sx={{ borderRadius: 3 }}>
             <CardContent>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Typography variant="h6" fontWeight="bold">Team Members</Typography>

@@ -54,7 +54,7 @@ const MeetingsPage = () => {
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => setOpenForm(true)}
-          sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 2 }}
+          sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 3 }}
         >
           Schedule Meeting
         </Button>

@@ -77,7 +77,7 @@ const LoginPage = () => {
               background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(15, 23, 42, 0.5) 100%)',
               p: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
             }}>
-              <Box component="img" src="/assets/login_auth.png" sx={{ width: '80%', height: 'auto', borderRadius: 4, mb: 4 }} />
+              <Box component="img" src="/assets/login_auth.png" sx={{ width: '80%', height: 'auto', borderRadius: 3, mb: 4 }} />
               <Typography variant="h4" fontWeight="900" textAlign="center" gutterBottom sx={{ letterSpacing: '-1px' }}>
                 Manage with Precision.
               </Typography>
@@ -104,8 +104,8 @@ const LoginPage = () => {
                 </Typography>
               </Box>
 
-              {success && <Alert severity="success" sx={{ borderRadius: 2 }}>{success}</Alert>}
-              {error && <Alert severity="error" sx={{ borderRadius: 2 }}>{error}</Alert>}
+              {success && <Alert severity="success" sx={{ borderRadius: 3 }}>{success}</Alert>}
+              {error && <Alert severity="error" sx={{ borderRadius: 3 }}>{error}</Alert>}
 
               <form onSubmit={handleSubmit}>
                 <Stack spacing={3}>

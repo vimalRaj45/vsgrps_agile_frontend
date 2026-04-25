@@ -120,7 +120,7 @@ const InvitePage = () => {
           <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
             <Box className="fade-in">
               <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', mb: 4 }}>
-                <Box sx={{ bgcolor: 'primary.main', p: 1, borderRadius: 2 }}>
+                <Box sx={{ bgcolor: 'primary.main', p: 1, borderRadius: 3 }}>
                   <SecurityIcon sx={{ color: 'white' }} />
                 </Box>
                 <Typography variant="h5" fontWeight="900" sx={{ letterSpacing: '-1px' }}>
@@ -174,7 +174,7 @@ const InvitePage = () => {
               </Box>
 
               {error && (
-                <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
+                <Alert severity="error" sx={{ mb: 3, borderRadius: 3 }}>
                   {error}
                 </Alert>
               )}

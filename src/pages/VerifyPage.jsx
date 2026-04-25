@@ -40,7 +40,7 @@ const VerifyPage = () => {
     <Container maxWidth="sm">
       <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', py: 4 }}>
         <Card sx={{ 
-          borderRadius: 4, 
+          borderRadius: 3, 
           textAlign: 'center', 
           p: 4, 
           boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
@@ -67,7 +67,7 @@ const VerifyPage = () => {
                   fullWidth 
                   size="large" 
                   onClick={() => navigate('/login')}
-                  sx={{ borderRadius: 2, fontWeight: 'bold', py: 1.5 }}
+                  sx={{ borderRadius: 3, fontWeight: 'bold', py: 1.5 }}
                 >
                   Go to Login
                 </Button>
@@ -84,7 +84,7 @@ const VerifyPage = () => {
                   fullWidth 
                   size="large" 
                   onClick={() => navigate('/login')}
-                  sx={{ borderRadius: 2, fontWeight: 'bold', py: 1.5 }}
+                  sx={{ borderRadius: 3, fontWeight: 'bold', py: 1.5 }}
                 >
                   Back to Login
                 </Button>

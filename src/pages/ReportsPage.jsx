@@ -87,7 +87,7 @@ const ReportsPage = () => {
             onClick={handleExportCSV}
             disabled={!data || loading}
             fullWidth={isMobile}
-            sx={{ borderRadius: 2, fontWeight: 'bold', py: 1.5 }}
+            sx={{ borderRadius: 3, fontWeight: 'bold', py: 1.5 }}
           >
             Export CSV
           </Button>
@@ -106,7 +106,7 @@ const ReportsPage = () => {
                 size="small"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
@@ -117,7 +117,7 @@ const ReportsPage = () => {
                 size="small"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -127,7 +127,7 @@ const ReportsPage = () => {
                 startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <FilterListIcon />}
                 onClick={fetchReport}
                 disabled={loading}
-                sx={{ py: 1.2, borderRadius: 2, fontWeight: 'bold' }}
+                sx={{ py: 1.2, borderRadius: 3, fontWeight: 'bold' }}
               >
                 Generate Report
               </Button>
@@ -215,7 +215,7 @@ const ReportsPage = () => {
                     <Typography variant="body2" sx={{ opacity: 0.5, textAlign: 'center', py: 4 }}>No activity data available.</Typography>
                   ) : (
                     data.teamActivity.map((user, i) => (
-                      <Box key={i} sx={{ p: 2, borderRadius: 2, bgcolor: 'rgba(255,255,255,0.02)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Box key={i} sx={{ p: 2, borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Stack direction="row" spacing={2} alignItems="center">
                           <Box sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: 'primary.main', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.8rem' }}>
                             {user.name.charAt(0)}

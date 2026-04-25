@@ -80,8 +80,8 @@ const RegisterPage = () => {
                 </Typography>
               </Box>
 
-              {successMessage && <Alert severity="success" sx={{ borderRadius: 2 }}>{successMessage}</Alert>}
-              {error && <Alert severity="error" sx={{ borderRadius: 2 }}>{error}</Alert>}
+              {successMessage && <Alert severity="success" sx={{ borderRadius: 3 }}>{successMessage}</Alert>}
+              {error && <Alert severity="error" sx={{ borderRadius: 3 }}>{error}</Alert>}
 
               <form onSubmit={handleSubmit}>
                 <Stack spacing={2.5}>
@@ -136,7 +136,7 @@ const RegisterPage = () => {
               background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(15, 23, 42, 0.5) 100%)',
               p: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
             }}>
-              <Box component="img" src="/assets/register_welcome.png" sx={{ width: '85%', height: 'auto', borderRadius: 4, mb: 4 }} />
+              <Box component="img" src="/assets/register_welcome.png" sx={{ width: '85%', height: 'auto', borderRadius: 3, mb: 4 }} />
               <Typography variant="h4" fontWeight="900" textAlign="center" gutterBottom sx={{ letterSpacing: '-1px' }}>
                 Build the Future.
               </Typography>

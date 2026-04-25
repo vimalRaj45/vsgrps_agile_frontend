@@ -23,13 +23,13 @@ const baseThemeConfig = {
     },
   },
   shape: {
-    borderRadius: 12,
+    borderRadius: 8, // Standard 8px base (so 3 * 8 = 24px)
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 12, // Slightly more rounded than pure rectangle but still sharp
           padding: '10px 24px',
           boxShadow: 'none',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -46,6 +46,7 @@ const baseThemeConfig = {
     MuiPaper: {
       styleOverrides: {
         root: {
+          borderRadius: 24, // Matches borderRadius: 3 (3 * 8)
           backgroundImage: 'none',
           backdropFilter: 'blur(16px)',
           border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -55,7 +56,7 @@ const baseThemeConfig = {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 14,
+          borderRadius: 24, // Matches borderRadius: 3
           border: '1px solid rgba(255, 255, 255, 0.05)',
           background: 'rgba(15, 23, 42, 0.6)',
           transition: 'all 0.3s ease',
@@ -63,6 +64,15 @@ const baseThemeConfig = {
             transform: 'translateY(-4px)',
             borderColor: 'rgba(59, 130, 246, 0.3)',
             boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 12,
           },
         },
       },
@@ -139,6 +149,7 @@ export const lightTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
+          borderRadius: 24,
           border: '1px solid rgba(0, 0, 0, 0.05)',
         },
       },
@@ -146,6 +157,7 @@ export const lightTheme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
+          borderRadius: 24,
           background: '#ffffff',
           '&:hover': {
             transform: 'translateY(-4px)',
@@ -158,4 +170,3 @@ export const lightTheme = createTheme({
 });
 
 export default darkTheme;
-

@@ -285,7 +285,7 @@ const AdminUsersPage = () => {
 
       ) : (
 
-        <TableContainer component={Paper} sx={{ borderRadius: 2, overflow: 'hidden' }}>
+        <TableContainer component={Paper} sx={{ borderRadius: 3, overflow: 'hidden' }}>
           <Table>
             <TableHead sx={{ bgcolor: 'action.hover' }}>
               <TableRow>

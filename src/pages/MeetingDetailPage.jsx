@@ -201,7 +201,7 @@ const MeetingDetailPage = () => {
               value={meeting.outcome || ''}
               onChange={(e) => setMeeting({ ...meeting, outcome: e.target.value })}
               sx={{ 
-                '& .MuiOutlinedInput-root': { borderRadius: 2, bgcolor: 'rgba(255,255,255,0.02)' } 
+                '& .MuiOutlinedInput-root': { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } 
               }}
             />
             
@@ -214,7 +214,7 @@ const MeetingDetailPage = () => {
               value={meeting.summary || ''}
               onChange={(e) => setMeeting({ ...meeting, summary: e.target.value })}
               sx={{ 
-                '& .MuiOutlinedInput-root': { borderRadius: 2, bgcolor: 'rgba(255,255,255,0.02)' } 
+                '& .MuiOutlinedInput-root': { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } 
               }}
             />
             
@@ -228,7 +228,7 @@ const MeetingDetailPage = () => {
                   outcome: meeting.outcome, 
                   summary: meeting.summary 
                 })}
-                sx={{ borderRadius: 2, px: 4, fontWeight: 'bold' }}
+                sx={{ borderRadius: 3, px: 4, fontWeight: 'bold' }}
               >
                 {isUpdating ? 'Saving...' : 'Save Meeting Details'}
               </Button>
@@ -273,7 +273,7 @@ const MeetingDetailPage = () => {
                 fullWidth
                 href={meeting.meeting_link}
                 target="_blank"
-                sx={{ mb: 2, borderRadius: 2, fontWeight: 'bold' }}
+                sx={{ mb: 2, borderRadius: 3, fontWeight: 'bold' }}
               >
                 Join Meeting
               </Button>

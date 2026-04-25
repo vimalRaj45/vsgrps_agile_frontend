@@ -132,7 +132,7 @@ const SprintoraLanding = () => {
                 size={isSmallMobile ? "small" : "medium"}
                 onClick={() => navigate('/login')}
                 sx={{ 
-                  borderRadius: 2.5, fontWeight: 800, px: { xs: 2, md: 4 },
+                  borderRadius: 3.5, fontWeight: 800, px: { xs: 2, md: 4 },
                   background: 'white', color: '#030712', fontSize: { xs: '0.75rem', md: '0.875rem' },
                   '&:hover': { background: '#f3f4f6' }
                 }}
@@ -233,7 +233,7 @@ const SprintoraLanding = () => {
           <Grid item xs={12} md={5} data-aos="fade-up" data-aos-delay="200">
              <Box sx={{ position: 'relative', px: { xs: 2, md: 0 } }}>
                 <Box sx={{ 
-                  p: 0.5, borderRadius: 4, 
+                  p: 0.5, borderRadius: 3, 
                   overflow: 'hidden',
                   position: 'relative',
                   '&::after': {
@@ -242,7 +242,7 @@ const SprintoraLanding = () => {
                   }
                 }}>
                   <Box component="img" src="/assets/developer_hero.png" sx={{ 
-                    width: '100%', height: 'auto', borderRadius: 4,
+                    width: '100%', height: 'auto', borderRadius: 3,
                     filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))'
                   }} />
                 </Box>
@@ -312,7 +312,7 @@ const SprintoraLanding = () => {
                 }
               }}>
                 <Box component="img" src="/assets/hero_dashboard.png" sx={{ 
-                  width: '100%', height: 'auto', borderRadius: 4, 
+                  width: '100%', height: 'auto', borderRadius: 3, 
                   boxShadow: '0 40px 80px -20px rgba(0,0,0,0.5)',
                   position: 'relative', zIndex: 1
                 }} />
@@ -360,7 +360,7 @@ const SprintoraLanding = () => {
                   p: { xs: 4, md: 6 }, height: '100%', bgcolor: 'rgba(255,255,255,0.01)', 
                   border: '1px solid rgba(255,255,255,0.05)', borderRadius: 5,
                 }}>
-                  <Box sx={{ mb: 3, display: 'inline-flex', p: 1.5, borderRadius: 2, bgcolor: 'rgba(255,255,255,0.03)' }}>{f.icon}</Box>
+                  <Box sx={{ mb: 3, display: 'inline-flex', p: 1.5, borderRadius: 3, bgcolor: 'rgba(255,255,255,0.03)' }}>{f.icon}</Box>
                   <Typography variant="h6" fontWeight="900" sx={{ mb: 1.5 }}>{f.title}</Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>{f.desc}</Typography>
                 </Card>

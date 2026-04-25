@@ -87,7 +87,7 @@ const OnboardingPage = () => {
         return (
           <Box component={motion.div} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <Box component="img" src="/assets/developer_hero.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 4, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
+               <Box component="img" src="/assets/developer_hero.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 3, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
             </Box>
             <Typography variant={isSmallMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px', lineHeight: 1.1 }}>
               Step into the Future 👋
@@ -107,7 +107,7 @@ const OnboardingPage = () => {
         return (
           <Box component={motion.div} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <Box component="img" src="/assets/hero_dashboard.png" sx={{ width: '100%', maxWidth: 700, borderRadius: 4, boxShadow: '0 30px 60px rgba(0,0,0,0.6)' }} />
+               <Box component="img" src="/assets/hero_dashboard.png" sx={{ width: '100%', maxWidth: 700, borderRadius: 3, boxShadow: '0 30px 60px rgba(0,0,0,0.6)' }} />
             </Box>
             <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
               Full Visibility
@@ -136,7 +136,7 @@ const OnboardingPage = () => {
               
               <Stack spacing={1.5} sx={{ mb: 6, textAlign: 'left' }}>
                 {aiPlan.map((item, idx) => (
-                  <Card key={idx} sx={{ p: 2, bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 2 }}>
+                  <Card key={idx} sx={{ p: 2, bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 3 }}>
                     <Stack direction="row" spacing={2} alignItems="center">
                       <CheckCircleIcon sx={{ color: '#10b981', fontSize: 20 }} />
                       <Box>
@@ -155,7 +155,7 @@ const OnboardingPage = () => {
         return (
           <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <Box component="img" src="/assets/team_sync.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 4, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
+               <Box component="img" src="/assets/team_sync.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 3, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
             </Box>
             <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
               Seamless Sync
@@ -230,7 +230,7 @@ const OnboardingPage = () => {
               size="small" 
               onClick={() => navigate('/register')}
               sx={{ 
-                bgcolor: 'white', color: '#030712', fontWeight: 900, px: 2, borderRadius: 2,
+                bgcolor: 'white', color: '#030712', fontWeight: 900, px: 2, borderRadius: 3,
                 '&:hover': { bgcolor: '#f3f4f6' }
               }}
             >
@@ -293,7 +293,7 @@ const OnboardingPage = () => {
                 endIcon={<ArrowForwardIcon />} 
                 onClick={handleNext}
                 variant="contained"
-                sx={{ borderRadius: 2, px: { xs: 2, md: 4 }, bgcolor: '#6366f1' }}
+                sx={{ borderRadius: 3, px: { xs: 2, md: 4 }, bgcolor: '#6366f1' }}
               >
                 Next
               </Button>

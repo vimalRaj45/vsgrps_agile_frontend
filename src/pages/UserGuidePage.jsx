@@ -119,7 +119,7 @@ const UserGuidePage = () => {
         <Grid item xs={12} lg={8}>
           <Stack spacing={4}>
             {sections.map((section, index) => (
-              <Card key={index} sx={{ borderRadius: 4, overflow: 'hidden' }}>
+              <Card key={index} sx={{ borderRadius: 3, overflow: 'hidden' }}>
                 <CardContent sx={{ p: 4 }}>
                   <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
                     <Box sx={{ 
@@ -169,7 +169,7 @@ const UserGuidePage = () => {
 
         <Grid item xs={12} lg={4}>
           <Stack spacing={3}>
-            <Paper sx={{ p: 4, borderRadius: 4, background: 'linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%)', color: 'white' }}>
+            <Paper sx={{ p: 4, borderRadius: 3, background: 'linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%)', color: 'white' }}>
               <SecurityIcon sx={{ fontSize: 48, mb: 2, opacity: 0.8 }} />
               <Typography variant="h5" fontWeight="bold" gutterBottom>
                 Security First
@@ -182,7 +182,7 @@ const UserGuidePage = () => {
               </Button>
             </Paper>
 
-            <Paper sx={{ p: 4, borderRadius: 4 }}>
+            <Paper sx={{ p: 4, borderRadius: 3 }}>
               <Typography variant="h6" fontWeight="bold" gutterBottom>
                 Need Help?
               </Typography>

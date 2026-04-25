@@ -116,7 +116,7 @@ const DashboardPage = () => {
               startIcon={<AppShortcutIcon />}
               onClick={() => window.dispatchEvent(new CustomEvent('trigger-pwa-prompt'))}
               sx={{ 
-                borderRadius: 2, 
+                borderRadius: 3, 
                 fontWeight: '900',
                 px: 4,
                 boxShadow: '0 10px 20px -5px rgba(59, 130, 246, 0.4)'
@@ -212,7 +212,7 @@ const DashboardPage = () => {
         <ScrollReveal delay={0.7}>
           <Box className="glass-card" sx={{ mt: 6, p: 4, borderRadius: 3, border: '1px solid rgba(99, 102, 241, 0.2)' }}>
             <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>
-              <Box sx={{ p: 1, borderRadius: 2, bgcolor: 'rgba(99, 102, 241, 0.1)', display: 'flex' }}>
+              <Box sx={{ p: 1, borderRadius: 3, bgcolor: 'rgba(99, 102, 241, 0.1)', display: 'flex' }}>
                 <SecurityIcon color="primary" />
               </Box>
               <Box>
@@ -221,7 +221,7 @@ const DashboardPage = () => {
               </Box>
             </Stack>
             
-            <Box sx={{ p: 3, borderRadius: 2, bgcolor: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(255,255,255,0.1)' }}>
+            <Box sx={{ p: 3, borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(255,255,255,0.1)' }}>
               <Grid container spacing={3} alignItems="center">
                 <Grid item xs={12} md={8}>
                   <Typography variant="subtitle1" fontWeight="bold">Full Organization Backup (.sql)</Typography>
@@ -236,7 +236,7 @@ const DashboardPage = () => {
                     startIcon={backupLoading ? <CircularProgress size={20} color="inherit" /> : <DownloadIcon />}
                     onClick={handleDownloadBackup}
                     disabled={backupLoading}
-                    sx={{ borderRadius: 2, fontWeight: 'bold' }}
+                    sx={{ borderRadius: 3, fontWeight: 'bold' }}
                   >
                     {backupLoading ? 'Preparing Backup...' : 'Download Export'}
                   </Button>
