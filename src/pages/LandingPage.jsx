@@ -2,10 +2,10 @@ import React from 'react';
 import { 
   Box, Button, Container, Typography, Grid, Stack,
   IconButton, AppBar, Toolbar, useTheme, useMediaQuery, Card,
-  Avatar, AvatarGroup, TextField, Divider
+  Avatar, AvatarGroup, TextField, Divider, Chip
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import SecurityIcon from '@mui/icons-material/Security';
 import SpeedIcon from '@mui/icons-material/Speed';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -14,45 +14,55 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import HubIcon from '@mui/icons-material/Hub';
+import InsightsIcon from '@mui/icons-material/Insights';
 import LottieIcon from '../components/shared/LottieIcon';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
 
-  const benefits = [
+  const features = [
     {
-      icon: <AutoAwesomeIcon sx={{ color: '#6366f1', fontSize: 32 }} />,
-      title: 'Zero-Effort Planning',
-      desc: 'Our AI Architect handles the heavy lifting—generating tasks, priorities, and estimates so you can start shipping immediately.'
+      icon: <AutoAwesomeIcon sx={{ color: '#818cf8' }} />,
+      label: 'AI ARCHITECT',
+      title: 'Automated Roadmapping',
+      desc: 'Convert vision into actionable tasks. Our AI handles dependencies, estimates, and task decomposition in milliseconds.'
     },
     {
-      icon: <GroupsIcon sx={{ color: '#8b5cf6', fontSize: 32 }} />,
-      title: 'Frictionless Teamwork',
-      desc: 'No more coordination chaos. Centralized comments, real-time mentions, and instant sync keep everyone on the same page.'
+      icon: <HubIcon sx={{ color: '#c084fc' }} />,
+      label: 'TEAM HUB',
+      title: 'Centralized Intelligence',
+      desc: 'A unified workspace for context-aware collaboration. Every comment and file is linked to the core project DNA.'
     },
     {
-      icon: <SecurityIcon sx={{ color: '#ec4899', fontSize: 32 }} />,
-      title: 'Industrial Reliability',
-      desc: 'Built on enterprise-grade architecture with persistent sessions and full audit logs. Your data is safe, isolated, and always yours.'
+      icon: <InsightsIcon sx={{ color: '#fb7185' }} />,
+      label: 'ANALYTICS',
+      title: 'Predictive Velocity',
+      desc: 'Real-time distribution charts and performance metrics that predict bottlenecks before they stall your project.'
     }
   ];
 
-  const pricingPlans = [
+  const pricing = [
     {
-      name: 'Free',
+      tier: 'STARTER',
       price: '$0',
-      features: ['Up to 5 Projects', 'AI Architect (Basic)', 'Standard Kanban', 'Mobile PWA Access'],
-      cta: 'Start for Free',
+      desc: 'For individuals and hackers.',
+      features: ['5 Active Projects', 'AI Architect (Basic)', 'Community Hub Access', 'Secure File Vault'],
+      btn: 'Get Started Free',
       highlight: false
     },
     {
-      name: 'Pro',
-      price: '$9',
+      tier: 'ELITE',
+      price: '$12',
       period: '/mo',
-      features: ['Unlimited Projects', 'Advanced AI Architect', 'Analytics Dashboard', 'File Vault (10GB)', 'Priority Support'],
-      cta: 'Get Pro Access',
+      desc: 'For high-velocity teams.',
+      features: ['Unlimited Everything', 'Advanced AI Engine', 'Custom Analytics', 'Full Audit Governance', 'Priority Node Support'],
+      btn: 'Access Elite Now',
       highlight: true
     }
   ];
@@ -60,57 +70,73 @@ const LandingPage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      position: 'relative', 
+      bgcolor: '#020617', 
+      color: 'white', 
       overflowX: 'hidden',
-      background: '#020617',
-      color: 'white'
+      position: 'relative'
     }}>
-      {/* Background Orbs */}
+      {/* Background Tech Mesh */}
       <Box sx={{ 
         position: 'absolute', 
-        top: 0, 
-        left: 0, 
-        right: 0, 
-        height: '100vh',
-        background: 'radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.05) 0%, transparent 50%)',
+        inset: 0, 
+        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0)',
+        backgroundSize: '40px 40px',
         zIndex: 0
       }} />
       
+      {/* Dynamic Orbs */}
+      <Box sx={{ 
+        position: 'absolute', 
+        top: '-10%', 
+        left: '10%', 
+        width: '600px', 
+        height: '600px', 
+        background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
+        filter: 'blur(80px)',
+        zIndex: 0
+      }} />
+
       {/* Nav */}
       <AppBar position="fixed" elevation={0} sx={{ 
         bgcolor: 'transparent', 
-        backdropFilter: 'blur(16px)',
+        backdropFilter: 'blur(24px)',
         borderBottom: '1px solid rgba(255,255,255,0.05)',
-        zIndex: 10
+        zIndex: 1000
       }}>
-        <Container maxWidth="lg">
-          <Toolbar sx={{ justifyContent: 'space-between', height: { xs: 70, md: 80 } }}>
+        <Container maxWidth="xl">
+          <Toolbar sx={{ justifyContent: 'space-between', height: { xs: 70, md: 90 } }}>
             <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
               <Box sx={{ 
                 background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', 
-                p: 1, 
-                borderRadius: 2, 
-                display: 'flex'
+                p: 1.2, 
+                borderRadius: 2.5, 
+                display: 'flex',
+                boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.5)'
               }}>
-                <SecurityIcon sx={{ color: 'white', fontSize: 22 }} />
+                <SecurityIcon sx={{ color: 'white', fontSize: 24 }} />
               </Box>
-              <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px' }}>
-                VSGRPS <span style={{ color: '#6366f1' }}>Workspace</span>
+              <Typography variant="h5" fontWeight="950" sx={{ letterSpacing: '-2px' }}>
+                VSGRPS <span style={{ color: '#818cf8' }}>WORKSPACE</span>
               </Typography>
             </Stack>
             
-            <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
+            <Stack direction="row" spacing={4} sx={{ alignItems: 'center' }}>
               {!isMobile && (
-                <Stack direction="row" spacing={4}>
-                  {['Product', 'Enterprise', 'Pricing'].map((item) => (
+                <Stack direction="row" spacing={5}>
+                  {['Product', 'Network', 'Ecosystem', 'Enterprise'].map((item) => (
                     <Typography 
                       key={item} 
-                      variant="body2" 
-                      fontWeight="600" 
+                      variant="caption" 
+                      fontWeight="800" 
                       color="text.secondary" 
-                      sx={{ cursor: 'pointer', '&:hover': { color: 'white' }, transition: 'color 0.2s' }}
+                      sx={{ 
+                        cursor: 'pointer', 
+                        letterSpacing: 1,
+                        '&:hover': { color: 'white' }, 
+                        transition: 'all 0.3s ease' 
+                      }}
                     >
-                      {item}
+                      {item.toUpperCase()}
                     </Typography>
                   ))}
                 </Stack>
@@ -119,15 +145,18 @@ const LandingPage = () => {
                 variant="contained" 
                 onClick={() => navigate('/login')}
                 sx={{ 
-                  borderRadius: 2.5, 
-                  fontWeight: 800, 
-                  px: 3,
+                  borderRadius: 10, 
+                  fontWeight: 900, 
+                  px: 4,
+                  py: 1.2,
                   background: 'white',
                   color: '#020617',
-                  '&:hover': { background: '#f8fafc' }
+                  fontSize: '0.85rem',
+                  '&:hover': { background: '#f1f5f9', transform: 'translateY(-2px)' },
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
-                Sign In
+                SIGN IN
               </Button>
             </Stack>
           </Toolbar>
@@ -135,266 +164,292 @@ const LandingPage = () => {
       </AppBar>
 
       {/* Hero */}
-      <Container maxWidth="lg" sx={{ pt: { xs: 18, md: 24 }, pb: { xs: 10, md: 15 }, position: 'relative', zIndex: 1 }}>
-        <Grid container spacing={8} sx={{ alignItems: 'center' }}>
-          <Grid item xs={12} md={7}>
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <Box sx={{ 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: 1.5, 
-                px: 2, 
-                py: 0.8, 
-                borderRadius: 10, 
-                bgcolor: 'rgba(99, 102, 241, 0.1)', 
-                border: '1px solid rgba(99, 102, 241, 0.2)',
-                mb: 4
-              }}>
-                <AutoAwesomeIcon sx={{ color: '#6366f1', fontSize: 18 }} />
-                <Typography variant="caption" fontWeight="800" color="#6366f1" sx={{ letterSpacing: 1 }}>
-                  THE AI-POWERED WORKSPACE FOR TEAMS
-                </Typography>
-              </Box>
-              
-              <Typography variant="h1" sx={{ 
-                fontSize: { xs: '3rem', sm: '4rem', md: '5rem' }, 
-                fontWeight: 950, 
-                mb: 3, 
-                letterSpacing: '-2.5px', 
-                lineHeight: 1,
-                textAlign: { xs: 'center', md: 'left' }
-              }}>
-                From Idea to Project <br/>
-                <span style={{ 
-                  background: 'linear-gradient(90deg, #6366f1, #a855f7, #ec4899)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}>Plan in 60 Seconds.</span>
-              </Typography>
-              
-              <Typography variant="h6" color="text.secondary" sx={{ 
-                mb: 6, 
-                maxWidth: 600, 
-                lineHeight: 1.5,
-                fontSize: { xs: '1.1rem', md: '1.25rem' },
-                textAlign: { xs: 'center', md: 'left' }
-              }}>
-                Stop manual planning. VSGRPS Workspace uses AI to architect your projects, so your team can focus on building, not organizing.
-              </Typography>
-              
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2.5} sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                <Button 
-                  variant="contained" 
-                  size="large" 
-                  onClick={() => navigate('/register')} 
-                  endIcon={<ArrowForwardIcon />} 
+      <Container maxWidth="xl" sx={{ pt: { xs: 20, md: 30 }, pb: { xs: 10, md: 20 }, position: 'relative', zIndex: 1 }}>
+        <motion.div style={{ opacity, scale }}>
+          <Grid container spacing={12} sx={{ alignItems: 'center' }}>
+            <Grid item xs={12} md={7}>
+              <Box sx={{ mb: 4 }}>
+                <Chip 
+                  label="V2.0 NOW LIVE" 
+                  size="small" 
                   sx={{ 
-                    height: 64, 
-                    px: 5, 
-                    borderRadius: 3, 
-                    fontSize: '1.1rem',
-                    fontWeight: 800,
-                    boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.5)',
-                    background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
-                  }}
-                >
-                  Build My Project (Free)
-                </Button>
-                <Button 
-                  variant="outlined" 
-                  size="large" 
-                  startIcon={<PlayArrowIcon />} 
-                  sx={{ 
-                    height: 64, 
-                    px: 4, 
-                    borderRadius: 3,
-                    borderColor: 'rgba(255,255,255,0.1)',
-                    color: 'white',
-                    fontWeight: 700,
-                    '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.2)' }
-                  }}
-                >
-                  Watch 1-min Demo
-                </Button>
-              </Stack>
-              
-              <Stack direction="row" spacing={2} sx={{ mt: 6, alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                <AvatarGroup max={4}>
-                  {[1, 2, 3, 4].map(i => <Avatar key={i} src={`https://i.pravatar.cc/100?img=${i + 15}`} />)}
-                </AvatarGroup>
-                <Typography variant="body2" color="text.secondary">
-                  Join <strong>2,500+</strong> innovators shipping today
-                </Typography>
-              </Stack>
-            </motion.div>
-          </Grid>
-          
-          <Grid item xs={12} md={5}>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }}>
-              <Box className="glass-card" sx={{ 
-                p: 1.5, 
-                borderRadius: 5, 
-                boxShadow: '0 40px 80px -20px rgba(0,0,0,0.6)',
-                border: '1px solid rgba(255,255,255,0.1)'
-              }}>
-                <LottieIcon 
-                  src="https://assets6.lottiefiles.com/packages/lf20_kyu7xb1v.json" 
-                  style={{ width: '100%', height: 'auto' }}
+                    bgcolor: 'rgba(99, 102, 241, 0.1)', 
+                    color: '#818cf8', 
+                    fontWeight: 900, 
+                    border: '1px solid rgba(99, 102, 241, 0.2)',
+                    px: 1,
+                    mb: 4
+                  }} 
                 />
+                <Typography variant="h1" sx={{ 
+                  fontSize: { xs: '3.5rem', sm: '5rem', md: '6.5rem' }, 
+                  fontWeight: 950, 
+                  lineHeight: 0.9, 
+                  letterSpacing: '-5px',
+                  mb: 4,
+                  textAlign: { xs: 'center', md: 'left' }
+                }}>
+                  ARCHITECT THE <br/>
+                  <span style={{ 
+                    background: 'linear-gradient(to right, #818cf8, #c084fc, #fb7185, #818cf8)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundSize: '300% auto',
+                    animation: 'gradient 6s linear infinite'
+                  }}>FUTURE TODAY.</span>
+                </Typography>
+                <Typography variant="h5" color="text.secondary" sx={{ 
+                  maxWidth: 650, 
+                  lineHeight: 1.6, 
+                  fontSize: { xs: '1.2rem', md: '1.5rem' },
+                  mb: 8,
+                  textAlign: { xs: 'center', md: 'left' },
+                  fontWeight: 400
+                }}>
+                  The high-velocity workspace where AI meets industrial-grade management. Built for founders who move fast and break nothing.
+                </Typography>
+                
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                  <Button 
+                    variant="contained" 
+                    size="large" 
+                    onClick={() => navigate('/register')}
+                    sx={{ 
+                      height: 72, 
+                      px: 6, 
+                      borderRadius: 4, 
+                      fontWeight: 900, 
+                      fontSize: '1.1rem',
+                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                      boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.5)',
+                      '&:hover': { transform: 'translateY(-4px)', boxShadow: '0 25px 50px -12px rgba(99, 102, 241, 0.6)' }
+                    }}
+                    endIcon={<ArrowForwardIcon />}
+                  >
+                    DEPLOY YOUR WORKSPACE
+                  </Button>
+                  <Button 
+                    variant="outlined" 
+                    size="large"
+                    sx={{ 
+                      height: 72, 
+                      px: 4, 
+                      borderRadius: 4, 
+                      fontWeight: 800, 
+                      borderColor: 'rgba(255,255,255,0.1)',
+                      color: 'white',
+                      '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.2)' }
+                    }}
+                    startIcon={<PlayArrowIcon />}
+                  >
+                    SYSTEM OVERVIEW
+                  </Button>
+                </Stack>
               </Box>
-            </motion.div>
+            </Grid>
+            
+            <Grid item xs={12} md={5}>
+              <Box sx={{ position: 'relative' }}>
+                <Box sx={{ 
+                  position: 'absolute', 
+                  inset: '-10%', 
+                  background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%)',
+                  zIndex: -1 
+                }} />
+                <motion.div 
+                  initial={{ rotateY: -20, rotateX: 10, scale: 0.9 }}
+                  animate={{ rotateY: -10, rotateX: 5, scale: 1 }}
+                  transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+                >
+                  <Box className="glass-card" sx={{ 
+                    p: 1.5, 
+                    borderRadius: 6, 
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    boxShadow: '0 50px 100px -20px rgba(0,0,0,0.8)',
+                    overflow: 'hidden'
+                  }}>
+                    <LottieIcon 
+                      src="https://assets6.lottiefiles.com/packages/lf20_kyu7xb1v.json" 
+                      style={{ width: '100%', height: 'auto' }}
+                    />
+                  </Box>
+                </motion.div>
+                
+                {/* Floating Micro-Card */}
+                <motion.div 
+                  animate={{ y: [0, -20, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{ position: 'absolute', top: '10%', left: '-15%' }}
+                >
+                  <Box className="glass-card" sx={{ p: 2, borderRadius: 3, border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(2,6,23,0.8)' }}>
+                    <Stack direction="row" spacing={2} alignItems="center">
+                      <Avatar sx={{ bgcolor: '#818cf8', width: 32, height: 32 }}><AutoAwesomeIcon sx={{ fontSize: 18 }} /></Avatar>
+                      <Box>
+                        <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>AI ESTIMATE</Typography>
+                        <Typography variant="body2" fontWeight="900">4.5 DAYS</Typography>
+                      </Box>
+                    </Stack>
+                  </Box>
+                </motion.div>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </motion.div>
+      </Container>
 
-        {/* Benefits */}
-        <Box sx={{ mt: { xs: 15, md: 25 } }}>
+      {/* Feature Section */}
+      <Box sx={{ py: 20, bgcolor: 'rgba(2,6,23,0.5)', position: 'relative' }}>
+        <Container maxWidth="xl">
           <Grid container spacing={4}>
-            {benefits.map((benefit, i) => (
+            {features.map((f, i) => (
               <Grid item xs={12} md={4} key={i}>
-                <Box sx={{ p: 4, height: '100%' }}>
-                  <Box sx={{ mb: 3 }}>{benefit.icon}</Box>
-                  <Typography variant="h5" fontWeight="800" gutterBottom>{benefit.title}</Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.6 }}>{benefit.desc}</Typography>
-                </Box>
+                <motion.div whileHover={{ y: -16 }} transition={{ type: 'spring', stiffness: 200 }}>
+                  <Card sx={{ 
+                    p: 8, 
+                    height: '100%', 
+                    bgcolor: 'rgba(255,255,255,0.01)', 
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    borderRadius: 8,
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <Box sx={{ mb: 4 }}>{f.icon}</Box>
+                    <Typography variant="caption" color="primary" fontWeight="900" sx={{ letterSpacing: 2, mb: 1, display: 'block' }}>{f.label}</Typography>
+                    <Typography variant="h4" fontWeight="900" sx={{ mb: 2, letterSpacing: '-1px' }}>{f.title}</Typography>
+                    <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>{f.desc}</Typography>
+                  </Card>
+                </motion.div>
               </Grid>
             ))}
           </Grid>
-        </Box>
+        </Container>
+      </Box>
 
-        {/* Pricing */}
-        <Box sx={{ mt: { xs: 15, md: 25 }, textAlign: 'center' }}>
-          <Typography variant="overline" color="primary" fontWeight="900" sx={{ mb: 2, display: 'block', letterSpacing: 2 }}>
-            PRICING FOR EVERY SCALE
-          </Typography>
-          <Typography variant="h3" fontWeight="900" sx={{ mb: 8, fontSize: { xs: '2.5rem', md: '3.5rem' } }}>
-            Simple plans for <span style={{ color: 'rgba(255,255,255,0.5)' }}>big ideas.</span>
-          </Typography>
+      {/* Advanced Pricing Section */}
+      <Box sx={{ py: 20 }}>
+        <Container maxWidth="lg">
+          <Stack sx={{ textAlign: 'center', mb: 12 }}>
+            <Typography variant="caption" color="#818cf8" fontWeight="900" sx={{ letterSpacing: 3, mb: 2 }}>SCALABLE INFRASTRUCTURE</Typography>
+            <Typography variant="h2" fontWeight="950" sx={{ letterSpacing: '-3px' }}>Simple tiers for <span style={{ color: 'rgba(255,255,255,0.4)' }}>extraordinary teams.</span></Typography>
+          </Stack>
           
-          <Grid container spacing={4} sx={{ justifyContent: 'center' }}>
-            {pricingPlans.map((plan, i) => (
-              <Grid item xs={12} sm={6} md={4} key={i}>
+          <Grid container spacing={6} sx={{ justifyContent: 'center' }}>
+            {pricing.map((p, i) => (
+              <Grid item xs={12} md={5} key={i}>
                 <Box sx={{ 
-                  p: 6, 
+                  p: 8, 
                   height: '100%', 
-                  bgcolor: plan.highlight ? 'rgba(99, 102, 241, 0.05)' : 'rgba(255,255,255,0.02)', 
-                  border: plan.highlight ? '2px solid #6366f1' : '1px solid rgba(255,255,255,0.05)',
-                  borderRadius: 6,
+                  bgcolor: p.highlight ? 'rgba(99, 102, 241, 0.03)' : 'rgba(255,255,255,0.01)', 
+                  border: p.highlight ? '2px solid #6366f1' : '1px solid rgba(255,255,255,0.05)',
+                  borderRadius: 10,
                   position: 'relative',
-                  transition: 'transform 0.3s ease',
-                  '&:hover': { transform: 'translateY(-10px)' }
+                  display: 'flex',
+                  flexDirection: 'column'
                 }}>
-                  {plan.highlight && (
-                    <Box sx={{ 
-                      position: 'absolute', 
-                      top: -16, 
-                      left: '50%', 
-                      transform: 'translateX(-50%)', 
-                      bgcolor: '#6366f1', 
-                      px: 2, 
-                      py: 0.5, 
-                      borderRadius: 1,
-                      fontSize: '0.75rem',
-                      fontWeight: 900,
-                      textTransform: 'uppercase'
-                    }}>
-                      Most Popular
-                    </Box>
-                  )}
-                  <Typography variant="h6" fontWeight="800" gutterBottom>{plan.name}</Typography>
-                  <Typography variant="h3" fontWeight="950" sx={{ mb: 1 }}>{plan.price}<span style={{ fontSize: '1rem', fontWeight: 400 }}>{plan.period}</span></Typography>
-                  <Divider sx={{ my: 4, borderColor: 'rgba(255,255,255,0.05)' }} />
-                  <Stack spacing={2} sx={{ mb: 6, textAlign: 'left' }}>
-                    {plan.features.map((f, j) => (
-                      <Stack key={j} direction="row" spacing={1.5} alignItems="center">
+                  <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: 1, color: p.highlight ? '#818cf8' : 'text.secondary', mb: 4 }}>{p.tier}</Typography>
+                  <Typography variant="h2" fontWeight="950" sx={{ mb: 1 }}>{p.price}<span style={{ fontSize: '1.25rem', color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}>{p.period}</span></Typography>
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 6 }}>{p.desc}</Typography>
+                  
+                  <Stack spacing={2.5} sx={{ mb: 8, flexGrow: 1 }}>
+                    {p.features.map((f, j) => (
+                      <Stack key={j} direction="row" spacing={2} alignItems="center">
                         <CheckCircleOutlineIcon sx={{ color: '#10b981', fontSize: 20 }} />
-                        <Typography variant="body2" color="text.secondary">{f}</Typography>
+                        <Typography variant="body2" sx={{ fontWeight: 600 }}>{f}</Typography>
                       </Stack>
                     ))}
                   </Stack>
+                  
                   <Button 
                     fullWidth 
-                    variant={plan.highlight ? "contained" : "outlined"} 
+                    variant={p.highlight ? "contained" : "outlined"} 
                     size="large"
                     onClick={() => navigate('/register')}
                     sx={{ 
+                      height: 64, 
                       borderRadius: 3, 
-                      height: 56, 
-                      fontWeight: 800,
-                      background: plan.highlight ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' : 'transparent'
+                      fontWeight: 900, 
+                      background: p.highlight ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' : 'transparent',
+                      borderWidth: 2,
+                      '&:hover': { borderWidth: 2 }
                     }}
                   >
-                    {plan.cta}
+                    {p.btn}
                   </Button>
                 </Box>
               </Grid>
             ))}
           </Grid>
-        </Box>
+        </Container>
+      </Box>
 
-        {/* Final CTA */}
-        <Box sx={{ 
-          mt: { xs: 15, md: 25 }, 
-          p: { xs: 6, md: 10 }, 
-          borderRadius: 8, 
-          background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-          textAlign: 'center',
-          boxShadow: '0 40px 100px -20px rgba(99, 102, 241, 0.4)'
-        }}>
-          <Typography variant="h3" fontWeight="950" sx={{ mb: 3, fontSize: { xs: '2rem', md: '3.5rem' } }}>
-            Ready to Build Better?
-          </Typography>
-          <Typography variant="h6" sx={{ mb: 6, opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
-            Join thousands of students and founders who are using AI to architect the future.
-          </Typography>
-          <Button 
-            variant="contained" 
-            size="large" 
-            onClick={() => navigate('/register')}
-            sx={{ 
-              height: 68, 
-              px: 6, 
-              borderRadius: 3, 
-              fontSize: '1.2rem', 
-              fontWeight: 900,
-              bgcolor: 'white',
-              color: '#4f46e5',
-              '&:hover': { bgcolor: '#f8fafc' }
-            }}
-          >
-            Get Started for Free
-          </Button>
-        </Box>
-      </Container>
+      {/* Trust Section */}
+      <Box sx={{ py: 15, borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <Container maxWidth="xl">
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={8} alignItems="center" justifyContent="center">
+            <Typography variant="body2" color="text.secondary" fontWeight="700" sx={{ letterSpacing: 2 }}>TRUSTED BY NEXT-GEN ORGANIZATIONS</Typography>
+            <Stack direction="row" spacing={6} sx={{ opacity: 0.5, filter: 'grayscale(1)' }}>
+              {/* Simplified Logo Placeholders */}
+              {['MODERN', 'ELITE', 'SYNERGY', 'VELOCITY'].map(name => (
+                <Typography key={name} variant="h6" fontWeight="900" sx={{ letterSpacing: 2 }}>{name}</Typography>
+              ))}
+            </Stack>
+          </Stack>
+        </Container>
+      </Box>
 
       {/* Footer */}
-      <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.05)', py: 10, mt: 10 }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
-              <Stack spacing={2}>
-                <Typography variant="h6" fontWeight="900">VSGRPS Workspace</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300 }}>
-                  The AI-powered engine for professional management and engineering velocity.
+      <Box sx={{ py: 15, bgcolor: '#01040a' }}>
+        <Container maxWidth="xl">
+          <Grid container spacing={10}>
+            <Grid item xs={12} md={4}>
+              <Stack spacing={4}>
+                <Stack direction="row" spacing={1.5} alignItems="center">
+                  <Box sx={{ bgcolor: '#6366f1', p: 0.8, borderRadius: 2, display: 'flex' }}>
+                    <SecurityIcon sx={{ color: 'white', fontSize: 20 }} />
+                  </Box>
+                  <Typography variant="h6" fontWeight="900">VSGRPS</Typography>
+                </Stack>
+                <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300, lineHeight: 1.8 }}>
+                  Defining the future of organizational management through high-velocity AI architecture and uncompromised security.
                 </Typography>
               </Stack>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Stack direction="row" spacing={6} sx={{ justifyContent: { md: 'flex-end' } }}>
-                <Stack spacing={1.5}>
-                  <Typography variant="subtitle2" fontWeight="800">Product</Typography>
-                  {['AI Architect', 'Kanban', 'Security'].map(i => <Typography key={i} variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }}>{i}</Typography>)}
-                </Stack>
-                <Stack spacing={1.5}>
-                  <Typography variant="subtitle2" fontWeight="800">Legal</Typography>
-                  {['Privacy', 'Terms', 'Audit Logs'].map(i => <Typography key={i} variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }}>{i}</Typography>)}
-                </Stack>
+            <Grid item xs={6} md={2}>
+              <Typography variant="caption" fontWeight="900" color="#818cf8" sx={{ mb: 4, display: 'block', letterSpacing: 2 }}>SYSTEM</Typography>
+              <Stack spacing={2}>
+                {['Architect', 'Core Hub', 'Security', 'Vault'].map(i => <Typography key={i} variant="body2" color="text.secondary" sx={{ cursor: 'pointer' }}>{i}</Typography>)}
               </Stack>
             </Grid>
+            <Grid item xs={6} md={2}>
+              <Typography variant="caption" fontWeight="900" color="#c084fc" sx={{ mb: 4, display: 'block', letterSpacing: 2 }}>NETWORK</Typography>
+              <Stack spacing={2}>
+                {['Ecosystem', 'Partners', 'Open Data', 'API'].map(i => <Typography key={i} variant="body2" color="text.secondary" sx={{ cursor: 'pointer' }}>{i}</Typography>)}
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Box className="glass-card" sx={{ p: 6, borderRadius: 6, border: '1px solid rgba(255,255,255,0.05)' }}>
+                <Typography variant="subtitle1" fontWeight="900" sx={{ mb: 2 }}>ACCESS SYSTEM UPDATES</Typography>
+                <Stack direction="row" spacing={1}>
+                  <TextField 
+                    fullWidth 
+                    size="small" 
+                    placeholder="terminal@org.com" 
+                    sx={{ 
+                      bgcolor: 'rgba(0,0,0,0.3)', 
+                      '& .MuiOutlinedInput-root': { borderRadius: 2 } 
+                    }} 
+                  />
+                  <Button variant="contained" sx={{ px: 4, borderRadius: 2, bgcolor: '#6366f1' }}>JOIN</Button>
+                </Stack>
+              </Box>
+            </Grid>
           </Grid>
-          <Box sx={{ mt: 8, pt: 4, borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
-            <Typography variant="caption" color="text.disabled">
-              © 2026 VSGRPS Workspace. All rights reserved. Securely architected by VSGRPS.
-            </Typography>
+          <Box sx={{ mt: 15, pt: 8, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="caption" color="text.disabled">© 2026 VSGRPS SYSTEMS. ALL RIGHTS RESERVED.</Typography>
+            <Stack direction="row" spacing={4}>
+              <GitHubIcon sx={{ fontSize: 20, color: 'text.disabled' }} />
+              <SecurityIcon sx={{ fontSize: 20, color: 'text.disabled' }} />
+            </Stack>
           </Box>
         </Container>
       </Box>
