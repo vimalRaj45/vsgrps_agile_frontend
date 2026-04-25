@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, Snackbar, Slide, CircularProgress } from '@mui/material';
+import { Alert, Button, Snackbar, Slide, CircularProgress, Backdrop, Typography, Box } from '@mui/material';
 import { NotificationsActive as NotifyIcon } from '@mui/icons-material';
 import { subscribeToPush } from '../../utils/pushManager';
 
@@ -42,37 +42,61 @@ const PushNotificationPrompt = () => {
   };
 
   return (
-    <Snackbar
-      open={open}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      TransitionComponent={Slide}
-    >
-      <Alert
-        icon={<NotifyIcon fontSize="inherit" />}
-        severity="info"
-        variant="filled"
+    <>
+      <Backdrop
         sx={{ 
-          width: '100%', 
-          borderRadius: 2,
-          bgcolor: 'primary.main',
-          color: 'white',
-          '& .MuiAlert-icon': { color: 'white' }
+          color: '#fff', 
+          zIndex: (theme) => theme.zIndex.drawer + 2000,
+          flexDirection: 'column',
+          gap: 2,
+          backdropFilter: 'blur(8px)',
+          bgcolor: 'rgba(0, 0, 0, 0.7)'
         }}
-        action={
-          <Button 
-            color="inherit" 
-            size="small" 
-            onClick={handleEnable} 
-            disabled={loading}
-            sx={{ fontWeight: 'bold', minWidth: 80 }}
-          >
-            {loading ? <CircularProgress size={16} color="inherit" /> : 'ENABLE'}
-          </Button>
-        }
+        open={loading}
       >
-        Enable real-time notifications to stay updated!
-      </Alert>
-    </Snackbar>
+        <CircularProgress color="inherit" />
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
+            Connecting with you...
+          </Typography>
+          <Typography variant="body2" sx={{ opacity: 0.8 }}>
+            Please wait a moment while we set up your real-time updates.
+          </Typography>
+        </Box>
+      </Backdrop>
+
+      <Snackbar
+        open={open && !loading}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        TransitionComponent={Slide}
+      >
+        <Alert
+          icon={<NotifyIcon fontSize="inherit" />}
+          severity="info"
+          variant="filled"
+          sx={{ 
+            width: '100%', 
+            borderRadius: 2,
+            bgcolor: 'primary.main',
+            color: 'white',
+            '& .MuiAlert-icon': { color: 'white' }
+          }}
+          action={
+            <Button 
+              color="inherit" 
+              size="small" 
+              onClick={handleEnable} 
+              disabled={loading}
+              sx={{ fontWeight: 'bold', minWidth: 80 }}
+            >
+              ENABLE
+            </Button>
+          }
+        >
+          Enable real-time notifications to stay updated!
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
 
