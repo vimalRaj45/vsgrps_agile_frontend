@@ -9,7 +9,8 @@ import {
 import { 
   Business as BusinessIcon, 
   ArrowForward as ArrowForwardIcon,
-  ArrowBack as ArrowBackIcon
+  ArrowBack as ArrowBackIcon,
+  AutoAwesome as AutoAwesomeIcon
 } from '@mui/icons-material';
 import LottieIcon from '../components/shared/LottieIcon';
 
