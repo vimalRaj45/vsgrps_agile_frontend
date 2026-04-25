@@ -41,9 +41,11 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const login = async (email, password, rememberMe) => {
-    const res = await authApi.login(email, password, rememberMe);
-    setUser(res.data.user);
+  const login = async (email, password, rememberMe, companyId) => {
+    const res = await authApi.login(email, password, rememberMe, companyId);
+    if (res.data.user) {
+      setUser(res.data.user);
+    }
     return res.data;
   };
 

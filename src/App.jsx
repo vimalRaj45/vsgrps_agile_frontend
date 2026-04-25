@@ -25,6 +25,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import SuperAdminPage from './pages/SuperAdminPage';
 import ReportsPage from './pages/ReportsPage';
+import OnboardingPage from './pages/OnboardingPage';
 import AppLayout from './components/shared/AppLayout';
 
 const PublicRoute = ({ children }) => {
@@ -68,6 +69,7 @@ function App() {
               <Route path="/audit" element={<PrivateRoute><AuditLogPage /></PrivateRoute>} />
               <Route path="/users" element={<PrivateRoute><AdminUsersPage /></PrivateRoute>} />
               <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
+              <Route path="/onboarding" element={<PrivateRoute><OnboardingPage /></PrivateRoute>} />
               <Route path="/master-access" element={<SuperAdminPage />} />
               
               <Route path="*" element={<Navigate to="/" />} />
