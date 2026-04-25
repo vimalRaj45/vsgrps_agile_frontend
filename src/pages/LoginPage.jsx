@@ -85,14 +85,42 @@ const LoginPage = () => {
               <form onSubmit={handleSubmit}>
                 <Stack spacing={2.5}>
                   <TextField
-                    fullWidth label="Email Address" variant="filled" required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                    InputProps={{ startAdornment: <EmailIcon sx={{ mr: 1.5, color: 'rgba(255,255,255,0.3)' }} />, disableUnderline: true }}
-                    sx={{ '& .MuiFilledInput-root': { bgcolor: 'rgba(255,255,255,0.03)', borderRadius: 3, border: '1px solid rgba(255,255,255,0.05)', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, '&.Mui-focused': { border: '1px solid #6366f1' } }, '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)' } }}
+                    fullWidth label="Email Address" variant="outlined" required type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                    InputProps={{ 
+                      startAdornment: <EmailIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.4)', fontSize: 20 }} />,
+                    }}
+                    sx={{ 
+                      '& .MuiOutlinedInput-root': { 
+                        bgcolor: 'rgba(255,255,255,0.02)', 
+                        borderRadius: 3, 
+                        height: 64,
+                        color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
+                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.15)' },
+                        '&.Mui-focused fieldset': { borderColor: '#6366f1', borderWidth: '2px' }
+                      }, 
+                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)', ml: 4 },
+                      '& .MuiInputLabel-shrink': { ml: 0, color: '#818cf8' }
+                    }}
                   />
                   <TextField
-                    fullWidth label="Password" variant="filled" required type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                    InputProps={{ startAdornment: <LockIcon sx={{ mr: 1.5, color: 'rgba(255,255,255,0.3)' }} />, disableUnderline: true }}
-                    sx={{ '& .MuiFilledInput-root': { bgcolor: 'rgba(255,255,255,0.03)', borderRadius: 3, border: '1px solid rgba(255,255,255,0.05)', '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }, '&.Mui-focused': { border: '1px solid #6366f1' } }, '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)' } }}
+                    fullWidth label="Password" variant="outlined" required type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                    InputProps={{ 
+                      startAdornment: <LockIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.4)', fontSize: 20 }} />,
+                    }}
+                    sx={{ 
+                      '& .MuiOutlinedInput-root': { 
+                        bgcolor: 'rgba(255,255,255,0.02)', 
+                        borderRadius: 3, 
+                        height: 64,
+                        color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
+                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.15)' },
+                        '&.Mui-focused fieldset': { borderColor: '#6366f1', borderWidth: '2px' }
+                      }, 
+                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)', ml: 4 },
+                      '& .MuiInputLabel-shrink': { ml: 0, color: '#818cf8' }
+                    }}
                   />
 
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
