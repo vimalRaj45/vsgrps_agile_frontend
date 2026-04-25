@@ -51,9 +51,17 @@ const LoginPage = () => {
             p: 8
           }}>
             <Box sx={{ position: 'absolute', inset: 0, opacity: 0.1, backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-            <Box component={motion.div} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }}>
-              <Box component="img" src="/assets/login_visual.png" sx={{ width: '100%', maxWidth: 500, filter: 'drop-shadow(0 0 50px rgba(99, 102, 241, 0.3))' }} />
-              <Typography variant="h3" fontWeight="950" sx={{ color: 'white', mt: 4, letterSpacing: '-2px', textAlign: 'center' }}>
+            <Box component={motion.div} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }} sx={{ textAlign: 'center' }}>
+              <Box 
+                component="img" src="/assets/login_visual.png" 
+                sx={{ 
+                  width: '100%', maxWidth: 500, 
+                  borderRadius: 8,
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  boxShadow: '0 40px 100px -20px rgba(0,0,0,0.8), 0 0 50px rgba(99, 102, 241, 0.2)' 
+                }} 
+              />
+              <Typography variant="h3" fontWeight="950" sx={{ color: 'white', mt: 6, letterSpacing: '-2px' }}>
                 Welcome Back to <br/> <Box component="span" sx={{ color: '#818cf8' }}>Sprintora</Box>
               </Typography>
             </Box>
@@ -61,15 +69,15 @@ const LoginPage = () => {
         )}
 
         {/* Right Side: Form */}
-        <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 2, md: 8 } }}>
-          <Container maxWidth="xs">
+        <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 3, md: 8 }, bgcolor: '#030712' }}>
+          <Container maxWidth="xs" sx={{ px: { xs: 2, sm: 4 } }}>
             <Box component={motion.div} initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-              <Stack spacing={1} sx={{ mb: 4, alignItems: isMobile ? 'center' : 'flex-start' }}>
-                <IconButton onClick={() => navigate('/')} sx={{ color: 'rgba(255,255,255,0.5)', mb: 2 }}>
+              <Stack spacing={1} sx={{ mb: 6, alignItems: 'flex-start' }}>
+                <IconButton onClick={() => navigate('/')} sx={{ color: 'rgba(255,255,255,0.3)', ml: -1, mb: 1, '&:hover': { color: '#818cf8', bgcolor: 'rgba(99,102,241,0.1)' } }}>
                   <ArrowBackIcon />
                 </IconButton>
-                <Typography variant="h4" fontWeight="950" sx={{ color: 'white', letterSpacing: '-1.5px' }}>Sign In</Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)' }}>Enter your credentials to access your workspace.</Typography>
+                <Typography variant="h3" fontWeight="950" sx={{ color: 'white', letterSpacing: '-2px' }}>Sign In</Typography>
+                <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>Access your AI-powered workspace.</Typography>
               </Stack>
 
               {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2, bgcolor: 'rgba(239, 68, 68, 0.1)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.2)' }}>{error}</Alert>}

@@ -53,15 +53,15 @@ const RegisterPage = () => {
     <Box sx={{ minHeight: '100vh', bgcolor: '#030712', display: 'flex' }}>
       <Grid container direction={isMobile ? 'column-reverse' : 'row'}>
         {/* Form Side */}
-        <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 2, md: 8 } }}>
-          <Container maxWidth="xs">
+        <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 3, md: 8 }, bgcolor: '#030712' }}>
+          <Container maxWidth="xs" sx={{ px: { xs: 2, sm: 4 } }}>
             <Box component={motion.div} initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-              <Stack spacing={1} sx={{ mb: 4, alignItems: isMobile ? 'center' : 'flex-start' }}>
-                <IconButton onClick={() => navigate('/')} sx={{ color: 'rgba(255,255,255,0.5)', mb: 2 }}>
+              <Stack spacing={1} sx={{ mb: 6, alignItems: 'flex-start' }}>
+                <IconButton onClick={() => navigate('/')} sx={{ color: 'rgba(255,255,255,0.3)', ml: -1, mb: 1, '&:hover': { color: '#818cf8', bgcolor: 'rgba(99,102,241,0.1)' } }}>
                   <ArrowBackIcon />
                 </IconButton>
-                <Typography variant="h4" fontWeight="950" sx={{ color: 'white', letterSpacing: '-1.5px' }}>Join Sprintora</Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)' }}>Start your journey to perfect execution today.</Typography>
+                <Typography variant="h3" fontWeight="950" sx={{ color: 'white', letterSpacing: '-2px' }}>Join Sprintora</Typography>
+                <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>Start your journey to perfect execution.</Typography>
               </Stack>
 
               {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2, bgcolor: 'rgba(239, 68, 68, 0.1)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.2)' }}>{error}</Alert>}
@@ -112,7 +112,6 @@ const RegisterPage = () => {
           </Container>
         </Grid>
 
-        {/* Visual Side (Hidden on mobile or shown at bottom) */}
         {!isMobile && (
           <Grid item md={6} sx={{ 
             position: 'relative', 
@@ -121,9 +120,17 @@ const RegisterPage = () => {
             p: 8
           }}>
             <Box sx={{ position: 'absolute', inset: 0, opacity: 0.1, backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-            <Box component={motion.div} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8 }}>
-              <Box component="img" src="/assets/register_visual.png" sx={{ width: '100%', maxWidth: 550, filter: 'drop-shadow(0 0 60px rgba(129, 140, 248, 0.4))' }} />
-              <Typography variant="h3" fontWeight="950" sx={{ color: 'white', mt: 4, letterSpacing: '-2px', textAlign: 'center' }}>
+            <Box component={motion.div} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8 }} sx={{ textAlign: 'center' }}>
+              <Box 
+                component="img" src="/assets/register_visual.png" 
+                sx={{ 
+                  width: '100%', maxWidth: 550, 
+                  borderRadius: 8,
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  boxShadow: '0 40px 100px -20px rgba(0,0,0,0.8), 0 0 60px rgba(129, 140, 248, 0.3)' 
+                }} 
+              />
+              <Typography variant="h3" fontWeight="950" sx={{ color: 'white', mt: 6, letterSpacing: '-2px' }}>
                 Build the Future <br/> with <Box component="span" sx={{ color: '#818cf8' }}>Sprintora</Box>
               </Typography>
             </Box>
