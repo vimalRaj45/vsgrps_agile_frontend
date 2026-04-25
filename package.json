@@ -18,6 +18,7 @@
     "@mui/material": "^6.4.1",
     "@mui/x-data-grid": "^7.25.0",
     "@mui/x-date-pickers": "^7.25.0",
+    "aos": "^2.3.4",
     "axios": "^1.7.9",
     "dayjs": "^1.11.10",
     "framer-motion": "^12.38.0",
@@ -26,7 +27,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
-    "recharts": "^3.8.1"
+    "recharts": "^3.8.1",
+    "typewriter-effect": "^2.22.0"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.3.1",
