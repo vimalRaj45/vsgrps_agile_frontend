@@ -6,6 +6,7 @@ import client from '../../api/client';
 const TaskComments = ({ taskId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [mentionAnchor, setMentionAnchor] = useState(null);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -34,14 +35,17 @@ const TaskComments = ({ taskId }) => {
   };
 
   const handleSend = async () => {
-    if (!newComment) return;
+    if (!newComment || loading) return;
+    setLoading(true);
     try {
       await client.post(`/tasks/${taskId}/comments`, { content: newComment });
       setNewComment('');
       setMentionAnchor(null);
-      fetchComments();
+      await fetchComments();
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,16 +108,17 @@ const TaskComments = ({ taskId }) => {
         <TextField
           fullWidth
           size="small"
-          placeholder="Write a comment... (use @ to mention)"
+          placeholder={loading ? 'Posting...' : 'Write a comment... (use @ to mention)'}
           value={newComment}
           onChange={handleTextChange}
+          disabled={loading}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' && !mentionAnchor) handleSend();
+            if (e.key === 'Enter' && !mentionAnchor && !loading) handleSend();
             if (e.key === 'Escape') setMentionAnchor(null);
           }}
         />
-        <IconButton color="primary" onClick={handleSend} disabled={!newComment}>
-          <SendIcon />
+        <IconButton color="primary" onClick={handleSend} disabled={!newComment || loading}>
+          <SendIcon sx={{ opacity: loading ? 0.5 : 1 }} />
         </IconButton>
 
         <Popper open={Boolean(mentionAnchor)} anchorEl={mentionAnchor} placement="top-start" sx={{ zIndex: 1500 }}>
