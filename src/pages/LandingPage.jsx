@@ -263,20 +263,37 @@ const SprintoraLanding = () => {
       </Container>
 
       {/* Social Proof */}
-      <Box sx={{ py: { xs: 6, md: 10 }, borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', position: 'relative' }}>
         <Container maxWidth="xl">
-          <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 4, md: 12 }} alignItems="center" justifyContent="center">
-            <Typography variant="caption" fontWeight="800" sx={{ color: 'rgba(255,255,255,0.4)', letterSpacing: 2 }}>MODERN TEAMS TRUST SPRINTORA</Typography>
-            <Stack direction="row" spacing={{ xs: 4, md: 8 }}>
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant={isSmallMobile ? "h5" : "h4"} fontWeight="950">1,000+</Typography>
-                <Typography variant="caption" color="text.secondary">PROJECTS</Typography>
-              </Box>
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant={isSmallMobile ? "h5" : "h4"} fontWeight="950">10,000+</Typography>
-                <Typography variant="caption" color="text.secondary">TASKS</Typography>
-              </Box>
-            </Stack>
+          <Grid container spacing={6} alignItems="center">
+            <Grid item xs={12} md={4}>
+              <Typography variant="overline" fontWeight="900" sx={{ color: 'rgba(255,255,255,0.3)', letterSpacing: 3 }}>TRUSTED BY BUILDERS</Typography>
+              <Typography variant="h4" fontWeight="950" sx={{ mt: 1, letterSpacing: '-1px' }}>Powering the next generation of teams.</Typography>
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 6, md: 10 }} justifyContent={{ md: 'flex-end' }}>
+                <Box>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#818cf8' }}>1,250+</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>PROJECTS COMPLETED</Typography>
+                </Box>
+                <Box>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#c084fc' }}>12.4k</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TASKS ARCHITECTED</Typography>
+                </Box>
+                <Box>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#fb7185' }}>98.2%</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TEAM VELOCITY</Typography>
+                </Box>
+              </Stack>
+            </Grid>
+          </Grid>
+          
+          <Divider sx={{ my: 6, borderColor: 'rgba(255,255,255,0.03)' }} />
+          
+          <Stack direction="row" spacing={6} sx={{ overflow: 'hidden', opacity: 0.4, justifyContent: 'center', filter: 'grayscale(1)' }}>
+            {['FORBES', 'TECHCRUNCH', 'WIRED', 'VERGE', 'PRODUCT HUNT'].map(logo => (
+              <Typography key={logo} variant="h6" fontWeight="900" sx={{ letterSpacing: 4 }}>{logo}</Typography>
+            ))}
           </Stack>
         </Container>
       </Box>
