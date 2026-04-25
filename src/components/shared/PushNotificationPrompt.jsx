@@ -12,11 +12,11 @@ const PushNotificationPrompt = () => {
 
     const isSubscribed = localStorage.getItem('push_subscribed');
 
-    // Show prompt if permission is 'default' OR if we don't have a local subscription record
-    if (Notification.permission === 'default' || !isSubscribed) {
+    // Show prompt if (permission is default OR we have no local sub) AND permission isn't denied
+    if ((Notification.permission === 'default' || !isSubscribed) && Notification.permission !== 'denied') {
       const timer = setTimeout(() => {
         setOpen(true);
-      }, 5000); // Wait 5 seconds after login/load
+      }, 2000); // Wait 2 seconds after login
       return () => clearTimeout(timer);
     }
   }, []);

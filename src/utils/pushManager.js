@@ -26,11 +26,10 @@ export async function subscribeToPush() {
   try {
     const registration = await navigator.serviceWorker.ready;
     
-    // Check for existing subscription
+    // Get or create subscription
     let subscription = await registration.pushManager.getSubscription();
     
     if (!subscription) {
-      // Subscribe user
       subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
@@ -38,10 +37,10 @@ export async function subscribeToPush() {
       console.log('✅ New Push Subscription created');
     }
 
-    // Send subscription to backend
+    // Always send/sync subscription to backend
     await axios.post('/notifications/subscribe', { subscription });
     localStorage.setItem('push_subscribed', 'true');
-    console.log('✅ Push Subscription sent to server');
+    console.log('✅ Push Subscription synced with server');
   } catch (error) {
     console.error('❌ Failed to subscribe to push notifications:', error);
   }
