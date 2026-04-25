@@ -275,7 +275,7 @@ const SprintoraLanding = () => {
       <Box sx={{ py: { xs: 10, md: 15 }, position: 'relative' }}>
         <Container maxWidth="xl">
           <Grid container spacing={8} alignItems="center">
-            <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }} data-aos="fade-right">
+            <Grid item xs={12} md={6} order={{ xs: 1, md: 1 }} data-aos="fade-right">
               <Box sx={{ 
                 position: 'relative', 
                 '&::before': {
@@ -284,14 +284,14 @@ const SprintoraLanding = () => {
                   filter: 'blur(40px)', zIndex: 0
                 }
               }}>
-                <Box component="img" src="/assets/developer_hero.png" sx={{ 
+                <Box component="img" src="/assets/hero_dashboard.png" sx={{ 
                   width: '100%', height: 'auto', borderRadius: 4, 
                   boxShadow: '0 40px 80px -20px rgba(0,0,0,0.5)',
                   position: 'relative', zIndex: 1
                 }} />
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }} data-aos="fade-left">
+            <Grid item xs={12} md={6} order={{ xs: 2, md: 2 }} data-aos="fade-left">
               <Typography variant="overline" fontWeight="900" color="#818cf8" gutterBottom sx={{ letterSpacing: 3 }}>
                 ENGINEERED FOR TEAMS
               </Typography>
