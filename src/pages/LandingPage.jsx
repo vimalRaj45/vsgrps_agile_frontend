@@ -12,19 +12,15 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import SecurityIcon from '@mui/icons-material/Security';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import GroupsIcon from '@mui/icons-material/Groups';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useAppTheme } from '../context/ThemeContext';
 
 const SprintoraLanding = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+  const { mode, toggleTheme } = useAppTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isSmallMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -129,6 +125,15 @@ const SprintoraLanding = () => {
                   ))}
                 </Stack>
               )}
+
+              <IconButton onClick={toggleTheme} color="inherit" sx={{ 
+                bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                border: `1px solid ${theme.palette.divider}`,
+                p: { xs: 0.5, sm: 1 }
+              }}>
+                {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
+              </IconButton>
+
               <Button 
                 variant="contained" 
                 size={isSmallMobile ? "small" : "medium"}

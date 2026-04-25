@@ -15,12 +15,16 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useAppTheme } from '../context/ThemeContext';
 
 const steps = ['WELCOME', 'AI VISION', 'MAGIC REVEAL', 'TEAM SYNC', 'READY'];
 
 const OnboardingPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
+  const { mode, toggleTheme } = useAppTheme();
   const [aiPlan, setAiPlan] = useState([
     { title: "Initialization", sub: "Setup project core and tech stack" },
     { title: "Architecture", sub: "Design database schemas and API" },
@@ -226,19 +230,29 @@ const OnboardingPage = () => {
               </Stepper>
             )}
 
-            <Button 
-              variant="contained"
-              size="small" 
-              onClick={() => navigate('/register')}
-              sx={{ 
-                bgcolor: theme.palette.mode === 'dark' ? 'white' : '#030712', 
-                color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
-                fontWeight: 900, px: 2, borderRadius: 3,
-                '&:hover': { bgcolor: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
-              }}
-            >
-              Get Started
-            </Button>
+            <Stack direction="row" spacing={1.5} alignItems="center">
+              <IconButton onClick={toggleTheme} color="inherit" sx={{ 
+                bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                border: `1px solid ${theme.palette.divider}`,
+                p: { xs: 0.5, sm: 1 }
+              }}>
+                {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
+              </IconButton>
+
+              <Button 
+                variant="contained"
+                size="small" 
+                onClick={() => navigate('/register')}
+                sx={{ 
+                  bgcolor: theme.palette.mode === 'dark' ? 'white' : '#030712', 
+                  color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
+                  fontWeight: 900, px: 2, borderRadius: 3,
+                  '&:hover': { bgcolor: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
+                }}
+              >
+                Get Started
+              </Button>
+            </Stack>
           </Toolbar>
         </Container>
       </Box>
