@@ -249,12 +249,22 @@ const OnboardingPage = () => {
       <Box sx={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.01) 1px, transparent 0)', backgroundSize: '30px 30px' }} />
       
       {/* Header with Navigation */}
-      <AppBar position="static" elevation={0} sx={{ bgcolor: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.05)', pt: 1 }}>
+      <Box sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)', pt: 1 }}>
         <Container maxWidth="lg">
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Typography variant="h6" fontWeight="900" color="#6366f1">Sprintora</Typography>
+          <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 1, md: 2 } }}>
+            <Stack 
+              direction="row" 
+              spacing={1} 
+              alignItems="center" 
+              sx={{ cursor: 'pointer' }} 
+              onClick={() => navigate('/')}
+            >
+              <AutoAwesomeIcon sx={{ color: '#6366f1', fontSize: 20 }} />
+              <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px' }}>Sprintora</Typography>
+            </Stack>
+
             {!isMobile && (
-              <Stepper activeStep={activeStep} sx={{ width: '60%' }}>
+              <Stepper activeStep={activeStep} sx={{ width: '50%' }}>
                 {steps.map((label) => (
                   <Step key={label}>
                     <StepLabel StepIconProps={{ sx: { '&.Mui-active': { color: '#6366f1' } } }}>
@@ -264,10 +274,17 @@ const OnboardingPage = () => {
                 ))}
               </Stepper>
             )}
-            {isMobile && <Typography variant="caption" fontWeight="900" sx={{ opacity: 0.7 }}>STEP {activeStep + 1}/{steps.length}</Typography>}
+
+            <Button 
+              size="small" 
+              onClick={() => navigate('/login')}
+              sx={{ color: 'text.secondary', fontWeight: 700, '&:hover': { color: 'white' } }}
+            >
+              Sign Out
+            </Button>
           </Toolbar>
         </Container>
-      </AppBar>
+      </Box>
 
       <Container maxWidth="lg" sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', py: 4 }}>
         <Box sx={{ width: '100%' }}>
