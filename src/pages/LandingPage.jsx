@@ -222,15 +222,19 @@ const SprintoraLanding = () => {
           
           <Grid item xs={12} md={5} data-aos="fade-up" data-aos-delay="200">
              <Box sx={{ position: 'relative', px: { xs: 2, md: 0 } }}>
-                <Box className="glass-card" sx={{ 
-                  p: 0.5, borderRadius: 4, border: '1px solid rgba(255,255,255,0.08)',
-                  boxShadow: '0 30px 60px -10px rgba(0,0,0,0.5)',
-                  overflow: 'hidden'
+                <Box sx={{ 
+                  p: 0.5, borderRadius: 4, 
+                  overflow: 'hidden',
+                  position: 'relative',
+                  '&::after': {
+                    content: '""', position: 'absolute', inset: 0,
+                    boxShadow: 'inset 0 0 100px rgba(0,0,0,0.5)', zIndex: 2
+                  }
                 }}>
-                  <LottieIcon 
-                    src="https://lottie.host/80c2f623-e291-4560-84c2-25e2a222383c/7T07v6HkNo.json" 
-                    style={{ width: '100%', height: 'auto' }}
-                  />
+                  <Box component="img" src="/assets/developer_hero.png" sx={{ 
+                    width: '100%', height: 'auto', borderRadius: 4,
+                    filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))'
+                  }} />
                 </Box>
                 <motion.div 
                   animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }}
