@@ -177,8 +177,8 @@ const SprintoraLanding = () => {
                 sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', color: '#818cf8', fontWeight: 900, mb: 3, px: 0.5 }} 
               />
               <Typography variant="h1" sx={{ 
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '5.5rem' }, 
-                fontWeight: 950, lineHeight: { xs: 1.1, md: 0.95 }, letterSpacing: { xs: '-1px', md: '-4px' }, mb: 3
+                fontSize: { xs: '2.2rem', sm: '3rem', md: '4.8rem' }, 
+                fontWeight: 950, lineHeight: { xs: 1.1, md: 0.95 }, letterSpacing: { xs: '-1px', md: '-3px' }, mb: 3
               }}>
                 From Idea to Execution — <br/>
                 <Box component="span" sx={{ 
