@@ -20,7 +20,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import LottieIcon from '../components/shared/LottieIcon';
+
 
 const SprintoraLanding = () => {
   const navigate = useNavigate();

@@ -4,7 +4,9 @@ import {
   Box, Button, TextField, Typography, Container, 
   Alert, CircularProgress, Link, Stack 
 } from '@mui/material';
-import LottieIcon from '../components/shared/LottieIcon';
+import { 
+  LockResetOutlined as LockIcon
+} from '@mui/icons-material';
 import * as authApi from '../api/auth';
 
 const ResetPasswordPage = () => {
@@ -69,10 +71,14 @@ const ResetPasswordPage = () => {
         >
           <Stack spacing={1} sx={{ alignItems: 'center', mb: 4 }}>
             <Box sx={{ mb: 2 }}>
-              <LottieIcon 
-                src="https://lottie.host/80c2f623-e291-4560-84c2-25e2a222383c/7T07v6HkNo.json" 
-                style={{ width: 80, height: 80 }}
-              />
+              <Box 
+                sx={{ 
+                  p: 2, borderRadius: '50%', bgcolor: 'rgba(99, 102, 241, 0.1)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}
+              >
+                <LockIcon sx={{ fontSize: 60, color: '#6366f1' }} />
+              </Box>
             </Box>
 
             <Typography variant="h4" fontWeight="800" letterSpacing="-1px">

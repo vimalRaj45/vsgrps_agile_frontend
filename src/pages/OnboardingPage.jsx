@@ -15,7 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import LottieIcon from '../components/shared/LottieIcon';
+
 
 const steps = ['WELCOME', 'AI VISION', 'MAGIC REVEAL', 'TEAM SYNC', 'READY'];
 
