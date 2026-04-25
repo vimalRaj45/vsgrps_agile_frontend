@@ -181,12 +181,21 @@ const SprintoraLanding = () => {
                 fontWeight: 950, lineHeight: { xs: 1.1, md: 0.95 }, letterSpacing: { xs: '-1px', md: '-4px' }, mb: 3
               }}>
                 From Idea to Done — <br/>
-                <span style={{ 
+                <Box component="span" sx={{ 
                   background: 'linear-gradient(to right, #818cf8, #c084fc, #fb7185)',
                   WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                  display: 'inline-block'
                 }}>
-                  Faster Than Ever
-                </span>
+                  <Typewriter
+                    options={{
+                      strings: ['Faster Than Ever', 'With AI Precision', 'In Under 60 Seconds', 'Without the Chaos'],
+                      autoStart: true,
+                      loop: true,
+                      delay: 50,
+                      deleteSpeed: 30
+                    }}
+                  />
+                </Box>
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ 
                 maxWidth: 600, lineHeight: 1.6, mb: 6, fontWeight: 400, mx: { xs: 'auto', md: 0 },
