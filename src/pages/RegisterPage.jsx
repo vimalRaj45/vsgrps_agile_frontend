@@ -1,38 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import client from '../api/client';
-import { useAuth } from '../context/AuthContext';
-import {
-  Box, Button, TextField, Typography, Container,
-  Alert, CircularProgress, Link, Stack
+import axios from 'axios';
+import { 
+  Box, Button, TextField, Typography, Container, 
+  Alert, CircularProgress, Link, Stack, Grid, useTheme, useMediaQuery
 } from '@mui/material';
-import LottieIcon from '../components/shared/LottieIcon';
+import { AutoAwesome as AutoAwesomeIcon } from '@mui/icons-material';
 
 const RegisterPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    companyName: ''
-  });
+  const [companyName, setCompanyName] = useState('');
+  const [adminName, setAdminName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
-  const { setUser } = useAuth();
+  
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
     try {
-      const res = await client.post('/auth/register', formData);
-      setSuccessMessage(res.data.message || 'Registration successful! Please check your email.');
-      setFormData({ name: '', email: '', password: '', companyName: '' });
+      await axios.post('http://localhost:5000/api/auth/register-company', {
+        companyName,
+        adminName,
+        email,
+        password
+      });
+      setSuccessMessage('Workspace created successfully! Redirecting to login...');
+      setTimeout(() => navigate('/login'), 3000);
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed');
     } finally {
@@ -43,159 +43,109 @@ const RegisterPage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      display: 'flex', 
-      alignItems: 'center', 
+      bgcolor: '#030712', 
+      display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
+      p: { xs: 2, md: 4 },
       position: 'relative',
-      p: { xs: 1, sm: 2 },
-      py: { xs: 4, sm: 8 },
-      background: 'radial-gradient(circle at top left, #1e293b 0%, #0f172a 100%)'
+      overflow: 'hidden'
     }}>
-      <div className="bg-gradient" style={{ opacity: 0.3 }} />
-      
-      <Container maxWidth="xs" className="fade-in">
-        <Box 
-          className="glass-card" 
-          sx={{ 
-            p: { xs: 3, sm: 5 }, 
-            width: '100%',
-            borderRadius: { xs: 4, md: 6 },
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            backdropFilter: 'blur(16px)'
-          }}
-        >
-          <Stack spacing={1} sx={{ alignItems: 'center', mb: { xs: 3, md: 5 } }}>
-            <Box 
-              sx={{ 
-                mb: 1,
-                p: 2,
-                borderRadius: '50%',
-                bgcolor: 'rgba(99, 102, 241, 0.1)',
-                border: '1px solid rgba(99, 102, 241, 0.2)'
-              }}
-            >
-              <Box 
-                component="img" 
-                src="/assets/register_welcome.png" 
-                sx={{ width: 100, height: 100, objectFit: 'contain' }}
-              />
-            </Box>
-            <Typography variant="h4" fontWeight="900" letterSpacing="-1.5px" sx={{ 
-              background: 'linear-gradient(45deg, #fff 30%, #94a3b8 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontSize: { xs: '1.75rem', sm: '2.125rem' },
-              textAlign: 'center'
+      {/* Background Glows */}
+      <Box sx={{ position: 'absolute', top: '10%', left: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0 }} />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Grid container sx={{ 
+          bgcolor: 'rgba(15, 23, 42, 0.6)', 
+          borderRadius: 8, 
+          overflow: 'hidden',
+          border: '1px solid rgba(255,255,255,0.05)',
+          backdropFilter: 'blur(25px)',
+          boxShadow: '0 50px 100px -20px rgba(0,0,0,0.6)'
+        }}>
+          {/* Form Side */}
+          <Grid item xs={12} md={6} sx={{ p: { xs: 4, md: 8 }, bgcolor: 'rgba(3, 7, 18, 0.4)' }}>
+            <Stack spacing={4}>
+              <Box>
+                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
+                  <AutoAwesomeIcon sx={{ color: '#6366f1' }} />
+                  <Typography variant="h6" fontWeight="900">Sprintora</Typography>
+                </Stack>
+                
+                <Typography variant="h4" fontWeight="950" gutterBottom sx={{ letterSpacing: '-1.5px' }}>
+                  Create Your Workspace
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Join thousands of teams scaling with AI-powered agility.
+                </Typography>
+              </Box>
+
+              {successMessage && <Alert severity="success" sx={{ borderRadius: 2 }}>{successMessage}</Alert>}
+              {error && <Alert severity="error" sx={{ borderRadius: 2 }}>{error}</Alert>}
+
+              <form onSubmit={handleSubmit}>
+                <Stack spacing={2.5}>
+                  <TextField
+                    fullWidth label="Company / Team Name" placeholder="e.g. Acme Corp"
+                    value={companyName} onChange={(e) => setCompanyName(e.target.value)} required
+                    InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
+                  />
+                  <TextField
+                    fullWidth label="Admin Full Name" placeholder="e.g. John Doe"
+                    value={adminName} onChange={(e) => setAdminName(e.target.value)} required
+                    InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
+                  />
+                  <TextField
+                    fullWidth label="Work Email Address" placeholder="name@company.com"
+                    value={email} onChange={(e) => setEmail(e.target.value)} required
+                    InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
+                  />
+                  <TextField
+                    fullWidth label="Create Password" type="password" placeholder="••••••••"
+                    value={password} onChange={(e) => setPassword(e.target.value)} required
+                    InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
+                  />
+                  
+                  <Button
+                    fullWidth variant="contained" size="large" type="submit" disabled={loading}
+                    sx={{ 
+                      height: 64, mt: 2, borderRadius: 3, fontWeight: 900, fontSize: '1.1rem',
+                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                      boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.4)'
+                    }}
+                  >
+                    {loading ? <CircularProgress size={24} color="inherit" /> : 'Launch Workspace'}
+                  </Button>
+                </Stack>
+              </form>
+
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="body2" color="text.secondary">
+                  Already have an account?{' '}
+                  <Link component={RouterLink} to="/login" sx={{ fontWeight: 900, textDecoration: 'none', color: '#6366f1' }}>
+                    Sign In
+                  </Link>
+                </Typography>
+              </Box>
+            </Stack>
+          </Grid>
+
+          {/* Illustration Side */}
+          {!isMobile && (
+            <Grid item md={6} sx={{ 
+              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(15, 23, 42, 0.5) 100%)',
+              p: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
             }}>
-              Join the Team
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
-              Create your secure company workspace
-            </Typography>
-          </Stack>
-
-          {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>{error}</Alert>}
-          {successMessage && (
-            <Alert severity="success" sx={{ mb: 3, borderRadius: 2 }}>
-              <Box sx={{ mb: 1 }}>{successMessage}</Box>
-              <Button 
-                component={RouterLink} 
-                to="/login" 
-                variant="outlined"
-                color="inherit"
-                size="small" 
-                sx={{ fontWeight: 'bold' }}
-              >
-                Go to Login
-              </Button>
-            </Alert>
+              <Box component="img" src="/assets/register_welcome.png" sx={{ width: '85%', height: 'auto', borderRadius: 4, mb: 4 }} />
+              <Typography variant="h4" fontWeight="900" textAlign="center" gutterBottom sx={{ letterSpacing: '-1px' }}>
+                Build the Future.
+              </Typography>
+              <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ maxWidth: 350 }}>
+                From idea to execution, Sprintora provides the tools you need to ship faster and smarter.
+              </Typography>
+            </Grid>
           )}
-
-          {!successMessage && (
-            <form onSubmit={handleSubmit}>
-              <Stack spacing={2.5}>
-                <TextField
-                  fullWidth
-                  label="Company Name"
-                  name="companyName"
-                  placeholder="Acme Corp"
-                  value={formData.companyName}
-                  onChange={handleChange}
-                  required
-                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
-                />
-                <TextField
-                  fullWidth
-                  label="Admin Full Name"
-                  name="name"
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
-                />
-                <TextField
-                  fullWidth
-                  label="Email Address"
-                  name="email"
-                  type="email"
-                  placeholder="admin@company.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
-                />
-                <TextField
-                  fullWidth
-                  label="Password"
-                  name="password"
-                  type="password"
-                  placeholder="Minimum 8 characters"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
-                />
-                <Button
-                  fullWidth
-                  variant="contained"
-                  size="large"
-                  type="submit"
-                  disabled={loading}
-                  sx={{ 
-                    height: 56, 
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    borderRadius: 2,
-                    boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.5)',
-                    background: 'linear-gradient(45deg, #6366f1 0%, #4f46e5 100%)',
-                    '&:hover': {
-                      background: 'linear-gradient(45deg, #4f46e5 0%, #4338ca 100%)',
-                    }
-                  }}
-                >
-                  {loading ? <CircularProgress size={24} color="inherit" /> : 'Create Workspace'}
-                </Button>
-              </Stack>
-            </form>
-          )}
-
-          <Box sx={{ mt: 4, textAlign: 'center' }}>
-            <Typography variant="body2" color="text.secondary">
-              Already have an account?{' '}
-              <Link 
-                component={RouterLink} 
-                to="/login" 
-                fontWeight="700" 
-                color="primary"
-                sx={{ textDecoration: 'none' }}
-              >
-                Sign In
-              </Link>
-            </Typography>
-          </Box>
-        </Box>
+        </Grid>
       </Container>
     </Box>
   );

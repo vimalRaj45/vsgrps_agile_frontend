@@ -4,28 +4,28 @@ import { useAuth } from '../context/AuthContext';
 import { 
   Box, Button, TextField, Typography, Container, 
   Alert, CircularProgress, Link, Stack, FormControlLabel, Checkbox,
-  List, ListItem, ListItemButton, ListItemText, ListItemIcon, Divider, IconButton
+  Grid, IconButton, InputAdornment, useTheme, useMediaQuery
 } from '@mui/material';
 import { 
-  Business as BusinessIcon, 
+  Visibility, VisibilityOff, 
   ArrowForward as ArrowForwardIcon,
-  ArrowBack as ArrowBackIcon
+  AutoAwesome as AutoAwesomeIcon
 } from '@mui/icons-material';
-import LottieIcon from '../components/shared/LottieIcon';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [orgs, setOrgs] = useState([]);
-  const [showOrgSelector, setShowOrgSelector] = useState(false);
   
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     if (location.state?.message) {
@@ -38,28 +38,10 @@ const LoginPage = () => {
     setError('');
     setLoading(true);
     try {
-      const data = await login(email, password, rememberMe);
-      if (data.multipleOrgs) {
-        setOrgs(data.orgs);
-        setShowOrgSelector(true);
-      } else {
-        navigate('/');
-      }
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to login');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSelectOrg = async (companyId) => {
-    setError('');
-    setLoading(true);
-    try {
-      await login(email, password, rememberMe, companyId);
+      await login(email, password, rememberMe);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to select organization');
+      setError(err.response?.data?.error || 'Failed to login');
     } finally {
       setLoading(false);
     }
@@ -68,193 +50,119 @@ const LoginPage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      display: 'flex', 
-      alignItems: 'center', 
+      bgcolor: '#030712', 
+      display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
+      p: { xs: 2, md: 4 },
       position: 'relative',
-      p: { xs: 1, sm: 2 },
-      background: 'radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%)'
+      overflow: 'hidden'
     }}>
-      <div className="bg-gradient" style={{ opacity: 0.3 }} />
-      
-      <Container maxWidth="xs" className="fade-in">
-        <Box 
-          className="glass-card" 
-          sx={{ 
-            p: { xs: 3, sm: 5 }, 
-            width: '100%',
-            borderRadius: { xs: 4, md: 6 },
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            backdropFilter: 'blur(16px)'
-          }}
-        >
-          {!showOrgSelector ? (
-            <>
-              <Stack spacing={1} sx={{ alignItems: 'center', mb: { xs: 3, md: 5 } }}>
-                <Box 
-                  sx={{ 
-                    mb: 1,
-                    p: 2,
-                    borderRadius: '50%',
-                    bgcolor: 'rgba(99, 102, 241, 0.1)',
-                    border: '1px solid rgba(99, 102, 241, 0.2)'
-                  }}
-                >
-                  <Box 
-                    component="img" 
-                    src="/assets/login_auth.png" 
-                    sx={{ width: 100, height: 100, objectFit: 'contain' }}
-                  />
-                </Box>
+      {/* Background Orbs */}
+      <Box sx={{ position: 'absolute', top: '-10%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0 }} />
+      <Box sx={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0 }} />
 
-                <Typography variant="h4" fontWeight="900" letterSpacing="-1.5px" sx={{ 
-                  background: 'linear-gradient(45deg, #fff 30%, #94a3b8 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontSize: { xs: '1.75rem', sm: '2.125rem' }
-                }}>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Grid container sx={{ 
+          bgcolor: 'rgba(15, 23, 42, 0.6)', 
+          borderRadius: 8, 
+          overflow: 'hidden',
+          border: '1px solid rgba(255,255,255,0.05)',
+          backdropFilter: 'blur(20px)',
+          boxShadow: '0 50px 100px -20px rgba(0,0,0,0.5)'
+        }}>
+          {/* Illustration Side */}
+          {!isMobile && (
+            <Grid item md={6} sx={{ 
+              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(15, 23, 42, 0.5) 100%)',
+              p: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
+            }}>
+              <Box component="img" src="/assets/login_auth.png" sx={{ width: '80%', height: 'auto', borderRadius: 4, mb: 4 }} />
+              <Typography variant="h4" fontWeight="900" textAlign="center" gutterBottom sx={{ letterSpacing: '-1px' }}>
+                Manage with Precision.
+              </Typography>
+              <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ maxWidth: 350 }}>
+                Log in to your AI-powered workspace and pick up exactly where you left off.
+              </Typography>
+            </Grid>
+          )}
+
+          {/* Form Side */}
+          <Grid item xs={12} md={6} sx={{ p: { xs: 4, md: 8 }, bgcolor: 'rgba(3, 7, 18, 0.4)' }}>
+            <Stack spacing={4}>
+              <Box>
+                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
+                  <AutoAwesomeIcon sx={{ color: '#6366f1' }} />
+                  <Typography variant="h6" fontWeight="900">Sprintora</Typography>
+                </Stack>
+                
+                <Typography variant="h4" fontWeight="950" gutterBottom sx={{ letterSpacing: '-1px' }}>
                   Welcome Back
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
-                  Sign in to manage your workspace
+                <Typography variant="body1" color="text.secondary">
+                  Enter your credentials to access your workspace.
                 </Typography>
-              </Stack>
-              
-              {success && <Alert severity="success" sx={{ mb: 3, borderRadius: 2 }}>{success}</Alert>}
-              {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>{error}</Alert>}
-              
+              </Box>
+
+              {success && <Alert severity="success" sx={{ borderRadius: 2 }}>{success}</Alert>}
+              {error && <Alert severity="error" sx={{ borderRadius: 2 }}>{error}</Alert>}
+
               <form onSubmit={handleSubmit}>
-                <Stack spacing={2.5}>
+                <Stack spacing={3}>
                   <TextField
-                    fullWidth
-                    label="Email Address"
-                    placeholder="name@company.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    autoComplete="email"
-                    variant="outlined"
-                    sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+                    fullWidth label="Email Address" variant="outlined"
+                    value={email} onChange={(e) => setEmail(e.target.value)} required
+                    InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
                   />
                   <TextField
-                    fullWidth
-                    label="Password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    autoComplete="current-password"
-                    sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
+                    fullWidth label="Password" type={showPassword ? 'text' : 'password'}
+                    value={password} onChange={(e) => setPassword(e.target.value)} required
+                    InputProps={{ 
+                      sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' },
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{ color: 'text.secondary' }}>
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
                   />
+                  
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <FormControlLabel
                       control={<Checkbox size="small" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />}
                       label={<Typography variant="body2" color="text.secondary">Remember me</Typography>}
                     />
-                    <Link component={RouterLink} to="/forgot-password" variant="body2" sx={{ 
-                      fontWeight: 600, 
-                      textDecoration: 'none',
-                      color: 'primary.main'
-                    }}>
-                      Forgot password?
+                    <Link component={RouterLink} to="/forgot-password" variant="body2" sx={{ fontWeight: 700, textDecoration: 'none', color: '#6366f1' }}>
+                      Forgot?
                     </Link>
                   </Stack>
+
                   <Button
-                    fullWidth
-                    variant="contained"
-                    size="large"
-                    type="submit"
-                    disabled={loading}
+                    fullWidth variant="contained" size="large" type="submit" disabled={loading}
                     sx={{ 
-                      height: 56, 
-                      fontSize: '1rem',
-                      fontWeight: 700,
-                      borderRadius: 2,
-                      boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.5)',
-                      background: 'linear-gradient(45deg, #6366f1 0%, #4f46e5 100%)',
-                      '&:hover': {
-                        background: 'linear-gradient(45deg, #4f46e5 0%, #4338ca 100%)',
-                      }
+                      height: 64, borderRadius: 3, fontWeight: 900, fontSize: '1.1rem',
+                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                      boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.4)'
                     }}
                   >
                     {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
                   </Button>
                 </Stack>
               </form>
-              
-              <Box sx={{ mt: 4, textAlign: 'center' }}>
+
+              <Box sx={{ textAlign: 'center' }}>
                 <Typography variant="body2" color="text.secondary">
-                  Don't have an account?{' '}
-                  <Link 
-                    component={RouterLink} 
-                    to="/register" 
-                    fontWeight="700" 
-                    color="primary"
-                    sx={{ textDecoration: 'none' }}
-                  >
-                    Register Company
+                  New to Sprintora?{' '}
+                  <Link component={RouterLink} to="/register" sx={{ fontWeight: 900, textDecoration: 'none', color: '#6366f1' }}>
+                    Create Account
                   </Link>
                 </Typography>
               </Box>
-            </>
-          ) : (
-            <>
-              <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
-                <IconButton onClick={() => setShowOrgSelector(false)} size="small" sx={{ color: 'text.secondary' }}>
-                  <ArrowBackIcon />
-                </IconButton>
-                <Typography variant="h6" fontWeight="700">Select Workspace</Typography>
-              </Stack>
-
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                Your account is associated with multiple organizations. Please choose which one you want to access.
-              </Typography>
-
-              {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>{error}</Alert>}
-
-              <List sx={{ 
-                bgcolor: 'rgba(255,255,255,0.03)', 
-                borderRadius: 3, 
-                overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.05)'
-              }}>
-                {orgs.map((org, index) => (
-                  <React.Fragment key={org.companyId}>
-                    <ListItem disablePadding>
-                      <ListItemButton 
-                        onClick={() => handleSelectOrg(org.companyId)}
-                        disabled={loading}
-                        sx={{ 
-                          py: 2,
-                          '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.1)' }
-                        }}
-                      >
-                        <ListItemIcon>
-                          <BusinessIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText 
-                          primary={org.companyName} 
-                          secondary={org.role} 
-                          primaryTypographyProps={{ fontWeight: 600 }}
-                        />
-                        <ArrowForwardIcon sx={{ fontSize: 18, color: 'text.disabled' }} />
-                      </ListItemButton>
-                    </ListItem>
-                    {index < orgs.length - 1 && <Divider sx={{ borderColor: 'rgba(255,255,255,0.05)' }} />}
-                  </React.Fragment>
-                ))}
-              </List>
-
-              {loading && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                  <CircularProgress size={24} />
-                </Box>
-              )}
-            </>
-          )}
-        </Box>
+            </Stack>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );
