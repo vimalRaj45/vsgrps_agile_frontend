@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { IconButton, Badge, Popover, List, ListItem, ListItemButton, ListItemText, Typography, Box, Divider, Button, Stack } from '@mui/material';
+import { IconButton, Badge, Popover, List, ListItem, ListItemButton, ListItemText, Typography, Box, Divider, Button, Stack, Tooltip } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import DoneIcon from '@mui/icons-material/Done';
 import { useNavigate } from 'react-router-dom';
 import client from '../../api/client';
 
 import { useNotifications } from '../../context/NotificationContext';
 
 const NotificationBell = () => {
-  const { notifications, unreadCount, fetchNotifications, markAsRead } = useNotifications();
+  const { notifications, unreadCount, fetchNotifications, markAsRead, markAllAsRead } = useNotifications();
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   
@@ -60,9 +62,14 @@ const NotificationBell = () => {
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
             <Typography variant="subtitle1" fontWeight="900">Notifications</Typography>
             {unreadCount > 0 && (
-               <Typography variant="caption" color="primary" fontWeight="bold">
-                 {unreadCount} New
-               </Typography>
+               <Button 
+                size="small" 
+                onClick={() => markAllAsRead()} 
+                startIcon={<DoneAllIcon sx={{ fontSize: 16 }} />}
+                sx={{ fontWeight: 800, textTransform: 'none', borderRadius: 2 }}
+               >
+                 Mark all read
+               </Button>
             )}
           </Stack>
           <Divider sx={{ mb: 1, opacity: 0.5 }} />
@@ -74,12 +81,38 @@ const NotificationBell = () => {
               </Box>
             ) : (
               notifications.map((n) => (
-                <ListItem key={n.id} disablePadding sx={{ mb: 0.5 }}>
+                <ListItem 
+                  key={n.id} 
+                  disablePadding 
+                  sx={{ mb: 0.5 }}
+                  secondaryAction={
+                    !n.read && (
+                      <Tooltip title="Mark as read">
+                        <IconButton 
+                          edge="end" 
+                          size="small" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            markAsRead(n.id);
+                          }}
+                          sx={{ 
+                            color: 'primary.main',
+                            bgcolor: 'rgba(99, 102, 241, 0.05)',
+                            '&:hover': { bgcolor: 'rgba(99, 102, 241, 0.15)' }
+                          }}
+                        >
+                          <DoneIcon sx={{ fontSize: 16 }} />
+                        </IconButton>
+                      </Tooltip>
+                    )
+                  }
+                >
                   <ListItemButton
                     onClick={() => handleNotificationClick(n.id, n.link)}
                     sx={{
                       bgcolor: n.read ? 'transparent' : 'rgba(99, 102, 241, 0.05)',
                       borderRadius: 2,
+                      pr: 7, // Make space for secondary action
                       '&:hover': {
                         bgcolor: n.read ? 'rgba(255,255,255,0.03)' : 'rgba(99, 102, 241, 0.1)',
                       }

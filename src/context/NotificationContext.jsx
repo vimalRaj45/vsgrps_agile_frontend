@@ -73,6 +73,15 @@ export const NotificationProvider = ({ children }) => {
     }
   };
 
+  const markAllAsRead = async () => {
+    try {
+      await client.post('/notifications/mark-all-read');
+      fetchNotifications();
+    } catch (err) {
+      console.error('Failed to mark all as read:', err);
+    }
+  };
+
   const clearBanner = () => setBannerNotification(null);
 
   return (
@@ -81,6 +90,7 @@ export const NotificationProvider = ({ children }) => {
       unreadCount, 
       fetchNotifications, 
       markAsRead,
+      markAllAsRead,
       bannerNotification,
       clearBanner
     }}>
