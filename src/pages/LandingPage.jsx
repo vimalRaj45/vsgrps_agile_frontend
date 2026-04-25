@@ -297,16 +297,16 @@ const SprintoraLanding = () => {
             <Grid item xs={12} md={8}>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 6, md: 10 }} justifyContent={{ md: 'flex-end' }}>
                 <Box>
-                  <Typography variant="h3" fontWeight="950" sx={{ color: '#818cf8' }}>1,250+</Typography>
-                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>PROJECTS COMPLETED</Typography>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#818cf8' }}>95%</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>FASTER DELIVERY</Typography>
                 </Box>
                 <Box>
-                  <Typography variant="h3" fontWeight="950" sx={{ color: '#c084fc' }}>12.4k</Typography>
-                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TASKS ARCHITECTED</Typography>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#c084fc' }}>80%</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>LESS PLANNING</Typography>
                 </Box>
                 <Box>
-                  <Typography variant="h3" fontWeight="950" sx={{ color: '#fb7185' }}>98.2%</Typography>
-                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TEAM VELOCITY</Typography>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#fb7185' }}>99.9%</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>SYSTEM UPTIME</Typography>
                 </Box>
               </Stack>
             </Grid>
