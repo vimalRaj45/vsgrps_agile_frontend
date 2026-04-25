@@ -16,7 +16,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
-
 const steps = ['WELCOME', 'AI VISION', 'MAGIC REVEAL', 'TEAM SYNC', 'READY'];
 
 const OnboardingPage = () => {
@@ -46,8 +45,7 @@ const OnboardingPage = () => {
     }
 
     setLoading(true);
-    // Simulate smooth loading between steps
-    const delay = activeStep === 1 ? 2500 : 800; // Longer delay for the "Reveal" step
+    const delay = activeStep === 1 ? 2500 : 800;
     
     setTimeout(() => {
       setActiveStep((prev) => prev + 1);
@@ -70,7 +68,7 @@ const OnboardingPage = () => {
               fontSize: isSmallMobile ? 24 : 40, color: '#6366f1', animation: 'pulse 2s infinite'
             }} />
           </Box>
-          <Typography variant={isSmallMobile ? "h6" : "h5"} fontWeight="900" sx={{ color: 'rgba(255,255,255,0.7)' }}>
+          <Typography variant={isSmallMobile ? "h6" : "h5"} fontWeight="900" color="text.primary">
             <Typewriter 
               options={{ 
                 strings: ['Processing Step...', 'Syncing AI Models...', 'Polishing View...', 'Architecting...'], 
@@ -87,9 +85,9 @@ const OnboardingPage = () => {
         return (
           <Box component={motion.div} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <Box component="img" src="/assets/developer_hero.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 3, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
+               <Box component="img" src="/assets/developer_hero.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 3, boxShadow: theme.palette.mode === 'dark' ? '0 20px 40px rgba(0,0,0,0.5)' : '0 10px 20px rgba(0,0,0,0.1)' }} />
             </Box>
-            <Typography variant={isSmallMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px', lineHeight: 1.1 }}>
+            <Typography variant={isSmallMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px', lineHeight: 1.1, color: 'text.primary' }}>
               Step into the Future 👋
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 6, fontWeight: 400, maxWidth: 500, mx: 'auto', fontSize: { xs: '0.9rem', md: '1.1rem' } }}>
@@ -105,90 +103,83 @@ const OnboardingPage = () => {
         );
       case 1:
         return (
-          <Box component={motion.div} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
-            <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <Box component="img" src="/assets/hero_dashboard.png" sx={{ width: '100%', maxWidth: 700, borderRadius: 3, boxShadow: '0 30px 60px rgba(0,0,0,0.6)' }} />
-            </Box>
-            <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-              Full Visibility
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
-              Visualize roadmaps, team velocity, and task distribution in one unified command center.
-            </Typography>
-            <Button 
-              variant="contained" size="large" fullWidth={isSmallMobile} onClick={handleNext}
-              sx={{ height: { xs: 56, md: 72 }, px: 8, borderRadius: 3, fontWeight: 950, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}
-            >
-              Reveal AI Magic
-            </Button>
+          <Box component={motion.div} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+            <Grid container spacing={6} alignItems="center">
+              <Grid item xs={12} md={6}>
+                <Chip label="AI-POWERED" sx={{ fontWeight: 900, bgcolor: 'rgba(99, 102, 241, 0.1)', color: '#6366f1', mb: 2 }} />
+                <Typography variant={isSmallMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-1.5px', lineHeight: 1.1, color: 'text.primary' }}>
+                  Visualize Your AI Vision.
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 4, fontSize: '1.1rem' }}>
+                  Describe your idea in simple words. Our AI engine instantly architecturally decomposes it into actionable milestones.
+                </Typography>
+                <Stack spacing={2}>
+                  {['Instant Roadmap Generation', 'Smart Dependency Mapping', 'Resource Optimization'].map((text, i) => (
+                    <Stack key={i} direction="row" spacing={2} alignItems="center">
+                      <CheckCircleIcon sx={{ color: '#10b981' }} />
+                      <Typography fontWeight="700" color="text.primary">{text}</Typography>
+                    </Stack>
+                  ))}
+                </Stack>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                 <Box component="img" src="/assets/hero_dashboard.png" sx={{ width: '100%', borderRadius: 3, boxShadow: '0 30px 60px rgba(0,0,0,0.3)' }} />
+              </Grid>
+            </Grid>
           </Box>
         );
       case 2:
         return (
-          <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
-            <Box sx={{ maxWidth: 800, mx: 'auto' }}>
-              <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-                The Magic Reveal ⭐
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-                AI-driven project architecting at its finest.
-              </Typography>
-              
-              <Stack spacing={1.5} sx={{ mb: 6, textAlign: 'left' }}>
-                {aiPlan.map((item, idx) => (
-                  <Card key={idx} sx={{ p: 2, bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 3 }}>
-                    <Stack direction="row" spacing={2} alignItems="center">
-                      <CheckCircleIcon sx={{ color: '#10b981', fontSize: 20 }} />
-                      <Box>
-                        <Typography variant="body1" fontWeight="800" sx={{ fontSize: '0.9rem' }}>{item.title}</Typography>
-                        <Typography variant="caption" color="text.secondary">{item.sub}</Typography>
-                      </Box>
-                    </Stack>
+          <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center' }}>
+            <Typography variant="h3" fontWeight="950" gutterBottom sx={{ color: 'text.primary' }}>The Magic Reveal ✨</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 6 }}>Here is the roadmap Sprintora AI generated for your vision.</Typography>
+            <Grid container spacing={3} justifyContent="center">
+              {aiPlan.map((item, i) => (
+                <Grid item xs={12} sm={6} md={4} key={i}>
+                  <Card sx={{ p: 3, borderRadius: 3, bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'left' }}>
+                    <Typography variant="caption" sx={{ color: '#6366f1', fontWeight: 900 }}>PHASE 0{i + 1}</Typography>
+                    <Typography variant="h6" fontWeight="900" sx={{ mb: 1, color: 'text.primary' }}>{item.title}</Typography>
+                    <Typography variant="body2" color="text.secondary">{item.sub}</Typography>
                   </Card>
-                ))}
-              </Stack>
-              <Button variant="contained" size="large" fullWidth={isSmallMobile} onClick={handleNext} sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 900 }}>Next Step</Button>
-            </Box>
+                </Grid>
+              ))}
+            </Grid>
           </Box>
         );
       case 3:
         return (
-          <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
-            <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <Box component="img" src="/assets/team_sync.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 3, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
-            </Box>
-            <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-              Seamless Sync
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
-              Real-time collaboration built for speed. No more silos, no more missed updates.
-            </Typography>
-            <Button variant="contained" size="large" fullWidth={isSmallMobile} onClick={handleNext} sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 900 }}>Finalize Tour</Button>
+          <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <Grid container spacing={6} alignItems="center">
+              <Grid item xs={12} md={6}>
+                 <Box component="img" src="/assets/team_sync.png" sx={{ width: '100%', borderRadius: 3, boxShadow: '0 30px 60px rgba(0,0,0,0.3)' }} />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h3" fontWeight="950" gutterBottom sx={{ color: 'text.primary' }}>Synced in Real-Time.</Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+                  Invite your team and watch the velocity skyrocket. Collaborative boards, instant updates, and AI-driven task allocation.
+                </Typography>
+                <Stack direction="row" spacing={-1}>
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <Avatar key={i} sx={{ border: '2px solid #030712', width: 48, height: 48 }} src={`https://i.pravatar.cc/150?u=${i}`} />
+                  ))}
+                </Stack>
+              </Grid>
+            </Grid>
           </Box>
         );
       case 4:
         return (
-          <Box component={motion.div} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
-            <Box sx={{ mb: 2 }}>
-              <CheckCircleIcon sx={{ fontSize: 80, color: '#10b981' }} />
-            </Box>
-            <Typography variant={isSmallMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-              Ready to Scale! 🎉
+          <Box component={motion.div} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center' }}>
+            <RocketLaunchIcon sx={{ fontSize: 100, color: '#6366f1', mb: 4 }} />
+            <Typography variant="h2" fontWeight="950" gutterBottom sx={{ color: 'text.primary' }}>You are Ready.</Typography>
+            <Typography variant="h6" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
+              Your workspace is primed. The AI is standing by. It is time to turn your idea into execution.
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 8 }}>
-              Join thousands of teams shipping faster with Sprintora.
-            </Typography>
-            
             <Button 
               variant="contained" size="large" onClick={handleNext}
-              fullWidth
-              sx={{ 
-                height: { xs: 64, md: 80 }, borderRadius: 3, fontSize: { xs: '1.1rem', md: '1.4rem' }, fontWeight: 950,
-                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                boxShadow: '0 30px 60px -15px rgba(99, 102, 241, 0.5)'
-              }}
+              sx={{ height: 72, px: 10, borderRadius: 3, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 20px 40px rgba(99, 102, 241, 0.4)' }}
             >
-              Start Free Now
+              Enter Workspace
             </Button>
           </Box>
         );
@@ -199,10 +190,15 @@ const OnboardingPage = () => {
 
   return (
     <Box sx={{ 
-      minHeight: '100vh', bgcolor: '#030712', color: 'white',
-      display: 'flex', flexDirection: 'column', position: 'relative', overflowX: 'hidden'
+      minHeight: '100vh', 
+      bgcolor: 'background.default', 
+      color: 'text.primary',
+      display: 'flex', 
+      flexDirection: 'column', 
+      position: 'relative', 
+      overflowX: 'hidden'
     }}>
-      <Box sx={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.01) 1px, transparent 0)', backgroundSize: '30px 30px', pointerEvents: 'none' }} />
+      <Box sx={{ position: 'absolute', inset: 0, backgroundImage: theme.palette.mode === 'dark' ? 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.01) 1px, transparent 0)' : 'radial-gradient(circle at 2px 2px, rgba(0,0,0,0.03) 1px, transparent 0)', backgroundSize: '30px 30px', pointerEvents: 'none' }} />
       
       {/* Header */}
       <Box sx={{ 
@@ -215,15 +211,15 @@ const OnboardingPage = () => {
           <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 1, md: 2 } }}>
             <Stack direction="row" spacing={1} alignItems="center" sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
               <AutoAwesomeIcon sx={{ color: '#6366f1', fontSize: 20 }} />
-              <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px' }}>Sprintora</Typography>
+              <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary' }}>Sprintora</Typography>
             </Stack>
 
             {!isMobile && (
               <Stepper activeStep={activeStep} sx={{ width: '40%' }}>
                 {steps.map((label) => (
                   <Step key={label}>
-                    <StepLabel StepIconProps={{ sx: { '&.Mui-active': { color: '#6366f1' } } }}>
-                      <Typography variant="caption" fontWeight="800" sx={{ opacity: 0.5 }}>{label}</Typography>
+                    <StepLabel StepIconProps={{ sx: { '&.Mui-active': { color: '#6366f1' }, '&.Mui-completed': { color: '#6366f1' } } }}>
+                      <Typography variant="caption" fontWeight="800" sx={{ opacity: 0.5, color: 'text.primary' }}>{label}</Typography>
                     </StepLabel>
                   </Step>
                 ))}
@@ -281,7 +277,7 @@ const OnboardingPage = () => {
               startIcon={<ArrowBackIcon />} 
               onClick={handleBack} 
               disabled={activeStep === 0 || loading || activeStep === steps.length - 1}
-              sx={{ color: 'white', opacity: activeStep === 0 ? 0.3 : 0.8 }}
+              sx={{ color: 'text.primary', opacity: activeStep === 0 ? 0.3 : 0.8 }}
             >
               Back
             </Button>
@@ -291,7 +287,7 @@ const OnboardingPage = () => {
               steps={steps.length}
               position="static"
               activeStep={activeStep}
-              sx={{ bgcolor: 'transparent', flexGrow: 1, justifyContent: 'center', '& .MuiMobileStepper-dot': { bgcolor: 'rgba(255,255,255,0.1)' }, '& .MuiMobileStepper-dotActive': { bgcolor: '#6366f1' } }}
+              sx={{ bgcolor: 'transparent', flexGrow: 1, justifyContent: 'center', '& .MuiMobileStepper-dot': { bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }, '& .MuiMobileStepper-dotActive': { bgcolor: '#6366f1' } }}
               backButton={null}
               nextButton={null}
             />
