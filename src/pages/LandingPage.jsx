@@ -63,6 +63,11 @@ const SprintoraLanding = () => {
   ];
 
   const handleNavClick = (id) => {
+    if (id === 'mission') {
+      navigate('/mission');
+      return;
+    }
+    
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 100;
@@ -119,10 +124,10 @@ const SprintoraLanding = () => {
             <Stack direction="row" spacing={{ xs: 1, sm: 2 }} sx={{ alignItems: 'center' }}>
               {!isMobile && (
                 <Stack direction="row" spacing={5} sx={{ mr: 4 }}>
-                  {['Features', 'Workflow', 'Pricing'].map((item) => (
+                  {['Features', 'Workflow', 'Pricing', 'Our Mission'].map((item) => (
                     <Typography 
                       key={item} 
-                      onClick={() => handleNavClick(item.toLowerCase())}
+                      onClick={() => handleNavClick(item.toLowerCase().replace(' ', ''))}
                       variant="body2" fontWeight="700" color="text.secondary" 
                       sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' }, transition: '0.2s' }}
                     >
@@ -175,8 +180,8 @@ const SprintoraLanding = () => {
             <IconButton onClick={() => setMobileMenuOpen(false)} sx={{ color: 'text.primary' }}><CloseIcon /></IconButton>
           </Stack>
           <List>
-            {['Features', 'Workflow', 'Pricing'].map((item) => (
-              <ListItem key={item} onClick={() => handleNavClick(item.toLowerCase())} sx={{ py: 2, borderBottom: `1px solid ${theme.palette.divider}` }}>
+            {['Features', 'Workflow', 'Pricing', 'Our Mission'].map((item) => (
+              <ListItem key={item} onClick={() => handleNavClick(item.toLowerCase().replace(' ', ''))} sx={{ py: 2, borderBottom: `1px solid ${theme.palette.divider}` }}>
                 <ListItemText primary={item} primaryTypographyProps={{ fontWeight: 800 }} />
               </ListItem>
             ))}
