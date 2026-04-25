@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, Snackbar, Slide } from '@mui/material';
+import { Alert, Button, Snackbar, Slide, CircularProgress } from '@mui/material';
 import { NotificationsActive as NotifyIcon } from '@mui/icons-material';
 import { subscribeToPush } from '../../utils/pushManager';
 
 const PushNotificationPrompt = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Check if browser supports notifications
@@ -22,19 +23,21 @@ const PushNotificationPrompt = () => {
   }, []);
 
   const handleEnable = async () => {
+    if (loading) return;
+    setLoading(true);
     try {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
         await subscribeToPush();
         setOpen(false);
-        // Show success alert briefly
-        alert('Success! You will get updated correctly.');
       } else {
         setOpen(false);
       }
     } catch (err) {
       console.error('Subscription error:', err);
       setOpen(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,8 +59,14 @@ const PushNotificationPrompt = () => {
           '& .MuiAlert-icon': { color: 'white' }
         }}
         action={
-          <Button color="inherit" size="small" onClick={handleEnable} sx={{ fontWeight: 'bold' }}>
-            ENABLE
+          <Button 
+            color="inherit" 
+            size="small" 
+            onClick={handleEnable} 
+            disabled={loading}
+            sx={{ fontWeight: 'bold', minWidth: 80 }}
+          >
+            {loading ? <CircularProgress size={16} color="inherit" /> : 'ENABLE'}
           </Button>
         }
       >
