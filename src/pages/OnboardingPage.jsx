@@ -21,36 +21,38 @@ const steps = ['WELCOME', 'AI VISION', 'MAGIC REVEAL', 'TEAM SYNC', 'READY'];
 
 const OnboardingPage = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [generating, setGenerating] = useState(false);
-  const [aiPlan, setAiPlan] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [aiPlan, setAiPlan] = useState([
+    { title: "Initialization", sub: "Setup project core and tech stack" },
+    { title: "Architecture", sub: "Design database schemas and API" },
+    { title: "MVP Development", sub: "Build primary features and logic" },
+    { title: "Security Layer", sub: "Implement auth and encryption" },
+    { title: "Deployment", sub: "CI/CD pipeline and cloud hosting" }
+  ]);
   
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmallMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
   const handleNext = () => {
-    if (activeStep === 1) {
-      setGenerating(true);
-      setTimeout(() => {
-        setAiPlan([
-          { title: "Initialization", sub: "Setup project core and tech stack" },
-          { title: "Architecture", sub: "Design database schemas and API" },
-          { title: "MVP Development", sub: "Build primary features and logic" },
-          { title: "Security Layer", sub: "Implement auth and encryption" },
-          { title: "Deployment", sub: "CI/CD pipeline and cloud hosting" }
-        ]);
-        setGenerating(false);
-        setActiveStep(2);
-      }, 3000);
-    } else if (activeStep === steps.length - 1) {
-      navigate('/');
-    } else {
-      setActiveStep((prev) => prev + 1);
+    if (activeStep === steps.length - 1) {
+      navigate('/register');
+      return;
     }
+
+    setLoading(true);
+    // Simulate smooth loading between steps
+    const delay = activeStep === 1 ? 2500 : 800; // Longer delay for the "Reveal" step
+    
+    setTimeout(() => {
+      setActiveStep((prev) => prev + 1);
+      setLoading(false);
+    }, delay);
   };
 
   const handleBack = () => {
@@ -58,128 +60,135 @@ const OnboardingPage = () => {
   };
 
   const renderContent = () => {
+    if (loading) {
+      return (
+        <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} sx={{ py: 12, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Box sx={{ position: 'relative', mb: 4 }}>
+            <CircularProgress size={isSmallMobile ? 80 : 120} thickness={2} sx={{ color: '#6366f1' }} />
+            <AutoAwesomeIcon sx={{ 
+              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+              fontSize: isSmallMobile ? 24 : 40, color: '#6366f1', animation: 'pulse 2s infinite'
+            }} />
+          </Box>
+          <Typography variant={isSmallMobile ? "h6" : "h5"} fontWeight="900" sx={{ color: 'rgba(255,255,255,0.7)' }}>
+            <Typewriter 
+              options={{ 
+                strings: ['Processing Step...', 'Syncing AI Models...', 'Polishing View...', 'Architecting...'], 
+                autoStart: true, loop: true, delay: 30 
+              }} 
+            />
+          </Typography>
+        </Box>
+      );
+    }
+
     switch (activeStep) {
       case 0:
         return (
-          <Box component={motion.div} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center', px: 2 }}>
-            <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center', position: 'relative' }}>
+          <Box component={motion.div} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
+            <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
                <Box component="img" src="/assets/developer_hero.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 4, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
             </Box>
-            <Typography variant={isMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px', lineHeight: 1.1 }}>
-              Step into the Future <br/> of Execution 👋
+            <Typography variant={isSmallMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px', lineHeight: 1.1 }}>
+              Step into the Future 👋
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 6, fontWeight: 400, maxWidth: 500, mx: 'auto' }}>
-              Welcome to Sprintora. We've eliminated the manual grind of project management so you can focus on building.
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 6, fontWeight: 400, maxWidth: 500, mx: 'auto', fontSize: { xs: '0.9rem', md: '1.1rem' } }}>
+              Welcome to Sprintora. Experience how AI redefines project planning and team execution.
             </Typography>
             <Button 
-              variant="contained" fullWidth={isMobile} size="large" onClick={handleNext}
-              sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}
+              variant="contained" fullWidth={isSmallMobile} size="large" onClick={handleNext}
+              sx={{ height: { xs: 56, md: 72 }, px: 8, borderRadius: 3, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}
             >
-              Take the Tour
+              Start the Experience
             </Button>
           </Box>
         );
       case 1:
         return (
-          <Box component={motion.div} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} sx={{ textAlign: 'center', px: 2 }}>
+          <Box component={motion.div} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
                <Box component="img" src="/assets/hero_dashboard.png" sx={{ width: '100%', maxWidth: 700, borderRadius: 4, boxShadow: '0 30px 60px rgba(0,0,0,0.6)' }} />
             </Box>
-            <Typography variant={isMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-              Visualize Everything
+            <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
+              Full Visibility
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
-              From high-level roadmaps to granular task tracking. Our AI keeps every project component perfectly synchronized across your entire team.
+              Visualize roadmaps, team velocity, and task distribution in one unified command center.
             </Typography>
             <Button 
-              variant="contained" size="large" onClick={handleNext}
-              sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 950, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}
+              variant="contained" size="large" fullWidth={isSmallMobile} onClick={handleNext}
+              sx={{ height: { xs: 56, md: 72 }, px: 8, borderRadius: 3, fontWeight: 950, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}
             >
-              See AI Magic
+              Reveal AI Magic
             </Button>
           </Box>
         );
       case 2:
         return (
-          <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} sx={{ textAlign: 'center', px: 2 }}>
-            {generating ? (
-              <Box sx={{ py: 12, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Box sx={{ position: 'relative', mb: 4 }}>
-                  <CircularProgress size={120} thickness={2} sx={{ color: '#6366f1' }} />
-                  <AutoAwesomeIcon sx={{ 
-                    position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                    fontSize: 40, color: '#6366f1', animation: 'pulse 2s infinite'
-                  }} />
-                </Box>
-                <Typography variant={isMobile ? "h5" : "h4"} fontWeight="950" sx={{ mt: 2 }}>
-                  <Typewriter options={{ strings: ['Architecting Project...', 'Structuring Tasks...', 'Optimizing Velocity...'], autoStart: true, loop: true, delay: 40 }} />
-                </Typography>
-              </Box>
-            ) : (
-              <Box sx={{ maxWidth: 800, mx: 'auto' }}>
-                <Typography variant={isMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-                  The Magic Reveal ⭐
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-                  Our AI instantly converts high-level goals into actionable roadmaps.
-                </Typography>
-                
-                <Stack spacing={1.5} sx={{ mb: 6, textAlign: 'left' }}>
-                  {aiPlan.map((item, idx) => (
-                    <Card key={idx} sx={{ p: 2, bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 2 }}>
-                      <Stack direction="row" spacing={2} alignItems="center">
-                        <CheckCircleIcon sx={{ color: '#10b981', fontSize: 20 }} />
-                        <Box>
-                          <Typography variant="body1" fontWeight="800" sx={{ fontSize: '0.9rem' }}>{item.title}</Typography>
-                          <Typography variant="caption" color="text.secondary">{item.sub}</Typography>
-                        </Box>
-                      </Stack>
-                    </Card>
-                  ))}
-                </Stack>
-                <Button variant="contained" size="large" onClick={handleNext} sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 900 }}>Continue Tour</Button>
-              </Box>
-            )}
+          <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
+            <Box sx={{ maxWidth: 800, mx: 'auto' }}>
+              <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
+                The Magic Reveal ⭐
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+                AI-driven project architecting at its finest.
+              </Typography>
+              
+              <Stack spacing={1.5} sx={{ mb: 6, textAlign: 'left' }}>
+                {aiPlan.map((item, idx) => (
+                  <Card key={idx} sx={{ p: 2, bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 2 }}>
+                    <Stack direction="row" spacing={2} alignItems="center">
+                      <CheckCircleIcon sx={{ color: '#10b981', fontSize: 20 }} />
+                      <Box>
+                        <Typography variant="body1" fontWeight="800" sx={{ fontSize: '0.9rem' }}>{item.title}</Typography>
+                        <Typography variant="caption" color="text.secondary">{item.sub}</Typography>
+                      </Box>
+                    </Stack>
+                  </Card>
+                ))}
+              </Stack>
+              <Button variant="contained" size="large" fullWidth={isSmallMobile} onClick={handleNext} sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 900 }}>Next Step</Button>
+            </Box>
           </Box>
         );
       case 3:
         return (
-          <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center', px: 2 }}>
+          <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
                <Box component="img" src="/assets/team_sync.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 4, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
             </Box>
-            <Typography variant={isMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-              Seamless Team Sync
+            <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
+              Seamless Sync
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
-              Real-time comments, role-based access, and instant notifications. Everyone stays in sync, always.
+              Real-time collaboration built for speed. No more silos, no more missed updates.
             </Typography>
-            <Button variant="contained" size="large" onClick={handleNext} sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 900 }}>Finish Tour</Button>
+            <Button variant="contained" size="large" fullWidth={isSmallMobile} onClick={handleNext} sx={{ height: 64, px: 8, borderRadius: 3, fontWeight: 900 }}>Finalize Tour</Button>
           </Box>
         );
       case 4:
         return (
-          <Box component={motion.div} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center', px: 2 }}>
+          <Box component={motion.div} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 2 }}>
               <CheckCircleIcon sx={{ fontSize: 80, color: '#10b981' }} />
             </Box>
-            <Typography variant={isMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
-              Ready to Launch! 🎉
+            <Typography variant={isSmallMobile ? "h4" : "h2"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
+              Ready to Scale! 🎉
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 8 }}>
-              Experience the power of Sprintora today.
+              Join thousands of teams shipping faster with Sprintora.
             </Typography>
             
             <Button 
               variant="contained" size="large" onClick={handleNext}
               fullWidth
               sx={{ 
-                height: 80, borderRadius: 3, fontSize: '1.4rem', fontWeight: 950,
+                height: { xs: 64, md: 80 }, borderRadius: 3, fontSize: { xs: '1.1rem', md: '1.4rem' }, fontWeight: 950,
                 background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                 boxShadow: '0 30px 60px -15px rgba(99, 102, 241, 0.5)'
               }}
             >
-              Go to App
+              Start Free Now
             </Button>
           </Box>
         );
@@ -191,28 +200,21 @@ const OnboardingPage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', bgcolor: '#030712', color: 'white',
-      display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden'
+      display: 'flex', flexDirection: 'column', position: 'relative', overflowX: 'hidden'
     }}>
-      {/* Aurora Background */}
-      <Box sx={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.01) 1px, transparent 0)', backgroundSize: '30px 30px' }} />
+      <Box sx={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.01) 1px, transparent 0)', backgroundSize: '30px 30px', pointerEvents: 'none' }} />
       
-      {/* Header with Navigation */}
-      <Box sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)', pt: 1 }}>
+      {/* Header */}
+      <Box sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)', pt: 1, position: 'relative', zIndex: 100 }}>
         <Container maxWidth="lg">
           <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 1, md: 2 } }}>
-            <Stack 
-              direction="row" 
-              spacing={1} 
-              alignItems="center" 
-              sx={{ cursor: 'pointer' }} 
-              onClick={() => navigate('/')}
-            >
+            <Stack direction="row" spacing={1} alignItems="center" sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
               <AutoAwesomeIcon sx={{ color: '#6366f1', fontSize: 20 }} />
               <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px' }}>Sprintora</Typography>
             </Stack>
 
             {!isMobile && (
-              <Stepper activeStep={activeStep} sx={{ width: '50%' }}>
+              <Stepper activeStep={activeStep} sx={{ width: '40%' }}>
                 {steps.map((label) => (
                   <Step key={label}>
                     <StepLabel StepIconProps={{ sx: { '&.Mui-active': { color: '#6366f1' } } }}>
@@ -224,22 +226,33 @@ const OnboardingPage = () => {
             )}
 
             <Button 
+              variant="contained"
               size="small" 
-              onClick={() => navigate('/login')}
-              sx={{ color: 'text.secondary', fontWeight: 700, '&:hover': { color: 'white' } }}
+              onClick={() => navigate('/register')}
+              sx={{ 
+                bgcolor: 'white', color: '#030712', fontWeight: 900, px: 2, borderRadius: 2,
+                '&:hover': { bgcolor: '#f3f4f6' }
+              }}
             >
-              Sign Out
+              Get Started
             </Button>
           </Toolbar>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', py: 4 }}>
+      <Container maxWidth="lg" sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', py: { xs: 6, md: 4 }, position: 'relative', zIndex: 1 }}>
         <Box sx={{ width: '100%' }}>
           <AnimatePresence mode="wait">
-            <Box key={activeStep} sx={{ width: '100%' }}>
-              {renderContent()}
-            </Box>
+            {!loading && (
+              <Box key={activeStep} sx={{ width: '100%' }}>
+                {renderContent()}
+              </Box>
+            )}
+            {loading && (
+              <Box key="loading" sx={{ width: '100%' }}>
+                {renderContent()}
+              </Box>
+            )}
           </AnimatePresence>
         </Box>
       </Container>
@@ -259,7 +272,7 @@ const OnboardingPage = () => {
             <Button 
               startIcon={<ArrowBackIcon />} 
               onClick={handleBack} 
-              disabled={activeStep === 0 || activeStep === 2 || activeStep === steps.length - 1}
+              disabled={activeStep === 0 || loading || activeStep === steps.length - 1}
               sx={{ color: 'white', opacity: activeStep === 0 ? 0.3 : 0.8 }}
             >
               Back
@@ -275,12 +288,12 @@ const OnboardingPage = () => {
               nextButton={null}
             />
 
-            {activeStep !== steps.length - 1 && !generating && (
+            {activeStep !== steps.length - 1 && !loading && (
               <Button 
                 endIcon={<ArrowForwardIcon />} 
                 onClick={handleNext}
                 variant="contained"
-                sx={{ borderRadius: 2, px: 4, bgcolor: '#6366f1' }}
+                sx={{ borderRadius: 2, px: { xs: 2, md: 4 }, bgcolor: '#6366f1' }}
               >
                 Next
               </Button>
