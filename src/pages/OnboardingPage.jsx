@@ -103,9 +103,15 @@ const OnboardingPage = () => {
         return (
           <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} sx={{ textAlign: 'center', px: 2 }}>
             {generating ? (
-              <Box sx={{ py: 10 }}>
-                <LottieIcon src="https://lottie.host/8617d3d7-466d-495c-9799-a9a7a0b5a374/tV7H7G1R8f.json" style={{ width: 220, height: 220, margin: '0 auto' }} />
-                <Typography variant={isMobile ? "h5" : "h4"} fontWeight="950" sx={{ mt: 4 }}>
+              <Box sx={{ py: 12, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Box sx={{ position: 'relative', mb: 4 }}>
+                  <CircularProgress size={120} thickness={2} sx={{ color: '#6366f1' }} />
+                  <AutoAwesomeIcon sx={{ 
+                    position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                    fontSize: 40, color: '#6366f1', animation: 'pulse 2s infinite'
+                  }} />
+                </Box>
+                <Typography variant={isMobile ? "h5" : "h4"} fontWeight="950" sx={{ mt: 2 }}>
                   <Typewriter options={{ strings: ['Architecting Project...', 'Structuring Tasks...', 'Optimizing Velocity...'], autoStart: true, loop: true, delay: 40 }} />
                 </Typography>
               </Box>
@@ -140,7 +146,7 @@ const OnboardingPage = () => {
         return (
           <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center', px: 2 }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <LottieIcon src="https://lottie.host/80c2f623-e291-4560-84c2-25e2a222383c/7T07v6HkNo.json" style={{ width: 250, height: 250 }} />
+               <Box component="img" src="/assets/team_sync.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 4, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
             </Box>
             <Typography variant={isMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
               Seamless Team Sync

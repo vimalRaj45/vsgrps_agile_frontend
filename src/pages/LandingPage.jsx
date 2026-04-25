@@ -181,7 +181,7 @@ const SprintoraLanding = () => {
                 fontWeight: 950, lineHeight: { xs: 1.2, md: 0.95 }, letterSpacing: { xs: '-0.5px', md: '-3px' }, mb: 3,
                 textAlign: { xs: 'center', md: 'left' }
               }}>
-                From Idea to Execution — <br/>
+                From Idea to Execution <br/>
                 <Box component="span" sx={{ 
                   background: 'linear-gradient(to right, #818cf8, #c084fc, #fb7185)',
                   WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
