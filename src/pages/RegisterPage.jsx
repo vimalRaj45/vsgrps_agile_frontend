@@ -6,6 +6,7 @@ import {
   Box, Button, TextField, Typography, Container,
   Alert, CircularProgress, Link, Stack
 } from '@mui/material';
+import { AutoAwesome as AutoAwesomeIcon } from '@mui/icons-material';
 import LottieIcon from '../components/shared/LottieIcon';
 
 const RegisterPage = () => {
@@ -66,19 +67,15 @@ const RegisterPage = () => {
           }}
         >
           <Stack spacing={1} sx={{ alignItems: 'center', mb: { xs: 3, md: 5 } }}>
-            <Box 
-              sx={{ 
-                mb: 1,
-                p: 2,
-                borderRadius: '50%',
-                bgcolor: 'rgba(99, 102, 241, 0.1)',
-                border: '1px solid rgba(99, 102, 241, 0.2)'
-              }}
-            >
-              <LottieIcon 
-                src="https://lottie.host/80c2f623-e291-4560-84c2-25e2a222383c/7T07v6HkNo.json" 
-                style={{ width: 80, height: 80 }}
-              />
+            <Box sx={{ 
+              mb: 1,
+              width: 80, height: 80, borderRadius: '50%', 
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%)',
+              border: '1px solid rgba(99, 102, 241, 0.3)',
+              boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)'
+            }}>
+              <AutoAwesomeIcon sx={{ color: '#818cf8', fontSize: 40 }} />
             </Box>
             <Typography variant="h4" fontWeight="900" letterSpacing="-1.5px" sx={{ 
               background: 'linear-gradient(45deg, #fff 30%, #94a3b8 100%)',
