@@ -63,7 +63,7 @@ const SprintoraLanding = () => {
   ];
 
   const handleNavClick = (id) => {
-    if (id === 'mission') {
+    if (id === 'mission' || id === 'ourmission') {
       navigate('/mission');
       return;
     }
