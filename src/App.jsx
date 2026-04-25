@@ -30,6 +30,7 @@ import MissionPage from './pages/MissionPage';
 import FeaturesPage from './pages/FeaturesPage';
 import { PrivacyPage, TermsPage } from './pages/LegalPages';
 import AppLayout from './components/shared/AppLayout';
+import ScrollToTop from './components/shared/ScrollToTop';
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -51,6 +52,7 @@ function App() {
       <AppThemeProvider>
         <NotificationProvider>
           <Router>
+            <ScrollToTop />
             <Routes>
               <Route path="/landing" element={<PublicRoute><LandingPage /></PublicRoute>} />
               <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
