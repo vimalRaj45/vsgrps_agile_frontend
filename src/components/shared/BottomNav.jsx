@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme } from '@mui/material';
+import { Paper, BottomNavigation, BottomNavigationAction, useMediaQuery, useTheme, Box } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -33,15 +33,15 @@ const BottomNav = () => {
         left: 0, 
         right: 0, 
         zIndex: 1000,
-        borderRadius: '24px 24px 0 0',
+        borderRadius: 0, // Proper rectangle
         overflow: 'hidden',
-        boxShadow: '0 -10px 40px rgba(0,0,0,0.5)',
-        borderTop: '1px solid rgba(255,255,255,0.1)',
-        background: 'rgba(2, 6, 23, 0.95)',
+        boxShadow: theme.palette.mode === 'dark' ? '0 -10px 40px rgba(0,0,0,0.5)' : '0 -4px 20px rgba(0,0,0,0.08)',
+        borderTop: `1px solid ${theme.palette.divider}`,
+        background: theme.palette.mode === 'dark' ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(20px)',
         pb: 'env(safe-area-inset-bottom)'
       }} 
-      elevation={3}
+      elevation={0}
     >
       <BottomNavigation
         showLabels
@@ -59,6 +59,7 @@ const BottomNav = () => {
             padding: '12px 0',
             '&.Mui-selected': {
               color: 'primary.main',
+              fontWeight: 900,
               '& .MuiSvgIcon-root': {
                 transform: 'scale(1.2)',
                 transition: 'transform 0.2s ease'

@@ -92,10 +92,11 @@ const SprintoraLanding = () => {
       
       {/* Navigation */}
       <AppBar position="fixed" elevation={0} sx={{ 
-        bgcolor: 'rgba(3,7,18,0.8)', 
+        bgcolor: theme.palette.mode === 'dark' ? 'rgba(3,7,18,0.8)' : 'rgba(255,255,255,0.8)', 
         backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255,255,255,0.05)',
-        zIndex: 1000
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        zIndex: 1000,
+        borderRadius: 0
       }}>
         <Container maxWidth="xl">
           <Toolbar sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>

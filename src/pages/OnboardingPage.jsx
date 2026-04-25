@@ -205,7 +205,12 @@ const OnboardingPage = () => {
       <Box sx={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.01) 1px, transparent 0)', backgroundSize: '30px 30px', pointerEvents: 'none' }} />
       
       {/* Header */}
-      <Box sx={{ borderBottom: '1px solid rgba(255,255,255,0.05)', pt: 1, position: 'relative', zIndex: 100 }}>
+      <Box sx={{ 
+        borderBottom: `1px solid ${theme.palette.divider}`, 
+        pt: 1, position: 'relative', zIndex: 100,
+        bgcolor: theme.palette.mode === 'dark' ? 'rgba(3,7,18,0.8)' : 'rgba(255,255,255,0.8)',
+        backdropFilter: 'blur(10px)'
+      }}>
         <Container maxWidth="lg">
           <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 1, md: 2 } }}>
             <Stack direction="row" spacing={1} alignItems="center" sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
@@ -230,8 +235,10 @@ const OnboardingPage = () => {
               size="small" 
               onClick={() => navigate('/register')}
               sx={{ 
-                bgcolor: 'white', color: '#030712', fontWeight: 900, px: 2, borderRadius: 3,
-                '&:hover': { bgcolor: '#f3f4f6' }
+                bgcolor: theme.palette.mode === 'dark' ? 'white' : '#030712', 
+                color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
+                fontWeight: 900, px: 2, borderRadius: 3,
+                '&:hover': { bgcolor: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
               }}
             >
               Get Started
@@ -260,12 +267,13 @@ const OnboardingPage = () => {
       {/* Navigation Footer */}
       <Box sx={{ 
         p: 2, 
-        borderTop: '1px solid rgba(255,255,255,0.05)', 
-        bgcolor: 'rgba(3,7,18,0.8)', 
-        backdropFilter: 'blur(10px)',
+        borderTop: `1px solid ${theme.palette.divider}`, 
+        bgcolor: theme.palette.mode === 'dark' ? 'rgba(3,7,18,0.9)' : 'rgba(255,255,255,0.9)', 
+        backdropFilter: 'blur(15px)',
         position: 'sticky',
         bottom: 0,
-        zIndex: 10
+        zIndex: 10,
+        borderRadius: 0
       }}>
         <Container maxWidth="lg">
           <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
