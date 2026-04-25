@@ -102,7 +102,7 @@ const LoginPage = () => {
                   }}
                 >
                   <LottieIcon 
-                    src="https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json" 
+                    src="https://lottie.host/80c2f623-e291-4560-84c2-25e2a222383c/7T07v6HkNo.json" 
                     style={{ width: 80, height: 80 }}
                   />
                 </Box>
