@@ -1,75 +1,52 @@
-# VSGRPS Agile Workspace 🚀
+# Sprintora Workspace 🚀
 
-A modern, secure, and multi-tenant SaaS platform designed for high-performance agile project management and organizational governance.
+A premium, AI-native execution engine designed for high-performance agile project management and organizational focus.
 
 ## 🌟 Project Overview
-VSGRPS Agile is a comprehensive workspace solution that combines agile project tracking, team collaboration, and administrative governance into a single, high-fidelity platform. Built with a focus on security, scalability, and premium user experience, it allows organizations to manage projects, tasks, meetings, and shared resources with precision.
+**Sprintora** is more than a project management tool; it's a high-fidelity workspace that combines neural planning, team collaboration, and administrative governance into a single, cohesive experience. Built with the **Aurora Design System**, it prioritizes focus and visual clarity, allowing teams to move from idea to execution with 10x velocity.
 
 ## 💎 Key Features
 
-### 🏢 Multi-Tenant Architecture
-- **Company Isolation**: Secure data segregation between different organizations.
-- **Admin Governance**: Centralized management for company settings and team members.
-- **Role-Based Access Control (RBAC)**: Fine-grained permissions for Admins, Product Owners, Scrum Masters, Developers, and Stakeholders.
-
-### 📋 Agile Project Management
-- **Interactive Kanban Boards**: Real-time task tracking with priorities (Low to Critical) and statuses.
-- **Project Pinning & Archiving**: Organize high-priority projects for quick access.
-- **Subtask Management**: Break down complex tasks into manageable units.
-
-### 🤝 Advanced Collaboration
-- **Real-time Notifications**: In-app notification bell and browser-native Push Notifications (PWA).
-- **Interactive Comments**: Mention teammates (@username) in comments with automated alerts.
-- **Meeting Management**: Schedule meetings, track attendees, and store interactive meeting notes.
-- **Internal Sharing**: Private file and link sharing with specific team members.
-- **Global Search**: Unified search across tasks, projects, and meetings.
-
-### 🤖 AI Architect (Next-Gen Agile)
-- **Automatic Task Breakdown**: Decompose complex requirements into structured tasks using Llama-3.3.
+### 🤖 AI Architect (Neural Planning)
+- **Neural Task Decomposition**: Decompose complex requirements into structured tasks using Llama-3.3.
 - **Smart Estimation**: Automatic priority and effort estimation based on requirement context.
 - **Subtask Provisioning**: AI generates nested subtasks that can be bulk-created instantly.
 
-### 📊 Advanced Analytics & Dashboards
+### 📋 Agile Execution
+- **Interactive Kanban Boards**: Real-time task tracking with priorities and statuses.
+- **Project Pinning**: Organize high-priority projects for instant access.
+- **Subtask Management**: Break down complex tasks into manageable action items.
+
+### 🤝 Advanced Collaboration
+- **Smart Notifications**: In-app notification bell with "Mark All as Read" and individual acknowledgment.
+- **Interactive Comments**: Mention teammates (@username) with automated alerts.
+- **Meeting Management**: Schedule meetings, track attendees, and store interactive meeting notes.
+- **Resource Sharing**: Secure private file and link sharing with automatic metadata scraping.
+
+### 📊 Impact Analytics
 - **Team Velocity Tracking**: 12-week rolling visualization of task completion trends.
-- **User Performance Tracking**: Real-time visualization of work done vs. pending.
-- **Executive Stakeholder View**: Simplified, high-level dashboard for non-technical stakeholders.
+- **95% Faster Delivery**: Documented acceleration in planning cycles via AI automation.
+- **Stakeholder Views**: Simplified dashboards for non-technical leadership.
 
-### 📦 Enterprise Data Portability
-- **Organization Backups**: Export entire datasets as compressed `.sql.gz` files.
-- **Optimized Streaming**: Memory-efficient streaming architecture with on-the-fly Gzip compression.
-- **Master Access Portal**: System-wide global backup restricted via an OTP-secured portal.
-
-### 📁 File & Resource Management
-- **Secure File Uploads**: Integrated storage for project-related assets.
-- **Storage Quotas**: Organizational limits (10MB default) with real-time usage tracking.
-- **Link Pinning**: Save and share important project links with Open Graph metadata scraping.
-
-### 🛡️ Security & Audit
-- **Comprehensive Audit Logs**: Every critical action (uploads, deletions, removals) is tracked for compliance.
-- **Email Verification**: Secure registration flow powered by Brevo.
-- **Session Security**: Secure, HTTP-only cookie-based session management.
-- **Production Hardening**: Rate limiting, SQL injection protection, and user enumeration prevention.
+### 🛡️ Enterprise Security & Governance
+- **Multi-Tenant Architecture**: Secure data isolation between different organizations.
+- **Audit Logging**: Every sensitive action is timestamped and logged for compliance.
+- **Data Portability**: Full organization database exports as compressed `.sql.gz` files.
 
 ## 🛠️ Tech Stack
 
 ### Frontend
 - **Framework**: React 19 + Vite
-- **Styling**: Material UI v6 (Vanilla CSS logic for custom aesthetics)
-- **Animations**: Framer Motion & Lottie-React
-- **State/Routing**: React Context API & React Router v7
-- **Icons**: MUI Icons & Lucide
+- **Styling**: Material UI v6 (Aurora Design System)
+- **Theme**: Persistent Light/Dark mode with unified context flow.
+- **Animations**: Framer Motion & CSS-based micro-interactions.
 
 ### Backend
 - **Runtime**: Node.js (Fastify Framework)
 - **Database**: PostgreSQL (Neon Serverless)
-- **AI Engine**: Groq API (Llama-3.3-70B-versatile)
+- **AI Engine**: Groq API (Llama-3.3-70B)
 - **Authentication**: Secure Session-based Auth (fastify-session)
 - **External APIs**: Brevo (SMTP/Email), Open-Graph-Scraper
-
-## 📂 Project Repositories
-
-- **Backend**: [https://github.com/vimalRaj45/vsgrps_agile_backend](https://github.com/vimalRaj45/vsgrps_agile_backend)
-- **Frontend**: [https://github.com/vimalRaj45/vsgrps_agile_frontend](https://github.com/vimalRaj45/vsgrps_agile_frontend)
 
 ## 🚀 Getting Started
 
@@ -81,7 +58,7 @@ VSGRPS Agile is a comprehensive workspace solution that combines agile project t
 
 ### Installation
 
-1. **Clone the repository**:
+1. **Clone the repositories**:
    ```bash
    git clone https://github.com/vimalRaj45/vsgrps_agile_backend
    git clone https://github.com/vimalRaj45/vsgrps_agile_frontend
@@ -91,9 +68,9 @@ VSGRPS Agile is a comprehensive workspace solution that combines agile project t
    ```bash
    cd backend
    npm install
-   # Create .env with DATABASE_URL, GMAIL_USER, GMAIL_PASS, SESSION_SECRET, GROQ_API_KEY
+   # Create .env with DATABASE_URL, BREVO_API_KEY, SESSION_SECRET, GROQ_API_KEY
    node db-init.js  # Initialize the database schema
-   node index.js
+   npm start
    ```
 
 3. **Frontend Setup**:
@@ -103,12 +80,12 @@ VSGRPS Agile is a comprehensive workspace solution that combines agile project t
    npm run dev
    ```
 
-## 🎨 Design System
-The project follows a **Premium Dark Mode** aesthetic by default, featuring:
-- **Glassmorphism**: Translucent headers and cards.
-- **Dynamic Gradients**: Modern blue-to-cyan accents.
-- **Micro-animations**: Smooth hover transitions and scroll reveals.
-- **Mobile First**: Fully responsive layout optimized for touch targets and small screens.
+## 🎨 Design System: Aurora
+Sprintora follows the **Aurora Design System**, featuring:
+- **Glassmorphism**: Translucent headers and components with persistent theme flow.
+- **Geometric Rule**: `borderRadius: 3` (24px) for cards; `borderRadius: 2` (16px) for navbars.
+- **Modern Typography**: Inter & Outfit fonts for maximum readability.
+- **Mobile First**: Fully responsive layout optimized for high-conversion onboarding.
 
 ---
-© 2026 VSGRPS Agile. Managed and developed by Antigravity AI.
+© 2026 Sprintora. All rights reserved.
