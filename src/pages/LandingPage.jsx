@@ -116,7 +116,7 @@ const SprintoraLanding = () => {
               </Typography>
             </Stack>
             
-            <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+            <Stack direction="row" spacing={{ xs: 1, sm: 2 }} sx={{ alignItems: 'center' }}>
               {!isMobile && (
                 <Stack direction="row" spacing={5} sx={{ mr: 4 }}>
                   {['Features', 'Workflow', 'Pricing'].map((item) => (
@@ -132,10 +132,11 @@ const SprintoraLanding = () => {
                 </Stack>
               )}
 
-              <IconButton onClick={toggleTheme} color="inherit" sx={{ 
-                bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+              <IconButton onClick={toggleTheme} sx={{ 
+                bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
                 border: `1px solid ${theme.palette.divider}`,
-                p: { xs: 0.5, sm: 1 }
+                p: { xs: 0.8, sm: 1 },
+                color: 'text.primary'
               }}>
                 {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
               </IconButton>
@@ -145,10 +146,12 @@ const SprintoraLanding = () => {
                 size={isSmallMobile ? "small" : "medium"}
                 onClick={() => navigate('/login')}
                 sx={{ 
-                  borderRadius: 3.5, fontWeight: 900, px: { xs: 2, md: 4 },
+                  borderRadius: 3, fontWeight: 900, px: { xs: 2, md: 4 },
+                  height: { xs: 36, md: 44 },
                   background: theme.palette.mode === 'dark' ? 'white' : '#030712', 
                   color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
-                  fontSize: { xs: '0.75rem', md: '0.875rem' },
+                  fontSize: { xs: '0.7rem', md: '0.875rem' },
+                  whiteSpace: 'nowrap',
                   '&:hover': { background: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
                 }}
               >
