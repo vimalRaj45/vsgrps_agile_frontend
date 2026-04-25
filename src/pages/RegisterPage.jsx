@@ -25,7 +25,7 @@ const RegisterPage = () => {
     setError('');
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/auth/register-company', {
+      await axios.post('https://vsgrps-agile-backend.onrender.com/api/auth/register-company', {
         companyName,
         adminName,
         email,
