@@ -20,7 +20,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 const SprintoraLanding = () => {
   const navigate = useNavigate();
@@ -60,16 +60,17 @@ const SprintoraLanding = () => {
     }
   ];
 
-  const steps = [
-    { num: '01', title: 'Create Project', desc: 'Initialize your workspace in one click.' },
-    { num: '02', title: 'Let AI Plan', desc: 'Our neural engine generates your roadmap.' },
-    { num: '03', title: 'Execute & Track', desc: 'Ship faster with visual progress tracking.' }
-  ];
-
   const handleNavClick = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
     setMobileMenuOpen(false);
   };
@@ -77,8 +78,8 @@ const SprintoraLanding = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      bgcolor: '#030712', 
-      color: 'white', 
+      bgcolor: 'background.default', 
+      color: 'text.primary', 
       overflowX: 'hidden',
       position: 'relative',
       fontFamily: '"Inter", "Roboto", sans-serif'
@@ -108,7 +109,7 @@ const SprintoraLanding = () => {
               }}>
                 <AutoAwesomeIcon sx={{ color: 'white', fontSize: 20 }} />
               </Box>
-              <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px' }}>
+              <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary' }}>
                 Sprintora
               </Typography>
             </Stack>
@@ -120,8 +121,8 @@ const SprintoraLanding = () => {
                     <Typography 
                       key={item} 
                       onClick={() => handleNavClick(item.toLowerCase())}
-                      variant="body2" fontWeight="600" color="text.secondary" 
-                      sx={{ cursor: 'pointer', '&:hover': { color: 'white' }, transition: '0.2s' }}
+                      variant="body2" fontWeight="700" color="text.secondary" 
+                      sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' }, transition: '0.2s' }}
                     >
                       {item}
                     </Typography>
@@ -133,15 +134,17 @@ const SprintoraLanding = () => {
                 size={isSmallMobile ? "small" : "medium"}
                 onClick={() => navigate('/login')}
                 sx={{ 
-                  borderRadius: 3.5, fontWeight: 800, px: { xs: 2, md: 4 },
-                  background: 'white', color: '#030712', fontSize: { xs: '0.75rem', md: '0.875rem' },
-                  '&:hover': { background: '#f3f4f6' }
+                  borderRadius: 3.5, fontWeight: 900, px: { xs: 2, md: 4 },
+                  background: theme.palette.mode === 'dark' ? 'white' : '#030712', 
+                  color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
+                  fontSize: { xs: '0.75rem', md: '0.875rem' },
+                  '&:hover': { background: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
                 }}
               >
                 Start Free
               </Button>
               {isMobile && (
-                <IconButton onClick={() => setMobileMenuOpen(true)} sx={{ color: 'white', p: 0.5 }}>
+                <IconButton onClick={() => setMobileMenuOpen(true)} sx={{ color: 'text.primary', p: 0.5 }}>
                   <MenuIcon />
                 </IconButton>
               )}
@@ -151,15 +154,15 @@ const SprintoraLanding = () => {
       </AppBar>
 
       {/* Mobile Drawer */}
-      <Drawer anchor="right" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} PaperProps={{ sx: { width: '80%', bgcolor: '#030712', backgroundImage: 'none' } }}>
+      <Drawer anchor="right" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} PaperProps={{ sx: { width: '80%', bgcolor: 'background.default', backgroundImage: 'none' } }}>
         <Box sx={{ p: 4 }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 6 }}>
             <Typography variant="h6" fontWeight="900">Sprintora</Typography>
-            <IconButton onClick={() => setMobileMenuOpen(false)} sx={{ color: 'white' }}><CloseIcon /></IconButton>
+            <IconButton onClick={() => setMobileMenuOpen(false)} sx={{ color: 'text.primary' }}><CloseIcon /></IconButton>
           </Stack>
           <List>
             {['Features', 'Workflow', 'Pricing'].map((item) => (
-              <ListItem key={item} onClick={() => handleNavClick(item.toLowerCase())} sx={{ py: 2, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <ListItem key={item} onClick={() => handleNavClick(item.toLowerCase())} sx={{ py: 2, borderBottom: `1px solid ${theme.palette.divider}` }}>
                 <ListItemText primary={item} primaryTypographyProps={{ fontWeight: 800 }} />
               </ListItem>
             ))}
@@ -180,7 +183,8 @@ const SprintoraLanding = () => {
               <Typography variant="h1" sx={{ 
                 fontSize: { xs: '1.9rem', sm: '3rem', md: '4.8rem' }, 
                 fontWeight: 950, lineHeight: { xs: 1.2, md: 0.95 }, letterSpacing: { xs: '-0.5px', md: '-3px' }, mb: 3,
-                textAlign: { xs: 'center', md: 'left' }
+                textAlign: { xs: 'center', md: 'left' },
+                color: 'text.primary'
               }}>
                 From Idea to Execution <br/>
                 <Box component="span" sx={{ 
@@ -220,8 +224,8 @@ const SprintoraLanding = () => {
                 <Button 
                   variant="outlined" fullWidth={isSmallMobile} size="large" onClick={() => navigate('/onboarding')}
                   sx={{ 
-                    height: { xs: 56, md: 72 }, px: 5, borderRadius: 3, fontWeight: 800, borderColor: 'rgba(255,255,255,0.1)', color: 'white',
-                    '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.3)' }
+                    height: { xs: 56, md: 72 }, px: 5, borderRadius: 3, fontWeight: 800, borderColor: theme.palette.divider, color: 'text.primary',
+                    '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'text.secondary' }
                   }}
                   startIcon={<AutoAwesomeIcon />}
                 >
@@ -239,19 +243,19 @@ const SprintoraLanding = () => {
                   position: 'relative',
                   '&::after': {
                     content: '""', position: 'absolute', inset: 0,
-                    boxShadow: 'inset 0 0 100px rgba(0,0,0,0.5)', zIndex: 2
+                    boxShadow: theme.palette.mode === 'dark' ? 'inset 0 0 100px rgba(0,0,0,0.5)' : 'none', zIndex: 2
                   }
                 }}>
                   <Box component="img" src="/assets/developer_hero.png" sx={{ 
                     width: '100%', height: 'auto', borderRadius: 3,
-                    filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))'
+                    filter: theme.palette.mode === 'dark' ? 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' : 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))'
                   }} />
                 </Box>
                 <motion.div 
                   animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity }}
                   style={{ position: 'absolute', top: '-10%', right: '0%', zIndex: 2 }}
                 >
-                   <Card sx={{ p: 1.5, borderRadius: 3, border: '1px solid rgba(255,255,255,0.1)', bgcolor: 'rgba(3,7,18,0.95)', minWidth: 140 }}>
+                   <Card sx={{ p: 1.5, borderRadius: 3, border: `1px solid ${theme.palette.divider}`, bgcolor: 'background.paper', minWidth: 140 }}>
                       <Stack direction="row" spacing={1.5} alignItems="center">
                         <AutoAwesomeIcon sx={{ color: '#818cf8', fontSize: 18 }} />
                         <Typography variant="caption" fontWeight="800">AI PLANNER LIVE</Typography>
@@ -264,12 +268,12 @@ const SprintoraLanding = () => {
       </Container>
 
       {/* Social Proof */}
-      <Box sx={{ py: { xs: 8, md: 12 }, borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', position: 'relative' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, borderTop: `1px solid ${theme.palette.divider}`, borderBottom: `1px solid ${theme.palette.divider}`, position: 'relative' }}>
         <Container maxWidth="xl">
           <Grid container spacing={6} alignItems="center">
             <Grid item xs={12} md={4}>
-              <Typography variant="overline" fontWeight="900" sx={{ color: 'rgba(255,255,255,0.3)', letterSpacing: 3 }}>TRUSTED BY BUILDERS</Typography>
-              <Typography variant="h4" fontWeight="950" sx={{ mt: 1, letterSpacing: '-1px' }}>Powering the next generation of teams.</Typography>
+              <Typography variant="overline" fontWeight="900" sx={{ color: 'text.secondary', opacity: 0.5, letterSpacing: 3 }}>TRUSTED BY BUILDERS</Typography>
+              <Typography variant="h4" fontWeight="950" sx={{ mt: 1, letterSpacing: '-1px', color: 'text.primary' }}>Powering the next generation of teams.</Typography>
             </Grid>
             <Grid item xs={12} md={8}>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 6, md: 10 }} justifyContent={{ md: 'flex-end' }}>
@@ -289,9 +293,9 @@ const SprintoraLanding = () => {
             </Grid>
           </Grid>
           
-          <Divider sx={{ my: 6, borderColor: 'rgba(255,255,255,0.03)' }} />
+          <Divider sx={{ my: 6, borderColor: theme.palette.divider, opacity: 0.5 }} />
           
-          <Stack direction="row" spacing={6} sx={{ overflow: 'hidden', opacity: 0.4, justifyContent: 'center', filter: 'grayscale(1)' }}>
+          <Stack direction="row" spacing={6} sx={{ overflow: 'hidden', opacity: 0.3, justifyContent: 'center', filter: theme.palette.mode === 'dark' ? 'grayscale(1)' : 'none' }}>
             {['FORBES', 'TECHCRUNCH', 'WIRED', 'VERGE', 'PRODUCT HUNT'].map(logo => (
               <Typography key={logo} variant="h6" fontWeight="900" sx={{ letterSpacing: 4 }}>{logo}</Typography>
             ))}
@@ -300,7 +304,7 @@ const SprintoraLanding = () => {
       </Box>
 
       {/* Built for Builders Section */}
-      <Box sx={{ py: { xs: 10, md: 15 }, position: 'relative' }}>
+      <Box id="workflow" sx={{ py: { xs: 10, md: 15 }, position: 'relative' }}>
         <Container maxWidth="xl">
           <Grid container spacing={8} alignItems="center">
             <Grid item xs={12} md={6} order={{ xs: 1, md: 1 }} data-aos="fade-right">
@@ -314,7 +318,7 @@ const SprintoraLanding = () => {
               }}>
                 <Box component="img" src="/assets/hero_dashboard.png" sx={{ 
                   width: '100%', height: 'auto', borderRadius: 3, 
-                  boxShadow: '0 40px 80px -20px rgba(0,0,0,0.5)',
+                  boxShadow: theme.palette.mode === 'dark' ? '0 40px 80px -20px rgba(0,0,0,0.5)' : '0 10px 20px rgba(0,0,0,0.05)',
                   position: 'relative', zIndex: 1
                 }} />
               </Box>
@@ -323,7 +327,7 @@ const SprintoraLanding = () => {
               <Typography variant="overline" fontWeight="900" color="#818cf8" gutterBottom sx={{ letterSpacing: 3 }}>
                 ENGINEERED FOR TEAMS
               </Typography>
-              <Typography variant="h2" fontWeight="950" sx={{ mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' }, letterSpacing: '-2px', lineHeight: 1 }}>
+              <Typography variant="h2" fontWeight="950" sx={{ mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' }, letterSpacing: '-2px', lineHeight: 1, color: 'text.primary' }}>
                 Built for the <br/> Modern Builder.
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ mb: 4, fontSize: '1.1rem', lineHeight: 1.7 }}>
@@ -339,7 +343,7 @@ const SprintoraLanding = () => {
                     <Box sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', p: 0.5, borderRadius: 1 }}>
                       <CheckCircleOutlineIcon sx={{ color: '#818cf8', fontSize: 20 }} />
                     </Box>
-                    <Typography variant="body2" fontWeight="700">{item}</Typography>
+                    <Typography variant="body2" fontWeight="700" color="text.primary">{item}</Typography>
                   </Stack>
                 ))}
               </Stack>
@@ -351,18 +355,18 @@ const SprintoraLanding = () => {
       {/* Features */}
       <Box id="features" sx={{ py: { xs: 10, md: 20 } }}>
         <Container maxWidth="xl">
-          <Typography variant="h2" fontWeight="950" sx={{ textAlign: 'center', mb: { xs: 6, md: 12 }, fontSize: { xs: '2.2rem', md: '3.5rem' }, letterSpacing: '-2px' }}>
-            Built for <span style={{ color: 'rgba(255,255,255,0.4)' }}>Performance.</span>
+          <Typography variant="h2" fontWeight="950" sx={{ textAlign: 'center', mb: { xs: 6, md: 12 }, fontSize: { xs: '2.2rem', md: '3.5rem' }, letterSpacing: '-2px', color: 'text.primary' }}>
+            Built for <span style={{ color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.3)' }}>Performance.</span>
           </Typography>
           <Grid container spacing={3}>
             {features.map((f, i) => (
               <Grid item xs={12} sm={6} md={3} key={i} data-aos="fade-up" data-aos-delay={i * 100}>
                 <Card sx={{ 
-                  p: { xs: 4, md: 6 }, height: '100%', bgcolor: 'rgba(255,255,255,0.01)', 
-                  border: '1px solid rgba(255,255,255,0.05)', borderRadius: 5,
+                  p: { xs: 4, md: 6 }, height: '100%', bgcolor: 'background.paper', 
+                  border: `1px solid ${theme.palette.divider}`, borderRadius: 3,
                 }}>
-                  <Box sx={{ mb: 3, display: 'inline-flex', p: 1.5, borderRadius: 3, bgcolor: 'rgba(255,255,255,0.03)' }}>{f.icon}</Box>
-                  <Typography variant="h6" fontWeight="900" sx={{ mb: 1.5 }}>{f.title}</Typography>
+                  <Box sx={{ mb: 3, display: 'inline-flex', p: 1.5, borderRadius: 3, bgcolor: 'rgba(99, 102, 241, 0.05)' }}>{f.icon}</Box>
+                  <Typography variant="h6" fontWeight="900" sx={{ mb: 1.5, color: 'text.primary' }}>{f.title}</Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>{f.desc}</Typography>
                 </Card>
               </Grid>
@@ -371,11 +375,71 @@ const SprintoraLanding = () => {
         </Container>
       </Box>
 
+      {/* Pricing Section */}
+      <Box id="pricing" sx={{ py: { xs: 10, md: 20 }, position: 'relative', bgcolor: theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.02)' : 'rgba(99, 102, 241, 0.01)' }}>
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Typography variant="overline" fontWeight="900" color="#818cf8" sx={{ letterSpacing: 3 }}>PRICING</Typography>
+            <Typography variant="h2" fontWeight="950" sx={{ mb: 2, letterSpacing: '-1.5px', color: 'text.primary' }}>Simple, Transparent.</Typography>
+            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
+              We are currently in early phase. Join the elite teams scaling with AI.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4} justifyContent="center">
+            <Grid item xs={12} md={6}>
+              <Card sx={{ 
+                p: { xs: 4, md: 8 }, 
+                borderRadius: 4, 
+                border: '2px solid #6366f1', 
+                position: 'relative',
+                bgcolor: 'background.paper',
+                boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.2)'
+              }}>
+                <Chip 
+                  label="EARLY ADOPTER OFFER" 
+                  sx={{ position: 'absolute', top: 24, right: 24, fontWeight: 900, bgcolor: '#6366f1', color: 'white' }} 
+                />
+                <Typography variant="h5" fontWeight="900" gutterBottom>Scale Plan</Typography>
+                <Stack direction="row" alignItems="baseline" spacing={1} sx={{ my: 4 }}>
+                  <Typography variant="h2" fontWeight="950" sx={{ color: 'text.primary' }}>₹0</Typography>
+                  <Typography variant="h6" color="text.secondary">/month</Typography>
+                </Stack>
+                <Typography variant="body1" sx={{ mb: 4, fontWeight: 700, color: '#10b981' }}>
+                   FREE for the first 5 teams! (Early Phase)
+                </Typography>
+                <Divider sx={{ mb: 4, opacity: 0.1 }} />
+                <Stack spacing={2.5} sx={{ mb: 6 }}>
+                  {[
+                    'Unlimited AI Tasks',
+                    'Real-Time Collaboration',
+                    'Advanced Analytics',
+                    'Priority Support',
+                    'Custom Workflow Architecting'
+                  ].map((text, i) => (
+                    <Stack key={i} direction="row" spacing={2} alignItems="center">
+                      <CheckCircleOutlineIcon sx={{ color: '#10b981' }} />
+                      <Typography variant="body2" fontWeight="600">{text}</Typography>
+                    </Stack>
+                  ))}
+                </Stack>
+                <Button 
+                  fullWidth variant="contained" size="large" onClick={() => navigate('/register')}
+                  sx={{ height: 64, borderRadius: 3, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}
+                >
+                  Claim Your Spot
+                </Button>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
       {/* Differentiation */}
       <Box sx={{ py: { xs: 8, md: 15 } }}>
         <Container maxWidth="lg">
-          <Card sx={{ p: { xs: 4, md: 8 }, borderRadius: 6, border: '1px solid rgba(99, 102, 241, 0.2)', textAlign: 'center', bgcolor: 'rgba(99, 102, 241, 0.02)' }}>
-            <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" sx={{ mb: 4 }}>Why not Jira?</Typography>
+          <Card sx={{ p: { xs: 4, md: 8 }, borderRadius: 6, border: `1px solid ${theme.palette.divider}`, textAlign: 'center', bgcolor: 'background.paper' }}>
+            <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" sx={{ mb: 4, color: 'text.primary' }}>Why not Jira?</Typography>
             <Grid container spacing={4} sx={{ mt: 1 }}>
               {[
                 { title: 'Simpler UI', desc: 'No cluttered menus.' },
@@ -393,11 +457,11 @@ const SprintoraLanding = () => {
       </Box>
 
       {/* Footer */}
-      <Box sx={{ py: 8, borderTop: '1px solid rgba(255,255,255,0.05)', bgcolor: '#01040a' }}>
+      <Box sx={{ py: 8, borderTop: `1px solid ${theme.palette.divider}`, bgcolor: 'background.default' }}>
         <Container maxWidth="xl">
           <Grid container spacing={6}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h6" fontWeight="900" sx={{ mb: 2 }}>Sprintora</Typography>
+              <Typography variant="h6" fontWeight="900" sx={{ mb: 2, color: 'text.primary' }}>Sprintora</Typography>
               <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300 }}>
                 The AI-powered agile workspace for modern teams.
               </Typography>
