@@ -57,49 +57,57 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', color: 'text.primary' }}>
-      <Grid container>
-        {/* Left Side: Visual (Hidden on mobile) */}
-        {!isMobile && (
-          <Grid item md={6} sx={{ 
-            position: 'relative', 
-            background: theme.palette.mode === 'dark' 
-              ? 'radial-gradient(circle at center, #1e1b4b 0%, #020617 100%)'
-              : 'radial-gradient(circle at center, #eff6ff 0%, #ffffff 100%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            p: 8
-          }}>
-            <Box sx={{ 
-              position: 'absolute', inset: 0, opacity: 0.1, 
-              backgroundImage: theme.palette.mode === 'dark'
-                ? 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)'
-                : 'radial-gradient(circle at 2px 2px, #3b82f6 1px, transparent 0)', 
-              backgroundSize: '40px 40px' 
-            }} />
-            <Box component={motion.div} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8 }} sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-              <Box 
-                component="img" src="/assets/login_visual.png" 
-                sx={{ 
-                  width: '100%', maxWidth: 500, 
-                  borderRadius: 8,
-                  border: `1px solid ${theme.palette.divider}`,
-                  boxShadow: theme.palette.mode === 'dark'
-                    ? '0 40px 100px -20px rgba(0,0,0,0.8), 0 0 50px rgba(59, 130, 246, 0.2)'
-                    : '0 40px 100px -20px rgba(0,0,0,0.1), 0 0 50px rgba(59, 130, 246, 0.1)'
-                }} 
-              />
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', color: 'text.primary', position: 'relative' }}>
+      {/* Global Theme Toggle for Auth Pages */}
+      <Box sx={{ position: 'absolute', top: 24, right: 24, zIndex: 100 }}>
+        <IconButton onClick={toggleTheme} color="inherit" sx={{ bgcolor: 'action.hover', border: `1px solid ${theme.palette.divider}` }}>
+          {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+        </IconButton>
+      </Box>
+
+      <Grid container direction={isMobile ? 'column' : 'row'}>
+        {/* Visual Side */}
+        <Grid item xs={12} md={6} sx={{ 
+          position: 'relative', 
+          background: theme.palette.mode === 'dark' 
+            ? 'radial-gradient(circle at center, #1e1b4b 0%, #020617 100%)'
+            : 'radial-gradient(circle at center, #eff6ff 0%, #ffffff 100%)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          p: { xs: 4, md: 8 },
+          minHeight: { xs: '320px', md: 'auto' }
+        }}>
+          <Box sx={{ 
+            position: 'absolute', inset: 0, opacity: 0.1, 
+            backgroundImage: theme.palette.mode === 'dark'
+              ? 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)'
+              : 'radial-gradient(circle at 2px 2px, #3b82f6 1px, transparent 0)', 
+            backgroundSize: '40px 40px' 
+          }} />
+          <Box component={motion.div} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8 }} sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+            <Box 
+              component="img" src="/assets/login_visual.png" 
+              sx={{ 
+                width: '100%', maxWidth: { xs: 240, sm: 320, md: 500 }, 
+                borderRadius: 8,
+                border: `1px solid ${theme.palette.divider}`,
+                boxShadow: theme.palette.mode === 'dark'
+                  ? '0 40px 100px -20px rgba(0,0,0,0.8), 0 0 50px rgba(59, 130, 246, 0.2)'
+                  : '0 40px 100px -20px rgba(0,0,0,0.1), 0 0 50px rgba(59, 130, 246, 0.1)'
+              }} 
+            />
+            {!isMobile && (
               <Typography variant="h3" fontWeight="950" sx={{ mt: 6, letterSpacing: '-2px' }}>
                 Secure Reset <br/> for <Box component="span" sx={{ color: 'primary.main' }}>Sprintora</Box>
               </Typography>
-            </Box>
-          </Grid>
-        )}
+            )}
+          </Box>
+        </Grid>
 
-        {/* Right Side: Form */}
+        {/* Form Side */}
         <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 3, md: 8 }, bgcolor: 'background.default' }}>
           <Container maxWidth="xs" sx={{ px: { xs: 2, sm: 4 } }}>
             <Box component={motion.div} initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-              <Stack spacing={1} sx={{ mb: 6, alignItems: 'flex-start' }}>
+              <Stack spacing={1} sx={{ mb: { xs: 4, md: 6 }, alignItems: 'flex-start' }}>
                 <Typography variant="h3" fontWeight="950" sx={{ letterSpacing: '-2px' }}>New Password</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary', fontWeight: 500 }}>Set your new secure password below.</Typography>
               </Stack>

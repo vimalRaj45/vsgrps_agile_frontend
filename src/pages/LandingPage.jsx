@@ -302,7 +302,7 @@ const SprintoraLanding = () => {
       <Box sx={{ py: { xs: 10, md: 15 }, position: 'relative' }}>
         <Container maxWidth="xl">
           <Grid container spacing={8} alignItems="center">
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 1 }} data-aos="fade-right">
+            <Grid item xs={12} md={6} order={{ xs: 1, md: 1 }}>
               <Box sx={{ 
                 position: 'relative', 
                 '&::before': {
@@ -318,8 +318,8 @@ const SprintoraLanding = () => {
                 }} />
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 2, md: 2 }} data-aos="fade-left">
-              <Typography variant="overline" fontWeight="900" color="#818cf8" gutterBottom sx={{ letterSpacing: 3 }}>
+            <Grid item xs={12} md={6} order={{ xs: 2, md: 2 }}>
+              <Typography variant="overline" fontWeight="900" color="primary.main" gutterBottom sx={{ letterSpacing: 3 }}>
                 ENGINEERED FOR TEAMS
               </Typography>
               <Typography variant="h2" fontWeight="950" sx={{ mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' }, letterSpacing: '-2px', lineHeight: 1 }}>
