@@ -267,6 +267,55 @@ const SprintoraLanding = () => {
         </Container>
       </Box>
 
+      {/* Built for Builders Section */}
+      <Box sx={{ py: { xs: 10, md: 15 }, position: 'relative' }}>
+        <Container maxWidth="xl">
+          <Grid container spacing={8} alignItems="center">
+            <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }} data-aos="fade-right">
+              <Box sx={{ 
+                position: 'relative', 
+                '&::before': {
+                  content: '""', position: 'absolute', inset: -20, 
+                  background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%)',
+                  filter: 'blur(40px)', zIndex: 0
+                }
+              }}>
+                <Box component="img" src="/assets/developer_hero.png" sx={{ 
+                  width: '100%', height: 'auto', borderRadius: 4, 
+                  boxShadow: '0 40px 80px -20px rgba(0,0,0,0.5)',
+                  position: 'relative', zIndex: 1
+                }} />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }} data-aos="fade-left">
+              <Typography variant="overline" fontWeight="900" color="#818cf8" gutterBottom sx={{ letterSpacing: 3 }}>
+                ENGINEERED FOR TEAMS
+              </Typography>
+              <Typography variant="h2" fontWeight="950" sx={{ mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' }, letterSpacing: '-2px', lineHeight: 1 }}>
+                Built for the <br/> Modern Builder.
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 4, fontSize: '1.1rem', lineHeight: 1.7 }}>
+                Sprintora isn't just a project manager—it's a developer's cockpit. We've automated the tedious planning so you can focus on writing code and shipping features.
+              </Typography>
+              <Stack spacing={2}>
+                {[
+                  'Code-First Architecture',
+                  'Frictionless Task Automation',
+                  'Developer Velocity Tracking'
+                ].map((item, i) => (
+                  <Stack key={i} direction="row" spacing={2} alignItems="center">
+                    <Box sx={{ bgcolor: 'rgba(99, 102, 241, 0.1)', p: 0.5, borderRadius: 1 }}>
+                      <CheckCircleOutlineIcon sx={{ color: '#818cf8', fontSize: 20 }} />
+                    </Box>
+                    <Typography variant="body2" fontWeight="700">{item}</Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
       {/* Features */}
       <Box id="features" sx={{ py: { xs: 10, md: 20 } }}>
         <Container maxWidth="xl">
