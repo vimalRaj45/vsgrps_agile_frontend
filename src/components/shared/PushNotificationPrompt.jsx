@@ -10,8 +10,10 @@ const PushNotificationPrompt = () => {
     // Check if browser supports notifications
     if (!('Notification' in window)) return;
 
-    // Show prompt if permission is 'default' (not yet asked)
-    if (Notification.permission === 'default') {
+    const isSubscribed = localStorage.getItem('push_subscribed');
+
+    // Show prompt if permission is 'default' OR if we don't have a local subscription record
+    if (Notification.permission === 'default' || !isSubscribed) {
       const timer = setTimeout(() => {
         setOpen(true);
       }, 5000); // Wait 5 seconds after login/load

@@ -40,8 +40,25 @@ export async function subscribeToPush() {
 
     // Send subscription to backend
     await axios.post('/notifications/subscribe', { subscription });
+    localStorage.setItem('push_subscribed', 'true');
     console.log('✅ Push Subscription sent to server');
   } catch (error) {
     console.error('❌ Failed to subscribe to push notifications:', error);
+  }
+}
+export async function unsubscribeFromPush() {
+  if (!('serviceWorker' in navigator)) return;
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+    
+    if (subscription) {
+      await subscription.unsubscribe();
+      console.log('✅ Browser Push Subscription removed');
+    }
+    localStorage.removeItem('push_subscribed');
+  } catch (error) {
+    console.error('❌ Failed to unsubscribe from push notifications:', error);
   }
 }

@@ -19,15 +19,9 @@ const AppLayout = ({ children }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  useEffect(() => {
-    // Attempt to subscribe to push notifications only if permission is already granted
-    if (Notification.permission === 'granted') {
-      const timer = setTimeout(() => {
-        subscribeToPush();
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
+  // Push subscription is now handled exclusively by PushNotificationPrompt.jsx 
+  // to ensure users are asked again after logging in.
+  useEffect(() => {}, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
