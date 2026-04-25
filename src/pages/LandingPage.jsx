@@ -273,16 +273,16 @@ const SprintoraLanding = () => {
             <Grid item xs={12} md={8}>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 6, md: 10 }} justifyContent={{ md: 'flex-end' }}>
                 <Box>
-                  <Typography variant="h3" fontWeight="950" sx={{ color: '#818cf8' }}>99.9%</Typography>
-                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>PROJECT SUCCESS RATE</Typography>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#818cf8' }}>1,250+</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>PROJECTS COMPLETED</Typography>
                 </Box>
                 <Box>
-                  <Typography variant="h3" fontWeight="950" sx={{ color: '#c084fc' }}>85%</Typography>
-                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>FASTER SHIPPING SPEED</Typography>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#c084fc' }}>12.4k</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TASKS ARCHITECTED</Typography>
                 </Box>
                 <Box>
-                  <Typography variant="h3" fontWeight="950" sx={{ color: '#fb7185' }}>94%</Typography>
-                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TEAM SATISFACTION</Typography>
+                  <Typography variant="h3" fontWeight="950" sx={{ color: '#fb7185' }}>98.2%</Typography>
+                  <Typography variant="caption" fontWeight="800" sx={{ color: 'text.secondary', letterSpacing: 1 }}>TEAM VELOCITY</Typography>
                 </Box>
               </Stack>
             </Grid>
@@ -302,7 +302,7 @@ const SprintoraLanding = () => {
       <Box sx={{ py: { xs: 10, md: 15 }, position: 'relative' }}>
         <Container maxWidth="xl">
           <Grid container spacing={8} alignItems="center">
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 1 }}>
+            <Grid item xs={12} md={6} order={{ xs: 1, md: 1 }} data-aos="fade-right">
               <Box sx={{ 
                 position: 'relative', 
                 '&::before': {
@@ -318,8 +318,8 @@ const SprintoraLanding = () => {
                 }} />
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 2, md: 2 }}>
-              <Typography variant="overline" fontWeight="900" color="primary.main" gutterBottom sx={{ letterSpacing: 3 }}>
+            <Grid item xs={12} md={6} order={{ xs: 2, md: 2 }} data-aos="fade-left">
+              <Typography variant="overline" fontWeight="900" color="#818cf8" gutterBottom sx={{ letterSpacing: 3 }}>
                 ENGINEERED FOR TEAMS
               </Typography>
               <Typography variant="h2" fontWeight="950" sx={{ mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' }, letterSpacing: '-2px', lineHeight: 1 }}>

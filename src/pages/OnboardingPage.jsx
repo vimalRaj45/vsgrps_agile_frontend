@@ -155,7 +155,7 @@ const OnboardingPage = () => {
         return (
           <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center', px: { xs: 1, md: 4 } }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-               <Box component="img" src="/assets/iconscout_team.png" sx={{ width: '100%', maxWidth: 550, borderRadius: 4, boxShadow: '0 20px 50px rgba(0,0,0,0.6)' }} />
+               <Box component="img" src="/assets/team_sync.png" sx={{ width: '100%', maxWidth: 500, borderRadius: 4, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
             </Box>
             <Typography variant={isSmallMobile ? "h4" : "h3"} fontWeight="950" gutterBottom sx={{ letterSpacing: '-2px' }}>
               Seamless Sync
