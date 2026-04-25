@@ -47,44 +47,64 @@ const RegisterPage = () => {
       alignItems: 'center', 
       justifyContent: 'center',
       position: 'relative',
-      p: 2,
-      py: 10
+      p: { xs: 1, sm: 2 },
+      py: { xs: 4, sm: 8 },
+      background: 'radial-gradient(circle at top left, #1e293b 0%, #0f172a 100%)'
     }}>
-      <div className="bg-gradient" />
+      <div className="bg-gradient" style={{ opacity: 0.3 }} />
       
-      <Container maxWidth="sm" className="fade-in">
+      <Container maxWidth="xs" className="fade-in">
         <Box 
           className="glass-card" 
           sx={{ 
-            p: { xs: 4, md: 6 }, 
+            p: { xs: 3, sm: 5 }, 
             width: '100%',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+            borderRadius: { xs: 4, md: 6 },
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+            border: '1px solid rgba(255, 255, 255, 0.05)',
+            backdropFilter: 'blur(16px)'
           }}
         >
-          <Stack spacing={1} sx={{ alignItems: 'center', mb: 4 }}>
-            <Box sx={{ mb: 2 }}>
+          <Stack spacing={1} sx={{ alignItems: 'center', mb: { xs: 3, md: 5 } }}>
+            <Box 
+              sx={{ 
+                mb: 1,
+                p: 2,
+                borderRadius: '50%',
+                bgcolor: 'rgba(99, 102, 241, 0.1)',
+                border: '1px solid rgba(99, 102, 241, 0.2)'
+              }}
+            >
               <LottieIcon 
                 src="https://assets2.lottiefiles.com/packages/lf20_kkflmtur.json" 
-                style={{ width: 120, height: 120 }}
+                style={{ width: 80, height: 80 }}
               />
             </Box>
-            <Typography variant="h4" fontWeight="800" letterSpacing="-1px" sx={{ textAlign: 'center' }}>
-              Register Company
+            <Typography variant="h4" fontWeight="900" letterSpacing="-1.5px" sx={{ 
+              background: 'linear-gradient(45deg, #fff 30%, #94a3b8 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontSize: { xs: '1.75rem', sm: '2.125rem' },
+              textAlign: 'center'
+            }}>
+              Join the Team
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center' }}>
-              Join the VSGRPS Secure ecosystem
+            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+              Create your secure company workspace
             </Typography>
           </Stack>
 
-          {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 3 }}>{error}</Alert>}
+          {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>{error}</Alert>}
           {successMessage && (
-            <Alert severity="success" sx={{ mb: 3, borderRadius: 3 }}>
-              {successMessage}
+            <Alert severity="success" sx={{ mb: 3, borderRadius: 2 }}>
+              <Box sx={{ mb: 1 }}>{successMessage}</Box>
               <Button 
                 component={RouterLink} 
                 to="/login" 
+                variant="outlined"
+                color="inherit"
                 size="small" 
-                sx={{ ml: 2, fontWeight: 'bold' }}
+                sx={{ fontWeight: 'bold' }}
               >
                 Go to Login
               </Button>
@@ -102,6 +122,7 @@ const RegisterPage = () => {
                   value={formData.companyName}
                   onChange={handleChange}
                   required
+                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                 />
                 <TextField
                   fullWidth
@@ -111,6 +132,7 @@ const RegisterPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                 />
                 <TextField
                   fullWidth
@@ -121,6 +143,7 @@ const RegisterPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                 />
                 <TextField
                   fullWidth
@@ -131,6 +154,7 @@ const RegisterPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                 />
                 <Button
                   fullWidth
@@ -140,11 +164,17 @@ const RegisterPage = () => {
                   disabled={loading}
                   sx={{ 
                     height: 56, 
-                    fontSize: '1.1rem',
-                    mt: 1
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    borderRadius: 2,
+                    boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.5)',
+                    background: 'linear-gradient(45deg, #6366f1 0%, #4f46e5 100%)',
+                    '&:hover': {
+                      background: 'linear-gradient(45deg, #4f46e5 0%, #4338ca 100%)',
+                    }
                   }}
                 >
-                  {loading ? <CircularProgress size={24} color="inherit" /> : 'Create Account'}
+                  {loading ? <CircularProgress size={24} color="inherit" /> : 'Create Workspace'}
                 </Button>
               </Stack>
             </form>
@@ -158,7 +188,7 @@ const RegisterPage = () => {
                 to="/login" 
                 fontWeight="700" 
                 color="primary"
-                sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+                sx={{ textDecoration: 'none' }}
               >
                 Sign In
               </Link>

@@ -45,38 +45,54 @@ const LoginPage = () => {
       alignItems: 'center', 
       justifyContent: 'center',
       position: 'relative',
-      p: 2
+      p: { xs: 1, sm: 2 },
+      background: 'radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%)'
     }}>
-      <div className="bg-gradient" />
+      <div className="bg-gradient" style={{ opacity: 0.3 }} />
       
-      <Container maxWidth="sm" className="fade-in">
+      <Container maxWidth="xs" className="fade-in">
         <Box 
           className="glass-card" 
           sx={{ 
-            p: { xs: 4, md: 6 }, 
+            p: { xs: 3, sm: 5 }, 
             width: '100%',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+            borderRadius: { xs: 4, md: 6 },
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+            border: '1px solid rgba(255, 255, 255, 0.05)',
+            backdropFilter: 'blur(16px)'
           }}
         >
-          <Stack spacing={1} sx={{ alignItems: 'center', mb: 4 }}>
-            <Box sx={{ mb: 2 }}>
+          <Stack spacing={1} sx={{ alignItems: 'center', mb: { xs: 3, md: 5 } }}>
+            <Box 
+              sx={{ 
+                mb: 1,
+                p: 2,
+                borderRadius: '50%',
+                bgcolor: 'rgba(99, 102, 241, 0.1)',
+                border: '1px solid rgba(99, 102, 241, 0.2)'
+              }}
+            >
               <LottieIcon 
                 src="https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json" 
-                style={{ width: 120, height: 120 }}
+                style={{ width: 80, height: 80 }}
               />
             </Box>
 
-
-            <Typography variant="h4" fontWeight="800" letterSpacing="-1px">
+            <Typography variant="h4" fontWeight="900" letterSpacing="-1.5px" sx={{ 
+              background: 'linear-gradient(45deg, #fff 30%, #94a3b8 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontSize: { xs: '1.75rem', sm: '2.125rem' }
+            }}>
               Welcome Back
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Secure access to VSGRPS Agile Workspace
+            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+              Sign in to manage your agile workspace
             </Typography>
           </Stack>
           
-          {success && <Alert severity="success" sx={{ mb: 3, borderRadius: 1.5 }}>{success}</Alert>}
-          {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 1.5 }}>{error}</Alert>}
+          {success && <Alert severity="success" sx={{ mb: 3, borderRadius: 2 }}>{success}</Alert>}
+          {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>{error}</Alert>}
           
           <form onSubmit={handleSubmit}>
             <Stack spacing={2.5}>
@@ -88,6 +104,8 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
+                variant="outlined"
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
               />
               <TextField
                 fullWidth
@@ -98,13 +116,18 @@ const LoginPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
               />
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <FormControlLabel
                   control={<Checkbox size="small" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />}
-                  label={<Typography variant="body2">Remember me</Typography>}
+                  label={<Typography variant="body2" color="text.secondary">Remember me</Typography>}
                 />
-                <Link component={RouterLink} to="/forgot-password" variant="body2" sx={{ fontWeight: 600, textDecoration: 'none' }}>
+                <Link component={RouterLink} to="/forgot-password" variant="body2" sx={{ 
+                  fontWeight: 600, 
+                  textDecoration: 'none',
+                  color: 'primary.main'
+                }}>
                   Forgot password?
                 </Link>
               </Stack>
@@ -116,9 +139,14 @@ const LoginPage = () => {
                 disabled={loading}
                 sx={{ 
                   height: 56, 
-                  fontSize: '1.1rem',
-                  mt: 1,
-                  boxShadow: '0 8px 16px rgba(99, 102, 241, 0.4)'
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  borderRadius: 2,
+                  boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.5)',
+                  background: 'linear-gradient(45deg, #6366f1 0%, #4f46e5 100%)',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #4f46e5 0%, #4338ca 100%)',
+                  }
                 }}
               >
                 {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
@@ -134,7 +162,7 @@ const LoginPage = () => {
                 to="/register" 
                 fontWeight="700" 
                 color="primary"
-                sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+                sx={{ textDecoration: 'none' }}
               >
                 Register Company
               </Link>
