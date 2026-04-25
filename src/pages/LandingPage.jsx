@@ -207,13 +207,14 @@ const SprintoraLanding = () => {
                   Start Free
                 </Button>
                 <Button 
-                  variant="outlined" fullWidth={isSmallMobile} size="large"
+                  variant="outlined" fullWidth={isSmallMobile} size="large" onClick={() => navigate('/onboarding')}
                   sx={{ 
                     height: { xs: 56, md: 72 }, px: 5, borderRadius: 3, fontWeight: 800, borderColor: 'rgba(255,255,255,0.1)', color: 'white',
+                    '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.3)' }
                   }}
-                  startIcon={<PlayArrowIcon />}
+                  startIcon={<AutoAwesomeIcon />}
                 >
-                  See Demo
+                  Learn how it works
                 </Button>
               </Stack>
             </Box>

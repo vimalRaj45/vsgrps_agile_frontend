@@ -69,7 +69,7 @@ function App() {
               <Route path="/audit" element={<PrivateRoute><AuditLogPage /></PrivateRoute>} />
               <Route path="/users" element={<PrivateRoute><AdminUsersPage /></PrivateRoute>} />
               <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
-              <Route path="/onboarding" element={<PrivateRoute><OnboardingPage /></PrivateRoute>} />
+              <Route path="/onboarding" element={<OnboardingPage />} />
               <Route path="/master-access" element={<SuperAdminPage />} />
               
               <Route path="*" element={<Navigate to="/" />} />
