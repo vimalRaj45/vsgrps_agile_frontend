@@ -484,11 +484,14 @@ const SprintoraLanding = () => {
               <Stack direction="row" spacing={6} sx={{ justifyContent: { md: 'flex-end' } }}>
                 <Stack spacing={1.5}>
                   <Typography variant="caption" fontWeight="900" color="#818cf8">SYSTEM</Typography>
-                  {['Features', 'Status'].map(i => <Typography key={i} variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }}>{i}</Typography>)}
+                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/features')}>Features</Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/mission')}>Our Mission</Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/status')}>Status</Typography>
                 </Stack>
                 <Stack spacing={1.5}>
                   <Typography variant="caption" fontWeight="900" color="#c084fc">LEGAL</Typography>
-                  {['Privacy', 'Terms'].map(i => <Typography key={i} variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }}>{i}</Typography>)}
+                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/privacy')}>Privacy</Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/terms')}>Terms</Typography>
                 </Stack>
               </Stack>
             </Grid>

@@ -26,6 +26,10 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import SuperAdminPage from './pages/SuperAdminPage';
 import ReportsPage from './pages/ReportsPage';
 import OnboardingPage from './pages/OnboardingPage';
+import MissionPage from './pages/MissionPage';
+import StatusPage from './pages/StatusPage';
+import FeaturesPage from './pages/FeaturesPage';
+import { PrivacyPage, TermsPage } from './pages/LegalPages';
 import AppLayout from './components/shared/AppLayout';
 
 const PublicRoute = ({ children }) => {
@@ -70,6 +74,11 @@ function App() {
               <Route path="/users" element={<PrivateRoute><AdminUsersPage /></PrivateRoute>} />
               <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
               <Route path="/onboarding" element={<OnboardingPage />} />
+              <Route path="/mission" element={<MissionPage />} />
+              <Route path="/status" element={<StatusPage />} />
+              <Route path="/features" element={<FeaturesPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
               <Route path="/master-access" element={<SuperAdminPage />} />
               
               <Route path="*" element={<Navigate to="/" />} />
