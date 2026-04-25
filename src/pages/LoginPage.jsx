@@ -54,7 +54,7 @@ const LoginPage = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      p: { xs: 2, md: 4 },
+      p: { xs: 1, md: 2 },
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -88,8 +88,8 @@ const LoginPage = () => {
           )}
 
           {/* Form Side */}
-          <Grid item xs={12} md={6} sx={{ p: { xs: 4, md: 8 }, bgcolor: 'rgba(3, 7, 18, 0.4)' }}>
-            <Stack spacing={4}>
+          <Grid item xs={12} md={6} sx={{ p: { xs: 3, md: 5 }, bgcolor: 'rgba(3, 7, 18, 0.4)' }}>
+            <Stack spacing={3}>
               <Box>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
                   <AutoAwesomeIcon sx={{ color: '#6366f1' }} />
