@@ -417,9 +417,14 @@ const SprintoraLanding = () => {
               }}>
                 <Chip 
                   label="EARLY ADOPTER OFFER" 
-                  sx={{ position: 'absolute', top: 24, right: 24, fontWeight: 900, bgcolor: '#6366f1', color: 'white' }} 
+                  sx={{ 
+                    position: { xs: 'static', sm: 'absolute' }, 
+                    top: 24, right: 24, 
+                    mb: { xs: 2, sm: 0 },
+                    fontWeight: 900, bgcolor: '#6366f1', color: 'white' 
+                  }} 
                 />
-                <Typography variant="h5" fontWeight="900" gutterBottom>Scale Plan</Typography>
+                <Typography variant="h5" fontWeight="950" sx={{ letterSpacing: '-0.5px' }}>Scale Plan</Typography>
                 <Stack direction="row" alignItems="baseline" spacing={1} sx={{ my: 4 }}>
                   <Typography variant="h2" fontWeight="950" sx={{ color: 'text.primary' }}>₹0</Typography>
                   <Typography variant="h6" color="text.secondary">/month</Typography>
