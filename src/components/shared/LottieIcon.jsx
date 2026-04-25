@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import LottieComponent from 'lottie-react'; // We will use the standard import but handle the warning in config if needed, or check for light.
 
 
@@ -15,10 +15,7 @@ const LottieIcon = ({ animationData, src, loop = true, style = { width: 100, hei
       fetch(src)
         .then((res) => {
           if (!res.ok) throw new Error('Network response was not ok');
-          const contentType = res.headers.get('content-type');
-          if (!contentType || !contentType.includes('application/json')) {
-            throw new TypeError("Oops, we haven't got JSON!");
-          }
+          // Relaxed check for content type as some CDNs vary
           return res.json();
         })
         .then((json) => setData(json))
