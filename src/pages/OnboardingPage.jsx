@@ -17,6 +17,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useAppTheme } from '../context/ThemeContext';
 
 const steps = ['WELCOME', 'AI VISION', 'MAGIC REVEAL', 'TEAM SYNC', 'READY'];
@@ -176,15 +177,29 @@ const OnboardingPage = () => {
           <Box component={motion.div} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} sx={{ textAlign: 'center' }}>
             <RocketLaunchIcon sx={{ fontSize: 100, color: '#6366f1', mb: 4 }} />
             <Typography variant="h2" fontWeight="950" gutterBottom sx={{ color: 'text.primary' }}>You are Ready.</Typography>
-            <Typography variant="h6" color="text.secondary" sx={{ mb: 6, maxWidth: 600, mx: 'auto' }}>
+            <Typography variant="h6" color="text.secondary" sx={{ mb: 2, maxWidth: 600, mx: 'auto' }}>
               Your workspace is primed. The AI is standing by. It is time to turn your idea into execution.
             </Typography>
-            <Button 
-              variant="contained" size="large" onClick={handleNext}
-              sx={{ height: 72, px: 10, borderRadius: 3, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 20px 40px rgba(99, 102, 241, 0.4)' }}
-            >
-              Enter Workspace
-            </Button>
+            <Typography variant="body1" fontWeight="800" sx={{ mb: 6, color: '#6366f1', letterSpacing: 1 }}>
+               PSST... HIDDEN AI FEATURES ARE WAITING FOR YOU INSIDE! 🤫
+            </Typography>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+              <Button 
+                variant="contained" size="large" onClick={handleNext}
+                sx={{ height: 72, px: 8, borderRadius: 3, fontWeight: 900, background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', boxShadow: '0 20px 40px rgba(99, 102, 241, 0.4)' }}
+              >
+                Enter Workspace
+              </Button>
+              <Button 
+                variant="outlined" size="large" 
+                href="https://www.youtube.com/watch?v=ti4fD2or_6s&list=RDMMBVgNoVwsb6Y&index=11"
+                target="_blank"
+                sx={{ height: 72, px: 6, borderRadius: 3, fontWeight: 800, borderColor: theme.palette.divider, color: 'text.primary' }}
+                startIcon={<PlayArrowIcon />}
+              >
+                Watch Demo
+              </Button>
+            </Stack>
           </Box>
         );
       default:
