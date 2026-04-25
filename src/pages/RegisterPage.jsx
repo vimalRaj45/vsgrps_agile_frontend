@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import axios from 'axios';
+import client from '../api/client';
 import { 
   Box, Button, TextField, Typography, Container, 
   Alert, CircularProgress, Link, Stack, Grid, useTheme, useMediaQuery
@@ -25,11 +25,11 @@ const RegisterPage = () => {
     setError('');
     setLoading(true);
     try {
-      await axios.post('https://vsgrps-agile-backend.onrender.com/api/auth/register-company', {
-        companyName,
-        adminName,
+      await client.post('/auth/register', {
+        name: adminName,
         email,
-        password
+        password,
+        companyName
       });
       setSuccessMessage('Workspace created successfully! Redirecting to login...');
       setTimeout(() => navigate('/login'), 3000);
