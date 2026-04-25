@@ -1,0 +1,48 @@
+import React from 'react';
+import { Box, CircularProgress } from '@mui/material';
+import LottieComponent from 'lottie-react'; // We will use the standard import but handle the warning in config if needed, or check for light.
+
+
+// Handle potential ESM/CommonJS module mismatch
+const Lottie = LottieComponent.default || LottieComponent;
+
+const LottieIcon = ({ animationData, src, loop = true, style = { width: 100, height: 100 }, ...props }) => {
+  const [data, setData] = React.useState(animationData);
+  const [error, setError] = React.useState(false);
+
+  React.useEffect(() => {
+    if (src && !animationData) {
+      fetch(src)
+        .then((res) => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          const contentType = res.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            throw new TypeError("Oops, we haven't got JSON!");
+          }
+          return res.json();
+        })
+        .then((json) => setData(json))
+        .catch((err) => {
+          console.error('Failed to load lottie animation:', err);
+          setError(true);
+        });
+    }
+  }, [src, animationData]);
+
+  if (error) return <Box sx={{ ...style, bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 2 }} />;
+  if (!data && !src) return null;
+
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', ...style }}>
+      {data && typeof Lottie === 'function' ? (
+        <Lottie animationData={data} loop={loop} {...props} />
+      ) : data ? (
+        <Box sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>Loading player...</Box>
+      ) : (
+        <CircularProgress size={20} />
+      )}
+    </Box>
+  );
+};
+
+export default LottieIcon;

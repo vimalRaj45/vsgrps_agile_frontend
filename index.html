@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    
+    <!-- Primary Meta Tags -->
+    <title>VSGRPS Agile Workspace Secure | Enterprise Agile Project Management by VSGRPS</title>
+    <meta name="title" content="VSGRPS Agile Workspace Secure | Enterprise Agile Project Management by VSGRPS" />
+    <meta name="description" content="Experience the ultimate synergy of speed and security. VSGRPS Agile Workspace Secure by VSGRPS offers persistent session management, PostgreSQL-backed storage, and industrial-grade multi-tenant isolation for high-performance teams." />
+    <meta name="keywords" content="VSGRPS Agile Workspace, Secure Project Management, VSGRPS, SaaS ERP, Agile Workflow, Enterprise Security, PostgreSQL Session Store" />
+    <meta name="author" content="VSGRPS" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vsgrps-agile-backend.onrender.com/" />
+    <meta property="og:title" content="VSGRPS Agile Workspace Secure | Enterprise Agile Project Management" />
+    <meta property="og:description" content="Experience the ultimate synergy of speed and security. VSGRPS Agile Workspace Secure by VSGRPS offers industrial-grade multi-tenant isolation." />
+    <meta property="og:image" content="https://vsgrps-agile-backend.onrender.com/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://vsgrps-agile-backend.onrender.com/" />
+    <meta property="twitter:title" content="VSGRPS Agile Workspace Secure | Enterprise Agile Project Management" />
+    <meta property="twitter:description" content="Experience the ultimate synergy of speed and security. VSGRPS Agile Workspace Secure by VSGRPS offers industrial-grade multi-tenant isolation." />
+    <meta property="twitter:image" content="https://vsgrps-agile-backend.onrender.com/og-image.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script>
+      window.deferredPWAEvent = null;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPWAEvent = e;
+        window.dispatchEvent(new CustomEvent('pwa-ready'));
+      });
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then(reg => {
+            console.log('SW registered:', reg);
+          }).catch(err => {
+            console.log('SW registration failed:', err);
+          });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
