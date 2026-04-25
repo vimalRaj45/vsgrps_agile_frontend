@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Dialog, DialogTitle, DialogContent, DialogActions,
-  Button, TextField, Box, MenuItem, Typography, Alert
+  Button, TextField, Box, MenuItem, Typography, Alert, FormControlLabel, Checkbox
 } from '@mui/material';
 import client from '../../api/client';
 
@@ -11,6 +11,7 @@ const InviteDialog = ({ open, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [inviteUrl, setInviteUrl] = useState('');
   const [checkInfo, setCheckInfo] = useState(null); // { exists, sameOrg, companyName }
+  const [crossOrgConfirm, setCrossOrgConfirm] = useState(false);
 
   const handleCheckEmail = async () => {
     if (!email || !email.includes('@')) return;
@@ -58,7 +59,10 @@ const InviteDialog = ({ open, onClose, onSuccess }) => {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  if (checkInfo) setCheckInfo(null);
+                  if (checkInfo) {
+                    setCheckInfo(null);
+                    setCrossOrgConfirm(false);
+                  }
                 }}
                 onBlur={handleCheckEmail}
                 required
@@ -71,10 +75,25 @@ const InviteDialog = ({ open, onClose, onSuccess }) => {
               )}
 
               {checkInfo?.exists && !checkInfo.sameOrg && (
-                <Alert severity="info" sx={{ mb: 2, borderRadius: 1.5 }}>
-                  This email is already in <strong>{checkInfo.companyName}</strong>. 
-                  Do you want to invite them to your organization as well?
-                </Alert>
+                <Box sx={{ mb: 2 }}>
+                  <Alert severity="info" sx={{ mb: 1, borderRadius: 1.5 }}>
+                    This email is already registered in <strong>{checkInfo.companyName}</strong>. 
+                  </Alert>
+                  <FormControlLabel
+                    control={
+                      <Checkbox 
+                        size="small" 
+                        checked={crossOrgConfirm} 
+                        onChange={(e) => setCrossOrgConfirm(e.target.checked)} 
+                      />
+                    }
+                    label={
+                      <Typography variant="caption" fontWeight="500">
+                        I understand this user is in another organization and I still want to invite them.
+                      </Typography>
+                    }
+                  />
+                </Box>
               )}
               <TextField
                 select
@@ -101,7 +120,11 @@ const InviteDialog = ({ open, onClose, onSuccess }) => {
             <Button 
               variant="contained" 
               type="submit" 
-              disabled={loading || (checkInfo?.exists && checkInfo.sameOrg)}
+              disabled={
+                loading || 
+                (checkInfo?.exists && checkInfo.sameOrg) || 
+                (checkInfo?.exists && !checkInfo.sameOrg && !crossOrgConfirm)
+              }
             >
               {loading ? 'Sending...' : 'Send Invitation'}
             </Button>
