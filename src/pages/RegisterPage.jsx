@@ -43,7 +43,7 @@ const RegisterPage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      bgcolor: '#030712', 
+      bgcolor: 'background.default', 
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -56,15 +56,15 @@ const RegisterPage = () => {
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Grid container sx={{ 
-          bgcolor: 'rgba(15, 23, 42, 0.6)', 
+          bgcolor: theme.palette.mode === 'dark' ? 'rgba(15, 23, 42, 0.6)' : 'rgba(255,255,255,0.8)', 
           borderRadius: 3, 
           overflow: 'hidden',
-          border: '1px solid rgba(255,255,255,0.05)',
+          border: `1px solid ${theme.palette.divider}`,
           backdropFilter: 'blur(25px)',
-          boxShadow: '0 50px 100px -20px rgba(0,0,0,0.6)'
+          boxShadow: theme.palette.mode === 'dark' ? '0 50px 100px -20px rgba(0,0,0,0.6)' : '0 10px 40px rgba(0,0,0,0.1)'
         }}>
           {/* Form Side */}
-          <Grid item xs={12} md={6} sx={{ p: { xs: 3, md: 5 }, bgcolor: 'rgba(3, 7, 18, 0.4)' }}>
+          <Grid item xs={12} md={6} sx={{ p: { xs: 3, md: 5 }, bgcolor: theme.palette.mode === 'dark' ? 'rgba(3, 7, 18, 0.4)' : 'rgba(0, 0, 0, 0.02)' }}>
             <Stack spacing={3}>
               <Box>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
@@ -88,12 +88,12 @@ const RegisterPage = () => {
                   <TextField
                     fullWidth label="Company / Team Name" placeholder="e.g. Acme Corp"
                     value={companyName} onChange={(e) => setCompanyName(e.target.value)} required
-                    InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
+                    InputProps={{ sx: { borderRadius: 3, bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.03)' } }}
                   />
                   <TextField
                     fullWidth label="Admin Full Name" placeholder="e.g. John Doe"
                     value={adminName} onChange={(e) => setAdminName(e.target.value)} required
-                    InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
+                    InputProps={{ sx: { borderRadius: 3, bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.03)' } }}
                   />
                   <TextField
                     fullWidth label="Work Email Address" placeholder="name@company.com"
