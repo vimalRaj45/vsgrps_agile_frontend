@@ -65,7 +65,7 @@ const OnboardingPage = () => {
           <Box component={motion.div} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} sx={{ textAlign: 'center' }}>
             <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
               <LottieIcon 
-                src="https://assets10.lottiefiles.com/packages/lf20_m6cu96.json" 
+                src="https://lottie.host/80c2f623-e291-4560-84c2-25e2a222383c/7T07v6HkNo.json" 
                 style={{ width: 300, height: 300 }}
               />
             </Box>
@@ -164,7 +164,7 @@ const OnboardingPage = () => {
           <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} sx={{ textAlign: 'center' }}>
             {generating ? (
               <Box sx={{ py: 10 }}>
-                <LottieIcon src="https://assets9.lottiefiles.com/packages/lf20_m6cu96.json" style={{ width: 250, height: 250, margin: '0 auto' }} />
+                <LottieIcon src="https://lottie.host/8617d3d7-466d-495c-9799-a9a7a0b5a374/tV7H7G1R8f.json" style={{ width: 250, height: 250, margin: '0 auto' }} />
                 <Typography variant="h4" fontWeight="950" sx={{ mt: 4 }}>
                   <Typewriter
                     options={{

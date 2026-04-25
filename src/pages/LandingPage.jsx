@@ -234,7 +234,7 @@ const SprintoraLanding = () => {
                   overflow: 'hidden'
                 }}>
                   <LottieIcon 
-                    src="https://assets4.lottiefiles.com/packages/lf20_gdbe9x7p.json" 
+                    src="https://lottie.host/80c2f623-e291-4560-84c2-25e2a222383c/7T07v6HkNo.json" 
                     style={{ width: '100%', height: 'auto' }}
                   />
                 </Box>

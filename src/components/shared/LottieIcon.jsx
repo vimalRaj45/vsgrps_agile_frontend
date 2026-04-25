@@ -29,17 +29,18 @@ const LottieIcon = ({ animationData, src, loop = true, style = { width: 100, hei
     }
   }, [src, animationData]);
 
-  if (error) return <Box sx={{ ...style, bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 2 }} />;
-  if (!data && !src) return null;
+  if (error) return (
+    <Box sx={{ ...style, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 2 }}>
+      <Typography variant="caption" color="text.disabled">Animation failed</Typography>
+    </Box>
+  );
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', ...style }}>
-      {data && typeof Lottie === 'function' ? (
-        <Lottie animationData={data} loop={loop} {...props} />
-      ) : data ? (
-        <Box sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>Loading player...</Box>
+      {data ? (
+        <LottieComponent animationData={data} loop={loop} {...props} />
       ) : (
-        <CircularProgress size={20} />
+        <CircularProgress size={24} thickness={2} sx={{ color: 'rgba(255,255,255,0.1)' }} />
       )}
     </Box>
   );
