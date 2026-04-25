@@ -67,61 +67,61 @@ const RegisterPage = () => {
               {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 2, bgcolor: 'rgba(239, 68, 68, 0.1)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.2)' }}>{error}</Alert>}
 
               <form onSubmit={handleSubmit}>
-                <Stack spacing={2}>
+                <Stack spacing={2.5}>
                   <TextField
                     fullWidth name="name" label="Full Name" variant="outlined" required value={formData.name} onChange={handleChange}
-                    InputProps={{ startAdornment: <PersonIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.4)', fontSize: 20 }} /> }}
+                    InputProps={{ startAdornment: <PersonIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.5)', fontSize: 22 }} /> }}
+                    InputLabelProps={{ shrink: true }}
                     sx={{ 
                       '& .MuiOutlinedInput-root': { 
-                        bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.15)' },
-                        '&.Mui-focused fieldset': { borderColor: '#6366f1', borderWidth: '2px' }
+                         bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
+                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
+                        '&.Mui-focused fieldset': { borderColor: '#818cf8', borderWidth: '2px' }
                       }, 
-                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)', ml: 4 },
-                      '& .MuiInputLabel-shrink': { ml: 0, color: '#818cf8' }
+                      '& .MuiInputLabel-root': { color: '#818cf8', fontWeight: 700, fontSize: '0.85rem', transform: 'translate(14px, -10px) scale(0.9)', bgcolor: '#030712', px: 1 },
                     }}
                   />
                   <TextField
                     fullWidth name="email" label="Work Email" variant="outlined" required type="email" value={formData.email} onChange={handleChange}
-                    InputProps={{ startAdornment: <EmailIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.4)', fontSize: 20 }} /> }}
+                    InputProps={{ startAdornment: <EmailIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.5)', fontSize: 22 }} /> }}
+                    InputLabelProps={{ shrink: true }}
                     sx={{ 
                       '& .MuiOutlinedInput-root': { 
-                        bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.15)' },
-                        '&.Mui-focused fieldset': { borderColor: '#6366f1', borderWidth: '2px' }
+                         bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
+                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
+                        '&.Mui-focused fieldset': { borderColor: '#818cf8', borderWidth: '2px' }
                       }, 
-                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)', ml: 4 },
-                      '& .MuiInputLabel-shrink': { ml: 0, color: '#818cf8' }
+                      '& .MuiInputLabel-root': { color: '#818cf8', fontWeight: 700, fontSize: '0.85rem', transform: 'translate(14px, -10px) scale(0.9)', bgcolor: '#030712', px: 1 },
                     }}
                   />
                   <TextField
                     fullWidth name="companyName" label="Workspace Name" variant="outlined" required value={formData.companyName} onChange={handleChange}
-                    InputProps={{ startAdornment: <BusinessIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.4)', fontSize: 20 }} /> }}
+                    InputProps={{ startAdornment: <BusinessIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.5)', fontSize: 22 }} /> }}
+                    InputLabelProps={{ shrink: true }}
                     sx={{ 
                       '& .MuiOutlinedInput-root': { 
-                        bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.15)' },
-                        '&.Mui-focused fieldset': { borderColor: '#6366f1', borderWidth: '2px' }
+                         bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
+                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
+                        '&.Mui-focused fieldset': { borderColor: '#818cf8', borderWidth: '2px' }
                       }, 
-                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)', ml: 4 },
-                      '& .MuiInputLabel-shrink': { ml: 0, color: '#818cf8' }
+                      '& .MuiInputLabel-root': { color: '#818cf8', fontWeight: 700, fontSize: '0.85rem', transform: 'translate(14px, -10px) scale(0.9)', bgcolor: '#030712', px: 1 },
                     }}
                   />
                   <TextField
                     fullWidth name="password" label="Create Password" variant="outlined" required type="password" value={formData.password} onChange={handleChange}
-                    InputProps={{ startAdornment: <LockIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.4)', fontSize: 20 }} /> }}
+                    InputProps={{ startAdornment: <LockIcon sx={{ mr: 2, color: 'rgba(255,255,255,0.5)', fontSize: 22 }} /> }}
+                    InputLabelProps={{ shrink: true }}
                     sx={{ 
                       '& .MuiOutlinedInput-root': { 
-                        bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
-                        '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.15)' },
-                        '&.Mui-focused fieldset': { borderColor: '#6366f1', borderWidth: '2px' }
+                         bgcolor: 'rgba(255,255,255,0.02)', borderRadius: 3, height: 60, color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
+                        '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
+                        '&.Mui-focused fieldset': { borderColor: '#818cf8', borderWidth: '2px' }
                       }, 
-                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.4)', ml: 4 },
-                      '& .MuiInputLabel-shrink': { ml: 0, color: '#818cf8' }
+                      '& .MuiInputLabel-root': { color: '#818cf8', fontWeight: 700, fontSize: '0.85rem', transform: 'translate(14px, -10px) scale(0.9)', bgcolor: '#030712', px: 1 },
                     }}
                   />
 
