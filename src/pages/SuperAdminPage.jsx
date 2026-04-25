@@ -68,7 +68,7 @@ const SuperAdminPage = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `VSGRPS_MASTER_BACKUP_${Date.now()}.sql.gz`);
+      link.setAttribute('download', `Sprintora_MASTER_BACKUP_${Date.now()}.sql.gz`);
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);

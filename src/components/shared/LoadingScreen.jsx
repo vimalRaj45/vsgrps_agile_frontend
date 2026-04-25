@@ -11,7 +11,7 @@ const MESSAGES = [
   "Putting in the work, so you don’t have to...",
   "Crafting a smarter experience for you...",
   "Almost ready, just a moment...",
-  "Preparing the VSGRPS experience..."
+  "Preparing the Sprintora experience..."
 ];
 
 const LoadingScreen = () => {
@@ -104,7 +104,7 @@ const LoadingScreen = () => {
             textTransform: 'uppercase'
           }}
         >
-          VSGRPS Agile Workspace
+          Sprintora Workspace
         </Typography>
       </Stack>
     </Box>

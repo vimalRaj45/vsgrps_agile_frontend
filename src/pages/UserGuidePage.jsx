@@ -19,7 +19,7 @@ const UserGuidePage = () => {
     {
       title: "Getting Started",
       icon: <RocketLaunchIcon color="primary" />,
-      description: "Welcome to VSGRPS Agile Workspace. This platform is designed to streamline your project management with industrial-grade security.",
+      description: "Welcome to Sprintora Workspace. This platform is designed to streamline your project management with industrial-grade security.",
       steps: [
         "Create or join a workspace (Organization).",
         "Set up your profile and preferences in settings.",
@@ -81,7 +81,7 @@ const UserGuidePage = () => {
     {
       title: "In-Depth Role Matrix",
       icon: <SecurityIcon color="primary" />,
-      description: "VSGRPS Agile uses strict Role-Based Access Control (RBAC) to ensure operational integrity and professional governance.",
+      description: "Sprintora uses strict Role-Based Access Control (RBAC) to ensure operational integrity and professional governance.",
       steps: [
         "Administrator: Ultimate authority. Can manage users, export full system backups, view global audit logs, and override any task status (including final verification to 'Done').",
         "Product Owner: Backlog owner. Can create projects, use AI Architect, modify task titles/descriptions, set priorities, and manage project members.",
@@ -93,7 +93,7 @@ const UserGuidePage = () => {
     {
       title: "Effective Usage Tips",
       icon: <AssignmentIcon color="primary" />,
-      description: "How to get the most out of VSGRPS Agile to accelerate your delivery cycles.",
+      description: "How to get the most out of Sprintora to accelerate your delivery cycles.",
       steps: [
         "AI First Workflow: Use the AI Architect to break down large features. It ensures consistent subtask structures and realistic estimations.",
         "Deadlines & Progress: Keep an eye on the visual 'Timeline consumed' progress bars on tasks. Red indicates immediate action is needed.",
@@ -111,7 +111,7 @@ const UserGuidePage = () => {
           User Guide
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          Everything you need to know to master the VSGRPS Agile Workspace.
+          Everything you need to know to master the Sprintora Workspace.
         </Typography>
       </Stack>
 

@@ -84,7 +84,7 @@ const InstallPrompt = () => {
     >
       <DialogTitle sx={{ textAlign: 'center', pt: { xs: 2, sm: 3 } }}>
         <Typography variant="h5" fontWeight="900" letterSpacing="-1px" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          Install VSGRPS Agile
+          Install Sprintora
         </Typography>
       </DialogTitle>
       <DialogContent>

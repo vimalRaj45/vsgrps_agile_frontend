@@ -78,7 +78,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             <SecurityIcon sx={{ color: 'white', fontSize: 24 }} />
           </Box>
           <Typography variant="h5" fontWeight="800" letterSpacing="-1px">
-            VSGRPS <span style={{ color: '#3b82f6' }}>Agile</span>
+            Sprintora <span style={{ color: '#3b82f6' }}>Agile</span>
           </Typography>
         </Stack>
       </Box>

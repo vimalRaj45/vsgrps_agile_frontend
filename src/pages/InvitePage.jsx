@@ -124,7 +124,7 @@ const InvitePage = () => {
                   <SecurityIcon sx={{ color: 'white' }} />
                 </Box>
                 <Typography variant="h5" fontWeight="900" sx={{ letterSpacing: '-1px' }}>
-                  VSGRPS <span style={{ color: theme.palette.primary.main }}>Agile</span>
+                  Sprintora <span style={{ color: theme.palette.primary.main }}>Agile</span>
                 </Typography>
               </Stack>
               

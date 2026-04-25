@@ -63,7 +63,7 @@ const DashboardPage = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `vsgrps_backup_${user?.company_id}_${Date.now()}.sql.gz`);
+      link.setAttribute('download', `Sprintora_backup_${user?.company_id}_${Date.now()}.sql.gz`);
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
@@ -108,7 +108,7 @@ const DashboardPage = () => {
             gap: 2
           }}>
             <Box>
-              <Typography variant="subtitle1" fontWeight="bold">VSGRPS Agile Desktop & Mobile App</Typography>
+              <Typography variant="subtitle1" fontWeight="bold">Sprintora Desktop & Mobile App</Typography>
               <Typography variant="body2" color="text.secondary">Install for real-time native notifications and a faster app-like experience.</Typography>
             </Box>
             <Button
