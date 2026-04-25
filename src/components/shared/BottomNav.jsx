@@ -33,7 +33,7 @@ const BottomNav = () => {
         left: 0, 
         right: 0, 
         zIndex: 1000,
-        borderRadius: 1,
+        borderRadius: 2,
         overflow: 'hidden',
         boxShadow: theme.palette.mode === 'dark' ? '0 -10px 40px rgba(0,0,0,0.5)' : '0 -4px 20px rgba(0,0,0,0.08)',
         borderTop: `1px solid ${theme.palette.divider}`,
