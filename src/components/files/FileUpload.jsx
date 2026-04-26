@@ -38,7 +38,13 @@ const FileUpload = ({ taskId, meetingId, projectId: initialProjectId, onUploadSu
   };
 
   const handleFileSelect = (e) => {
-    setSelectedFile(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file && file.size > 5 * 1024 * 1024) {
+      alert('File size exceeds 5MB limit per file.');
+      e.target.value = ''; // Reset input
+      return;
+    }
+    setSelectedFile(file);
   };
 
   const handleUpload = async () => {
