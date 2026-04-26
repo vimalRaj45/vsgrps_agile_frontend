@@ -205,10 +205,7 @@ const ProjectReportPage = () => {
                 meetings.map((m) => (
                   <Box key={m.id} sx={{ p: 2, bgcolor: 'background.default', borderRadius: 3 }}>
                     <Typography variant="body2" fontWeight="800">{m.title}</Typography>
-                    <Stack direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
-                      <Typography variant="caption" color="text.secondary">{formatDate(m.scheduled_at)}</Typography>
-                      <Typography variant="caption" fontWeight="700">{m.duration_minutes} mins</Typography>
-                    </Stack>
+                    <Typography variant="caption" color="text.secondary">{formatDate(m.scheduled_at)}</Typography>
                   </Box>
                 ))
               )}
