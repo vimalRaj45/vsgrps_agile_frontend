@@ -53,27 +53,42 @@ const ProjectReportPage = () => {
   }) : 'N/A';
 
   return (
-    <Box>
+    <Container maxWidth="lg" sx={{ py: { xs: 2, md: 4 }, px: { xs: 1.5, sm: 2 } }}>
       <ScrollReveal>
-        <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 4 }}>
-          <IconButton onClick={() => navigate(-1)} sx={{ bgcolor: 'background.paper' }}>
-            <ArrowBackIcon />
-          </IconButton>
-          <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h4" fontWeight="900" letterSpacing="-1px">
-              Project Performance Report
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Detailed analytical breakdown for <strong>{project.name}</strong>
-            </Typography>
-          </Box>
+        <Stack 
+          direction={{ xs: 'column', sm: 'row' }} 
+          spacing={2} 
+          alignItems={{ xs: 'flex-start', sm: 'center' }} 
+          sx={{ mb: { xs: 3, md: 5 } }}
+        >
+          <Stack direction="row" spacing={2} alignItems="center">
+            <IconButton onClick={() => navigate(-1)} sx={{ bgcolor: 'background.paper', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Box>
+              <Typography variant="h4" fontWeight="950" letterSpacing="-1.5px" sx={{ fontSize: { xs: '1.75rem', md: '2.5rem' }, lineHeight: 1 }}>
+                Project Report
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
+                {project.name}
+              </Typography>
+            </Box>
+          </Stack>
+          <Box sx={{ flexGrow: 1 }} />
           <Button 
-            variant="outlined" 
+            variant="contained" 
             startIcon={<DownloadIcon />} 
             onClick={() => window.print()}
-            sx={{ display: { xs: 'none', sm: 'inline-flex' }, borderRadius: 3 }}
+            fullWidth={isMobile}
+            sx={{ 
+              borderRadius: 3, 
+              bgcolor: 'background.paper', 
+              color: 'text.primary',
+              border: '1px solid rgba(255,255,255,0.1)',
+              '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }
+            }}
           >
-            Export PDF
+            Export Report
           </Button>
         </Stack>
       </ScrollReveal>
@@ -223,7 +238,7 @@ const ProjectReportPage = () => {
           </Paper>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 
