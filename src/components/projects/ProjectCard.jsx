@@ -3,7 +3,7 @@ import {
   Card, CardContent, Typography, Box, Chip, LinearProgress,
   IconButton, CardActions, AvatarGroup, Avatar, Tooltip, Stack,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  Button as MuiButton, TextField, CircularProgress
+  Button as MuiButton, TextField, CircularProgress, Menu, MenuItem
 } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -24,6 +24,7 @@ const ProjectCard = ({ project, onUpdate }) => {
   const [confirmName, setConfirmName] = React.useState('');
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [deleteError, setDeleteError] = React.useState('');
+  const [statusAnchor, setStatusAnchor] = React.useState(null);
 
   const progress = project.total_tasks > 0 ? (project.done_tasks / project.total_tasks) * 100 : 0;
   const isAdmin = user?.role === 'Admin' || user?.role === 'Product Owner';
@@ -48,8 +49,18 @@ const ProjectCard = ({ project, onUpdate }) => {
     }
   };
 
+  const handleStatusUpdate = async (newStatus) => {
+    setStatusAnchor(null);
+    try {
+      await client.patch(`/projects/${project.id}`, { status: newStatus });
+      onUpdate();
+    } catch (err) {
+      console.error('Failed to update status:', err);
+    }
+  };
+
   const handleProjectDelete = async () => {
-    if (confirmName !== project.name) return;
+    if (confirmName.trim().toLowerCase() !== project.name.trim().toLowerCase()) return;
     
     setIsDeleting(true);
     setDeleteError('');
@@ -107,9 +118,33 @@ const ProjectCard = ({ project, onUpdate }) => {
           <Chip
             label={project.status}
             size="small"
-            color={project.status === 'Active' ? 'primary' : 'default'}
-            sx={{ fontWeight: '800', borderRadius: 2, fontSize: '0.65rem', textTransform: 'uppercase' }}
+            color={project.status === 'Active' ? 'primary' : project.status === 'Planned' ? 'info' : 'default'}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (isAdmin) setStatusAnchor(e.currentTarget);
+            }}
+            sx={{ 
+              fontWeight: '800', 
+              borderRadius: 2, 
+              fontSize: '0.65rem', 
+              textTransform: 'uppercase',
+              cursor: isAdmin ? 'pointer' : 'default',
+              '&:hover': isAdmin ? { bgcolor: 'primary.dark', color: 'white' } : {}
+            }}
           />
+          
+          <Menu
+            anchorEl={statusAnchor}
+            open={Boolean(statusAnchor)}
+            onClose={() => setStatusAnchor(null)}
+            onClick={(e) => e.stopPropagation()}
+            PaperProps={{ sx: { borderRadius: 3, mt: 1, minWidth: 140 } }}
+          >
+            <MenuItem onClick={() => handleStatusUpdate('Active')} sx={{ fontWeight: 600, fontSize: '0.85rem' }}>Active</MenuItem>
+            <MenuItem onClick={() => handleStatusUpdate('Planned')} sx={{ fontWeight: 600, fontSize: '0.85rem' }}>Planned</MenuItem>
+            <MenuItem onClick={() => handleStatusUpdate('Inactive')} sx={{ fontWeight: 600, fontSize: '0.85rem' }}>Inactive</MenuItem>
+          </Menu>
+
           <IconButton 
             size="small" 
             onClick={handlePin}
@@ -236,7 +271,7 @@ const ProjectCard = ({ project, onUpdate }) => {
             variant="contained" 
             color="error" 
             onClick={handleProjectDelete}
-            disabled={confirmName !== project.name || isDeleting}
+            disabled={confirmName.trim().toLowerCase() !== project.name.trim().toLowerCase() || isDeleting}
             startIcon={isDeleting ? <CircularProgress size={20} color="inherit" /> : <DeleteIcon />}
             sx={{ 
               borderRadius: 3, 
