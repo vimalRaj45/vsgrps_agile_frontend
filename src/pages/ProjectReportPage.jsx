@@ -132,7 +132,7 @@ const ProjectReportPage = () => {
         <Grid item xs={12} md={4}>
           <Grid container spacing={2}>
             {summaryCards.map((card, i) => (
-              <Grid item xs={6} key={i}>
+              <Grid item xs={12} sm={6} key={i}>
                 <Paper className="glass-card" sx={{ p: 2, textAlign: 'center' }}>
                   <Box sx={{ 
                     display: 'inline-flex', p: 1, borderRadius: 2, 
@@ -203,9 +203,19 @@ const ProjectReportPage = () => {
                 <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>No meetings conducted yet.</Typography>
               ) : (
                 meetings.map((m) => (
-                  <Box key={m.id} sx={{ p: 2, bgcolor: 'background.default', borderRadius: 3 }}>
-                    <Typography variant="body2" fontWeight="800">{m.title}</Typography>
-                    <Typography variant="caption" color="text.secondary">{formatDate(m.scheduled_at)}</Typography>
+                  <Box key={m.id} sx={{ p: 2, bgcolor: 'background.default', borderRadius: 3, border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                      <Typography variant="body2" fontWeight="800">{m.title}</Typography>
+                      <Typography variant="caption" color="text.secondary">{formatDate(m.scheduled_at)}</Typography>
+                    </Stack>
+                    {m.outcome && (
+                      <Box sx={{ mt: 1, pt: 1, borderTop: '1px dashed rgba(255,255,255,0.1)' }}>
+                        <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: 'uppercase', display: 'block', mb: 0.5 }}>Meeting Outcome</Typography>
+                        <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.primary', opacity: 0.9 }}>
+                          "{m.outcome}"
+                        </Typography>
+                      </Box>
+                    )}
                   </Box>
                 ))
               )}
