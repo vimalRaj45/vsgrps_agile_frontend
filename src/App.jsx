@@ -29,6 +29,7 @@ import OnboardingPage from './pages/OnboardingPage';
 import MissionPage from './pages/MissionPage';
 import FeaturesPage from './pages/FeaturesPage';
 import { PrivacyPage, TermsPage } from './pages/LegalPages';
+import ProjectReportPage from './pages/ProjectReportPage';
 import AppLayout from './components/shared/AppLayout';
 import ScrollToTop from './components/shared/ScrollToTop';
 
@@ -79,6 +80,7 @@ function App() {
               <Route path="/meetings" element={<PrivateRoute><MeetingsPage /></PrivateRoute>} />
               <Route path="/meetings/:id" element={<PrivateRoute><MeetingDetailPage /></PrivateRoute>} />
               <Route path="/projects/:id" element={<PrivateRoute><ProjectDetailPage /></PrivateRoute>} />
+              <Route path="/projects/:id/report" element={<PrivateRoute><ProjectReportPage /></PrivateRoute>} />
               <Route path="/files" element={<PrivateRoute><FilesPage /></PrivateRoute>} />
               <Route path="/settings" element={<PrivateRoute><SettingsPage /></PrivateRoute>} />
               <Route path="/guide" element={<PrivateRoute><UserGuidePage /></PrivateRoute>} />

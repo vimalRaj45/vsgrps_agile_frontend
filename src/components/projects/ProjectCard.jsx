@@ -16,6 +16,7 @@ import { useAuth } from '../../context/AuthContext';
 import { can } from '../../utils/rbac';
 import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const ProjectCard = ({ project, onUpdate }) => {
   const { user } = useAuth();
@@ -202,6 +203,15 @@ const ProjectCard = ({ project, onUpdate }) => {
           </Typography>
         </Stack>
         <Stack direction="row" spacing={0.5}>
+          <Tooltip title="View Project Report">
+            <IconButton 
+              size="small" 
+              onClick={(e) => { e.stopPropagation(); navigate(`/projects/${project.id}/report`); }} 
+              sx={{ color: 'primary.main' }}
+            >
+              <BarChartIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
           <Tooltip title={project.archived ? "Unarchive Project" : "Archive Project"}>
             <IconButton size="small" onClick={handleArchive} sx={{ color: 'text.secondary' }}>
               <ArchiveIcon fontSize="small" />
