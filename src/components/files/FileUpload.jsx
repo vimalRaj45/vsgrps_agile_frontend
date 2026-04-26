@@ -103,6 +103,9 @@ const FileUpload = ({ taskId, meetingId, projectId: initialProjectId, onUploadSu
             <Typography variant="body2">
               {selectedFile ? selectedFile.name : 'Click or drag file to upload'}
             </Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+              Max 5MB per file
+            </Typography>
           </Box>
 
           {!initialProjectId && (

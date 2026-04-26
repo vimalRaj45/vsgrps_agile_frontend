@@ -6,15 +6,20 @@ import {
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import ArchiveIcon from '@mui/icons-material/Archive';
+import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import client from '../../api/client';
+import { useAuth } from '../../context/AuthContext';
+import { can } from '../../utils/rbac';
 import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const ProjectCard = ({ project, onUpdate }) => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const progress = project.total_tasks > 0 ? (project.done_tasks / project.total_tasks) * 100 : 0;
+  const isAdmin = user?.role === 'Admin' || user?.role === 'Product Owner';
 
   const handlePin = async (e) => {
     e.stopPropagation();
@@ -33,6 +38,19 @@ const ProjectCard = ({ project, onUpdate }) => {
       onUpdate();
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleProjectDelete = async (e) => {
+    e.stopPropagation();
+    if (window.confirm(`Are you sure you want to permanently delete project "${project.name}"? This will also remove all associated tasks and files.`)) {
+      try {
+        await client.delete(`/projects/${project.id}`);
+        onUpdate();
+      } catch (err) {
+        console.error('Failed to delete project:', err);
+        alert('Failed to delete project. Make sure you have the required permissions.');
+      }
     }
   };
 
@@ -130,11 +148,27 @@ const ProjectCard = ({ project, onUpdate }) => {
             {project.done_tasks}/{project.total_tasks} Tasks
           </Typography>
         </Stack>
-        <Tooltip title={project.archived ? "Unarchive Project" : "Archive Project"}>
-          <IconButton size="small" onClick={handleArchive} sx={{ color: 'text.secondary' }}>
-            <ArchiveIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
+        <Stack direction="row" spacing={0.5}>
+          <Tooltip title={project.archived ? "Unarchive Project" : "Archive Project"}>
+            <IconButton size="small" onClick={handleArchive} sx={{ color: 'text.secondary' }}>
+              <ArchiveIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          {isAdmin && (
+            <Tooltip title="Delete Project">
+              <IconButton 
+                size="small" 
+                onClick={handleProjectDelete} 
+                sx={{ 
+                  color: 'text.secondary',
+                  '&:hover': { color: 'error.main', bgcolor: 'rgba(239, 68, 68, 0.05)' }
+                }}
+              >
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Stack>
       </CardActions>
     </Card>
   );

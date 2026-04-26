@@ -83,36 +83,16 @@ const InvitePage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
+      bgcolor: 'background.default',
       display: 'flex', 
       alignItems: 'center', 
       py: { xs: 4, md: 8 },
       position: 'relative',
-      overflow: 'hidden',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
+      overflow: 'hidden'
     }}>
-      {/* Animated background element */}
-      <Box sx={{ 
-        position: 'absolute', 
-        top: -100, 
-        right: -100, 
-        width: 400, 
-        height: 400, 
-        borderRadius: '50%', 
-        background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 70%)',
-        filter: 'blur(50px)',
-        zIndex: 0
-      }} />
-      <Box sx={{ 
-        position: 'absolute', 
-        bottom: -150, 
-        left: -150, 
-        width: 500, 
-        height: 500, 
-        borderRadius: '50%', 
-        background: 'radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(236, 72, 153, 0) 70%)',
-        filter: 'blur(60px)',
-        zIndex: 0
-      }} />
+      {/* Background Orbs consistent with Login Page */}
+      <Box sx={{ position: 'absolute', top: '-10%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0 }} />
+      <Box sx={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0 }} />
 
       <Container maxWidth="lg" sx={{ zIndex: 1 }}>
         <Grid container spacing={6} sx={{ alignItems: 'center' }}>
@@ -159,10 +139,10 @@ const InvitePage = () => {
             <Paper elevation={0} sx={{ 
               p: { xs: 3, md: 6 }, 
               borderRadius: 6, 
-              bgcolor: 'rgba(30, 41, 59, 0.7)',
+              bgcolor: theme.palette.mode === 'dark' ? 'rgba(15, 23, 42, 0.6)' : 'rgba(255,255,255,0.8)', 
               backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              border: `1px solid ${theme.palette.divider}`,
+              boxShadow: theme.palette.mode === 'dark' ? '0 50px 100px -20px rgba(0,0,0,0.5)' : '0 10px 40px rgba(0,0,0,0.1)',
               position: 'relative'
             }}>
               <Box sx={{ textAlign: 'center', mb: 4 }}>

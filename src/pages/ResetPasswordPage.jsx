@@ -52,21 +52,28 @@ const ResetPasswordPage = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
+      bgcolor: 'background.default',
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'center',
       position: 'relative',
+      overflow: 'hidden',
       p: 2
     }}>
-      <div className="bg-gradient" />
+      {/* Background Orbs consistent with Login Page */}
+      <Box sx={{ position: 'absolute', top: '-10%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0 }} />
+      <Box sx={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: 0 }} />
       
-      <Container maxWidth="sm" className="fade-in">
+      <Container maxWidth="sm" className="fade-in" sx={{ position: 'relative', zIndex: 1 }}>
         <Box 
-          className="glass-card" 
           sx={{ 
             p: { xs: 4, md: 6 }, 
             width: '100%',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+            bgcolor: 'background.paper',
+            borderRadius: 6,
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.05)',
+            boxShadow: '0 50px 100px -20px rgba(0,0,0,0.5)'
           }}
         >
           <Stack spacing={1} sx={{ alignItems: 'center', mb: 4 }}>

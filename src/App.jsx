@@ -35,13 +35,20 @@ import ScrollToTop from './components/shared/ScrollToTop';
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return <LoadingScreen />;
-  return !user ? children : <Navigate to="/" />;
+  return !user ? children : <Navigate to="/" replace />;
 };
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return <LoadingScreen />;
-  return user ? <AppLayout>{children}</AppLayout> : <Navigate to="/landing" />;
+  return user ? <AppLayout>{children}</AppLayout> : <Navigate to="/" replace />;
+};
+
+// Root route component to handle landing vs dashboard without extra redirects
+const RootRoute = () => {
+  const { user, loading } = useAuth();
+  if (loading) return <LoadingScreen />;
+  return user ? <AppLayout><DashboardPage /></AppLayout> : <LandingPage />;
 };
 
 import { NotificationProvider } from './context/NotificationContext';
@@ -54,7 +61,12 @@ function App() {
           <Router>
             <ScrollToTop />
             <Routes>
-              <Route path="/landing" element={<PublicRoute><LandingPage /></PublicRoute>} />
+              {/* The root route now intelligently decides between Landing and Dashboard */}
+              <Route path="/" element={<RootRoute />} />
+              
+              {/* Redirect old landing path to root */}
+              <Route path="/landing" element={<Navigate to="/" replace />} />
+              
               <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
               <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
               <Route path="/forgot-password" element={<PublicRoute><ForgotPasswordPage /></PublicRoute>} />
@@ -62,7 +74,6 @@ function App() {
               <Route path="/verify" element={<VerifyPage />} />
               <Route path="/invite/:token" element={<InvitePage />} />
               
-              <Route path="/" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
               <Route path="/tasks" element={<PrivateRoute><TasksPage /></PrivateRoute>} />
               <Route path="/projects" element={<PrivateRoute><ProjectsPage /></PrivateRoute>} />
               <Route path="/meetings" element={<PrivateRoute><MeetingsPage /></PrivateRoute>} />
@@ -81,7 +92,7 @@ function App() {
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/master-access" element={<SuperAdminPage />} />
               
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Router>
         </NotificationProvider>
