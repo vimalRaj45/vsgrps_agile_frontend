@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   Box, Typography, Grid, Paper, Divider, Avatar, 
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  LinearProgress, Card, Stack, Chip, Button, IconButton
+  LinearProgress, Card, Stack, Chip, Button, IconButton,
+  Container, useTheme, useMediaQuery
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -19,6 +20,8 @@ import ScrollReveal from '../components/shared/ScrollReveal';
 const ProjectReportPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
