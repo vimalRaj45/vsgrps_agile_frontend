@@ -1,7 +1,9 @@
 import React from 'react';
 import {
   Card, CardContent, Typography, Box, Chip, LinearProgress,
-  IconButton, CardActions, AvatarGroup, Avatar, Tooltip, Stack
+  IconButton, CardActions, AvatarGroup, Avatar, Tooltip, Stack,
+  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  Button as MuiButton, TextField, CircularProgress
 } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -18,6 +20,11 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const ProjectCard = ({ project, onUpdate }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const [confirmName, setConfirmName] = React.useState('');
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [deleteError, setDeleteError] = React.useState('');
+
   const progress = project.total_tasks > 0 ? (project.done_tasks / project.total_tasks) * 100 : 0;
   const isAdmin = user?.role === 'Admin' || user?.role === 'Product Owner';
 
@@ -41,17 +48,28 @@ const ProjectCard = ({ project, onUpdate }) => {
     }
   };
 
-  const handleProjectDelete = async (e) => {
-    e.stopPropagation();
-    if (window.confirm(`Are you sure you want to permanently delete project "${project.name}"? This will also remove all associated tasks and files.`)) {
-      try {
-        await client.delete(`/projects/${project.id}`);
-        onUpdate();
-      } catch (err) {
-        console.error('Failed to delete project:', err);
-        alert('Failed to delete project. Make sure you have the required permissions.');
-      }
+  const handleProjectDelete = async () => {
+    if (confirmName !== project.name) return;
+    
+    setIsDeleting(true);
+    setDeleteError('');
+    try {
+      await client.delete(`/projects/${project.id}`);
+      setOpenDelete(false);
+      onUpdate();
+    } catch (err) {
+      console.error('Failed to delete project:', err);
+      setDeleteError(err.response?.data?.error || 'Failed to delete project. Insufficient permissions.');
+    } finally {
+      setIsDeleting(false);
     }
+  };
+
+  const openDeleteDialog = (e) => {
+    e.stopPropagation();
+    setConfirmName('');
+    setDeleteError('');
+    setOpenDelete(true);
   };
 
   return (
@@ -158,7 +176,7 @@ const ProjectCard = ({ project, onUpdate }) => {
             <Tooltip title="Delete Project">
               <IconButton 
                 size="small" 
-                onClick={handleProjectDelete} 
+                onClick={openDeleteDialog} 
                 sx={{ 
                   color: 'text.secondary',
                   '&:hover': { color: 'error.main', bgcolor: 'rgba(239, 68, 68, 0.05)' }
@@ -170,6 +188,68 @@ const ProjectCard = ({ project, onUpdate }) => {
           )}
         </Stack>
       </CardActions>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog 
+        open={openDelete} 
+        onClose={() => !isDeleting && setOpenDelete(false)}
+        onClick={(e) => e.stopPropagation()}
+        PaperProps={{
+          sx: { borderRadius: 4, p: 1 }
+        }}
+      >
+        <DialogTitle sx={{ fontWeight: 800, fontSize: '1.5rem', pb: 1 }}>
+          Confirm Deletion
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ mb: 3 }}>
+            This action is <strong>permanent</strong>. To confirm, please type <strong>{project.name}</strong> below.
+          </DialogContentText>
+          
+          {deleteError && (
+            <Box sx={{ mb: 2, p: 1.5, bgcolor: 'rgba(239, 68, 68, 0.1)', borderRadius: 2, border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+              <Typography variant="caption" color="error" fontWeight="bold">{deleteError}</Typography>
+            </Box>
+          )}
+
+          <TextField
+            fullWidth
+            size="small"
+            placeholder="Type project name here"
+            value={confirmName}
+            onChange={(e) => setConfirmName(e.target.value)}
+            autoComplete="off"
+            sx={{
+              '& .MuiOutlinedInput-root': { borderRadius: 3 }
+            }}
+          />
+        </DialogContent>
+        <DialogActions sx={{ p: 3, pt: 1 }}>
+          <MuiButton 
+            onClick={() => setOpenDelete(false)} 
+            disabled={isDeleting}
+            sx={{ fontWeight: 700 }}
+          >
+            Cancel
+          </MuiButton>
+          <MuiButton 
+            variant="contained" 
+            color="error" 
+            onClick={handleProjectDelete}
+            disabled={confirmName !== project.name || isDeleting}
+            startIcon={isDeleting ? <CircularProgress size={20} color="inherit" /> : <DeleteIcon />}
+            sx={{ 
+              borderRadius: 3, 
+              px: 3,
+              fontWeight: 800,
+              boxShadow: '0 8px 16px rgba(239, 68, 68, 0.2)',
+              '&.Mui-disabled': { bgcolor: 'rgba(239, 68, 68, 0.1)', color: 'rgba(239, 68, 68, 0.4)' }
+            }}
+          >
+            {isDeleting ? 'Deleting...' : 'Permanently Delete'}
+          </MuiButton>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
