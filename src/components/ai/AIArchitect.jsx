@@ -253,6 +253,20 @@ const AIArchitect = () => {
                           variant="outlined" 
                           sx={{ height: 20, fontSize: '0.65rem', borderColor: 'primary.main', color: 'primary.main' }}
                         />
+                        {task.impact_score && (
+                          <Tooltip title="Predictive Project Impact Score">
+                            <Chip 
+                              label={`Impact: ${task.impact_score}%`} 
+                              size="small" 
+                              sx={{ 
+                                height: 20, fontSize: '0.65rem', fontWeight: 900,
+                                bgcolor: 'rgba(168, 85, 247, 0.1)', 
+                                color: '#a855f7',
+                                border: '1px solid rgba(168, 85, 247, 0.2)'
+                              }}
+                            />
+                          </Tooltip>
+                        )}
                       </Box>
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>{task.description}</Typography>
                       
