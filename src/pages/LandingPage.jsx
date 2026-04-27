@@ -507,21 +507,57 @@ const SprintoraLanding = () => {
       <Box sx={{ py: 8, borderTop: `1px solid ${theme.palette.divider}`, bgcolor: 'background.default' }}>
         <Container maxWidth="xl">
           <Grid container spacing={6}>
-            <Grid item xs={12} md={6}>
-              <Typography variant="h6" fontWeight="900" sx={{ mb: 0.5, color: 'text.primary' }}>Sprintora</Typography>
-              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block', mb: 2 }}>
-                by VSGRPS Technologies
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300 }}>
-                The AI-powered workspace for modern teams.
-              </Typography>
+            <Grid item xs={12} md={4}>
+              <Stack spacing={2}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                  <BrandLogo size={32} />
+                  <Typography variant="h5" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary' }}>Sprintora</Typography>
+                </Box>
+                <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300, lineHeight: 1.6 }}>
+                  The AI-powered workspace engineered for high-performance teams. Plan, track, and deliver with industrial precision.
+                </Typography>
+              </Stack>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
+              <Stack spacing={2}>
+                <Typography variant="overline" fontWeight="900" color="primary.main" sx={{ letterSpacing: 2 }}>DEVELOPED BY</Typography>
+                <Box 
+                  component="a" 
+                  href="https://vsgrps.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: 2, 
+                    textDecoration: 'none',
+                    p: 2,
+                    borderRadius: 3,
+                    bgcolor: 'rgba(255,255,255,0.02)',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      bgcolor: 'rgba(255,255,255,0.04)',
+                      transform: 'translateY(-2px)',
+                      borderColor: 'primary.main'
+                    }
+                  }}
+                >
+                  <Box component="img" src="/vsgrps_logo.png" sx={{ width: 40, height: 40, borderRadius: 2 }} />
+                  <Box>
+                    <Typography variant="subtitle2" fontWeight="900" color="text.primary">VSGRPS Technologies</Typography>
+                    <Typography variant="caption" color="text.secondary">Visit vsgrps.com</Typography>
+                  </Box>
+                </Box>
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={4}>
               <Stack direction="row" spacing={6} sx={{ justifyContent: { md: 'flex-end' } }}>
                 <Stack spacing={1.5}>
                   <Typography variant="caption" fontWeight="900" color="#818cf8">SYSTEM</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/features')}>Features</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/mission')}>Our Mission</Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/guide')}>User Guide</Typography>
                 </Stack>
                 <Stack spacing={1.5}>
                   <Typography variant="caption" fontWeight="900" color="#c084fc">LEGAL</Typography>
@@ -531,6 +567,10 @@ const SprintoraLanding = () => {
               </Stack>
             </Grid>
           </Grid>
+          <Divider sx={{ my: 4, opacity: 0.1 }} />
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center' }}>
+            © {new Date().getFullYear()} VSGRPS Technologies. All rights reserved. Sprintora is a registered trademark.
+          </Typography>
         </Container>
       </Box>
     </Box>
