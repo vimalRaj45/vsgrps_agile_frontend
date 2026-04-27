@@ -164,7 +164,7 @@ const SprintoraLanding = () => {
                 }}
               >
                 Start Free
-              </Button>n>
+              </Button>
               {isMobile && (
                 <IconButton 
                   onClick={() => setMobileMenuOpen(true)} 
