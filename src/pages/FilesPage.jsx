@@ -7,7 +7,9 @@ import {
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 import DownloadIcon from '@mui/icons-material/Download';
 import LinkIcon from '@mui/icons-material/Link';
+import DeleteIcon from '@mui/icons-material/Delete';
 import client from '../api/client';
+import { useAuth } from '../context/AuthContext';
 import LoadingScreen from '../components/shared/LoadingScreen';
 import FileUpload from '../components/files/FileUpload';
 import LinkInput from '../components/files/LinkInput';
@@ -18,6 +20,7 @@ const FilesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
+  const { user } = useAuth();
 
   const fetchData = async () => {
     try {
@@ -40,6 +43,28 @@ const FilesPage = () => {
 
   const handleDownload = (id, filename) => {
     window.open(`${client.defaults.baseURL}/files/${id}/download`, '_blank');
+  };
+
+  const handleDeleteFile = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this file?')) return;
+    try {
+      await client.delete(`/files/${id}`);
+      fetchData();
+      setSnackbar({ open: true, message: 'File deleted successfully!' });
+    } catch (err) {
+      setSnackbar({ open: true, message: err.response?.data?.error || 'Failed to delete file' });
+    }
+  };
+
+  const handleDeleteLink = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this link?')) return;
+    try {
+      await client.delete(`/files/links/${id}`);
+      fetchData();
+      setSnackbar({ open: true, message: 'Link deleted successfully!' });
+    } catch (err) {
+      setSnackbar({ open: true, message: err.response?.data?.error || 'Failed to delete link' });
+    }
   };
 
   if (loading) return <LoadingScreen />;
@@ -81,9 +106,16 @@ const FilesPage = () => {
                     <ListItem
                       key={file.id}
                       secondaryAction={
-                        <IconButton edge="end" onClick={() => handleDownload(file.id, file.filename)}>
-                          <DownloadIcon />
-                        </IconButton>
+                        <Stack direction="row" spacing={0.5}>
+                          <IconButton edge="end" onClick={() => handleDownload(file.id, file.filename)}>
+                            <DownloadIcon />
+                          </IconButton>
+                          {(file.uploaded_by === user?.id || user?.role === 'Admin') && (
+                            <IconButton edge="end" color="error" onClick={() => handleDeleteFile(file.id)}>
+                              <DeleteIcon />
+                            </IconButton>
+                          )}
+                        </Stack>
                       }
                     >
                       <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}><FilePresentIcon /></ListItemIcon>
@@ -144,6 +176,7 @@ const FilesPage = () => {
                         component="a"
                         href={link.url}
                         target="_blank"
+                        sx={{ pr: 9 }} // Space for absolute delete button
                       >
                         <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}><LinkIcon /></ListItemIcon>
                         <ListItemText
@@ -176,6 +209,22 @@ const FilesPage = () => {
                           secondaryTypographyProps={{ component: 'div' }}
                         />
                       </ListItemButton>
+                      {(link.added_by === user?.id || user?.role === 'Admin') && (
+                        <IconButton 
+                          edge="end" 
+                          color="error" 
+                          onClick={(e) => { e.stopPropagation(); handleDeleteLink(link.id); }}
+                          sx={{ 
+                            position: 'absolute', 
+                            right: 16, 
+                            top: '50%', 
+                            transform: 'translateY(-50%)',
+                            zIndex: 2
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
                     </ListItem>
                   ))
                 )}
