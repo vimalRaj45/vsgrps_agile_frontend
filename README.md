@@ -1,91 +1,122 @@
-# Sprintora Workspace 🚀
+# Sprintora: AI-Powered Enterprise Agile Workspace 🚀
 
-A premium, AI-native execution engine designed for high-performance agile project management and organizational focus.
+Sprintora is a high-performance, AI-driven project management platform designed by **VSGRPS Technologies**. It combines modern agile methodologies with Llama-powered intelligence to streamline software development workflows, enhance team collaboration, and provide executive-level project oversight.
 
-## 🌟 Project Overview
-**Sprintora** is more than a project management tool; it's a high-fidelity workspace that combines neural planning, team collaboration, and administrative governance into a single, cohesive experience. Built with the **Aurora Design System**, it prioritizes focus and visual clarity, allowing teams to move from idea to execution with 10x velocity.
+---
 
-## 💎 Key Features
+## 🏗️ Technical Analysis & Product Overview
 
-### 🤖 AI Architect (Neural Planning)
-- **Neural Task Decomposition**: Decompose complex requirements into structured tasks using Llama-3.3.
-- **Smart Estimation**: Automatic priority and effort estimation based on requirement context.
-- **Subtask Provisioning**: AI generates nested subtasks that can be bulk-created instantly.
+Sprintora is architected as a full-stack, enterprise-grade solution utilizing a high-performance **Fastify (Node.js)** backend and a rich **React/Material-UI** frontend. The system is designed for high-concurrency environments, implementing robust security patterns, data portability, and real-time synchronization.
 
-### 📋 Agile Execution
-- **Interactive Kanban Boards**: Real-time task tracking with priorities and statuses.
-- **Project Pinning**: Organize high-priority projects for instant access.
-- **Subtask Management**: Break down complex tasks into manageable action items.
+### 🧠 Core Intelligence: The AI Architect
+At the heart of Sprintora is the **AI Architect**, powered by the Llama-3.3-70B model. Unlike generic task trackers, Sprintora uses AI to:
+*   **Analyze Requirements**: Transform high-level project goals into technical task breakdowns.
+*   **Smart Estimation**: Automatically assign priorities and estimate work hours based on task complexity.
+*   **Pre-defined Subtasks**: Generate granular action items for every task to ensure developers have clear execution paths.
+*   **Role Mapping**: Suggest appropriate team roles (Frontend, Backend, DevOps) for specific technical items.
 
-### 🤝 Advanced Collaboration
-- **Smart Notifications**: In-app notification bell with "Mark All as Read" and individual acknowledgment.
-- **Interactive Comments**: Mention teammates (@username) with automated alerts.
-- **Meeting Management**: Schedule meetings, track attendees, and store interactive meeting notes.
-- **Resource Sharing**: Secure private file and link sharing with automatic metadata scraping.
+### 📊 Product Features & Modules
 
-### 📊 Impact Analytics
-- **Team Velocity Tracking**: 12-week rolling visualization of task completion trends.
-- **95% Faster Delivery**: Documented acceleration in planning cycles via AI automation.
-- **Stakeholder Views**: Simplified dashboards for non-technical leadership.
+#### 1. Agile Governance (Kanban Board)
+*   **State-of-the-art Workflow**: Integrated Kanban system for tracking tasks through *To Do*, *In Progress*, *Review*, and *Done*.
+*   **Quality Gates**: Enforced status transitions where only Admins can finalize tasks, ensuring strict quality control.
+*   **Subtask Management**: Deep-nesting of subtasks within main tickets for micro-tracking.
 
-### 🛡️ Enterprise Security & Governance
-- **Multi-Tenant Architecture**: Secure data isolation between different organizations.
-- **Audit Logging**: Every sensitive action is timestamped and logged for compliance.
-- **Data Portability**: Full organization database exports as compressed `.sql.gz` files.
+#### 2. Advanced Collaboration
+*   **Resource Vault**: Centralized management for project files and external links with automatic metadata/OG-image previews.
+*   **Meeting Lifecycle**: Schedule meetings, track attendance, and store interactive minutes/outcomes within the project context.
+*   **Notification Engine**: Real-time push notifications and in-app alerts for mentions, assignments, and status changes.
 
-## 🛠️ Tech Stack
+#### 3. Executive Insights
+*   **Real-time Analytics**: Built-in Recharts dashboards for tracking Team Velocity, Completion Rates, and Work Distribution.
+*   **Project Reports**: Automated PDF/Print-ready generation of project health reports, including team contribution metrics and timeline analysis.
 
-### Frontend
-- **Framework**: React 19 + Vite
-- **Styling**: Material UI v6 (Aurora Design System)
-- **Theme**: Persistent Light/Dark mode with unified context flow.
-- **Animations**: Framer Motion & CSS-based micro-interactions.
+#### 4. Enterprise Security & Administration
+*   **Audit Logging**: Every sensitive action (backups, user removals, project deletions) is logged with timestamps and actor details.
+*   **Role-Based Access Control (RBAC)**: Fine-grained permissions for Admins, Product Owners, Developers, and Stakeholders.
+*   **Data Sovereignty**: Built-in full database backup/export functionality for organization-wide data portability.
 
-### Backend
-- **Runtime**: Node.js (Fastify Framework)
-- **Database**: PostgreSQL (Neon Serverless)
-- **AI Engine**: Groq API (Llama-3.3-70B)
-- **Authentication**: Secure Session-based Auth (fastify-session)
-- **External APIs**: Brevo (SMTP/Email), Open-Graph-Scraper
+---
+
+## 🛠️ Technical Stack
+
+### **Frontend**
+*   **Framework**: React 18+ with Vite (for lightning-fast HMR).
+*   **Design System**: Material UI (MUI) with a premium custom theme.
+*   **Visualizations**: Recharts for dynamic analytics.
+*   **Persistence**: Progressive Web App (PWA) with service workers for offline capability and push notifications.
+*   **Styling**: Custom CSS Modules + Global design tokens for glassmorphism and modern UI effects.
+
+### **Backend**
+*   **Engine**: Fastify (High-performance Node.js framework with lower overhead than Express).
+*   **Database**: PostgreSQL (Relational persistence for complex agile entities).
+*   **Authentication**: Secure session-based auth with HTTP-only cookies and Bcrypt hashing.
+*   **Intelligence**: Groq-hosted Llama-3.3-70B API integration.
+*   **Messaging**: Nodemailer (Transactional emails) and Web-push (Browser notifications).
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
-- PostgreSQL Database
-- Brevo API Key (for emails)
-- Groq API Key (for AI)
+*   Node.js v18+
+*   PostgreSQL v14+
+*   NPM or Yarn
 
 ### Installation
 
-1. **Clone the repositories**:
-   ```bash
-   git clone https://github.com/vimalRaj45/vsgrps_agile_backend
-   git clone https://github.com/vimalRaj45/vsgrps_agile_frontend
-   ```
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/vimalRaj45/vsgrps_agile_frontend.git
+    cd Sprintora
+    ```
 
-2. **Backend Setup**:
-   ```bash
-   cd backend
-   npm install
-   # Create .env with DATABASE_URL, BREVO_API_KEY, SESSION_SECRET, GROQ_API_KEY
-   node db-init.js  # Initialize the database schema
-   npm start
-   ```
+2.  **Backend Setup**
+    ```bash
+    cd backend
+    npm install
+    # Create a .env file based on the environment requirements
+    npm run init-db # Initialize database schemas
+    npm run dev
+    ```
 
-3. **Frontend Setup**:
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
+3.  **Frontend Setup**
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
 
-## 🎨 Design System: Aurora
-Sprintora follows the **Aurora Design System**, featuring:
-- **Glassmorphism**: Translucent headers and components with persistent theme flow.
-- **Geometric Rule**: `borderRadius: 3` (24px) for cards; `borderRadius: 2` (16px) for navbars.
-- **Modern Typography**: Inter & Outfit fonts for maximum readability.
-- **Mobile First**: Fully responsive layout optimized for high-conversion onboarding.
+### Environment Variables (.env)
+
+**Backend:**
+*   `DATABASE_URL`: PostgreSQL connection string.
+*   `SESSION_SECRET`: Minimum 32-character secure string.
+*   `GROQ_API_KEY`: For AI Architect functionality.
+*   `EMAIL_USER`/`EMAIL_PASS`: For verification emails.
+*   `VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY`: For push notifications.
 
 ---
-© 2026 Sprintora. All rights reserved.
+
+## 📂 Project Structure
+
+```text
+├── backend/
+│   ├── routes/        # API Endpoints (Auth, Tasks, AI, etc.)
+│   ├── models/        # Database interaction logic
+│   ├── utils/         # Helpers (Push, Email, AI connectors)
+│   └── index.js       # Server Entry Point
+├── frontend/
+│   ├── src/
+│   │   ├── components/ # Reusable UI Components
+│   │   ├── pages/      # Views (Dashboard, Kanban, Reports)
+│   │   ├── store/      # State management
+│   │   └── api/        # Axios client & services
+│   └── public/        # PWA Assets & Service Worker
+└── README.md
+```
+
+---
+
+© 2026 VSGRPS Technologies. All rights reserved.  
+*Building the future of collaborative intelligence.*
