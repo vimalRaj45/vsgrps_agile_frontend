@@ -109,14 +109,14 @@ const SprintoraLanding = () => {
       }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
           <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
-            <Stack direction="row" spacing={2} alignItems="center" sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
-              <BrandLogo size={48} />
+            <Stack direction="row" spacing={1.5} alignItems="center" sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
+              <BrandLogo size={40} />
               <Box>
-                <Typography variant="h6" fontWeight="950" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1 }}>
+                <Typography variant="h6" fontWeight="950" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1.1 }}>
                   Sprintora
                 </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block', mt: 0.2 }}>
-                  AI Powered Management Tool by VSGRPS
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block', mt: -0.2 }}>
+                  by VSGRPS Technologies
                 </Typography>
               </Box>
             </Stack>
