@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { useAppTheme } from '../../context/ThemeContext';
 
 const BrandLogo = ({ size = 24, borderRadius = '0', sx = {} }) => {
