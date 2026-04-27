@@ -109,9 +109,17 @@ const SprintoraLanding = () => {
       }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
           <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
-            <Box sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
-              <BrandLogo size={42} borderRadius="0" />
-            </Box>
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
+              <BrandLogo size={48} />
+              <Box>
+                <Typography variant="h6" fontWeight="950" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1 }}>
+                  Sprintora
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block', mt: 0.2 }}>
+                  AI Powered Management Tool by VSGRPS
+                </Typography>
+              </Box>
+            </Stack>
             
             <Stack direction="row" spacing={{ xs: 1, sm: 2 }} sx={{ alignItems: 'center' }}>
               {!isMobile && (
