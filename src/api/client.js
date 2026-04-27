@@ -1,7 +1,11 @@
 import axios from 'axios';
 //https://vsgrps-agile-backend.onrender.com/
+const API_URL = import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com';
+
+console.log('🚀 Connecting to Backend at:', API_URL);
+
 const client = axios.create({
-  baseURL: 'https://vsgrps-agile-backend.onrender.com',
+  baseURL: API_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
