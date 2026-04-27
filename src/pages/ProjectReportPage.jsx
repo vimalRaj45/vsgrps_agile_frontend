@@ -1,3 +1,8 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Box, Typography, Grid, Paper, Divider, Avatar, 
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  LinearProgress, Card, Stack, Chip, Button, IconButton,
   Container, useTheme, useMediaQuery, Tabs, Tab
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
