@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-const BrandLogo = ({ size = 24, borderRadius = '4px', sx = {} }) => {
+const BrandLogo = ({ size = 24, borderRadius = '0', sx = {} }) => {
   return (
     <Box
       component="img"

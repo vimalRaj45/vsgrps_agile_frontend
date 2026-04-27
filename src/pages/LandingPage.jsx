@@ -109,24 +109,9 @@ const SprintoraLanding = () => {
       }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
           <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
-            <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
-              <Box sx={{ 
-                background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', 
-                p: 0.8, borderRadius: 1.5, 
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 4px 12px -2px rgba(99, 102, 241, 0.4)'
-              }}>
-                <BrandLogo size={22} borderRadius="0" />
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1.1 }}>
-                  Sprintora
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block', lineHeight: 1 }}>
-                  by VSGRPS Technologies
-                </Typography>
-              </Box>
-            </Stack>
+            <Box sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
+              <BrandLogo size={42} borderRadius="0" />
+            </Box>
             
             <Stack direction="row" spacing={{ xs: 1, sm: 2 }} sx={{ alignItems: 'center' }}>
               {!isMobile && (
