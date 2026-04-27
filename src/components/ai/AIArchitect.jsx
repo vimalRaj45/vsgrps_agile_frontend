@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Box, Typography, TextField, Button, Stack, Card, CardContent,
-  Chip, IconButton, Divider, Grid, CircularProgress, Alert,
-  Dialog, DialogTitle, DialogContent, DialogActions, Paper
+  Dialog, DialogTitle, DialogContent, DialogActions, Paper, Tooltip
 } from '@mui/material';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import InfoIcon from '@mui/icons-material/Info';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -261,6 +262,44 @@ const AIArchitect = () => {
                           ))}
                         </Box>
                       )}
+
+                      {/* Explainable AI & Predictive Intelligence */}
+                      <Grid container spacing={2} sx={{ mb: 2 }}>
+                        {task.estimation_rationale && (
+                          <Grid item xs={12} sm={6}>
+                            <Box sx={{ 
+                              p: 1.5, borderRadius: 2, bgcolor: 'rgba(99, 102, 241, 0.05)', 
+                              border: '1px solid rgba(99, 102, 241, 0.1)',
+                              height: '100%'
+                            }}>
+                              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
+                                <PsychologyIcon sx={{ fontSize: 16, color: 'primary.main' }} />
+                                <Typography variant="caption" fontWeight="800" color="primary">EXPLAINABLE AI RATIONALE</Typography>
+                              </Stack>
+                              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', fontStyle: 'italic' }}>
+                                {task.estimation_rationale}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        )}
+                        {task.predictive_risk_analysis && (
+                          <Grid item xs={12} sm={6}>
+                            <Box sx={{ 
+                              p: 1.5, borderRadius: 2, bgcolor: 'rgba(244, 63, 94, 0.05)', 
+                              border: '1px solid rgba(244, 63, 94, 0.1)',
+                              height: '100%'
+                            }}>
+                              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
+                                <WarningAmberIcon sx={{ fontSize: 16, color: 'error.main' }} />
+                                <Typography variant="caption" fontWeight="800" color="error">PREDICTIVE RISK ANALYSIS</Typography>
+                              </Stack>
+                              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', fontStyle: 'italic' }}>
+                                {task.predictive_risk_analysis}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        )}
+                      </Grid>
 
                       <TextField
                         select
