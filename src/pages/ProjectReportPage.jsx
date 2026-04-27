@@ -195,43 +195,83 @@ const ProjectReportPage = () => {
         {(!isMobile || activeTab === 1) && (
           <Grid item xs={12} lg={7}>
             <Paper className="glass-card" sx={{ p: { xs: 2, sm: 3 } }}>
-              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: { xs: 2, sm: 3 } }}>
                 <GroupIcon color="primary" sx={{ fontSize: 20 }} />
                 <Typography variant="h6" fontWeight="800" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>Team Contribution</Typography>
               </Stack>
-              <Box sx={{ overflowX: 'auto', mx: -1 }}>
-                <Table size="small" sx={{ minWidth: { xs: 450, sm: '100%' } }}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Member</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Assigned</TableCell>
-                      <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Done</TableCell>
-                      <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Impact</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {userContributions.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell>
-                          <Stack direction="row" spacing={1.5} alignItems="center">
-                            <Avatar src={user.avatar_url} sx={{ width: 28, height: 28, fontSize: '0.8rem' }}>{user.name[0]}</Avatar>
-                            <Typography variant="body2" fontWeight="600" sx={{ whiteSpace: 'nowrap' }}>{user.name}</Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell align="center">{user.total_assigned}</TableCell>
-                        <TableCell align="center">{user.completed_tasks}</TableCell>
-                        <TableCell align="right">
-                          <Chip 
-                            label={user.total_assigned > 0 ? Math.round((user.completed_tasks / user.total_assigned) * 100) + '%' : '0%'} 
-                            size="small"
-                            sx={{ fontWeight: 800, bgcolor: 'primary.main', color: 'white', height: 20, fontSize: '0.7rem' }}
-                          />
-                        </TableCell>
+
+              {isMobile ? (
+                <Stack spacing={2}>
+                  {userContributions.map((user) => (
+                    <Box 
+                      key={user.id} 
+                      sx={{ 
+                        p: 2, 
+                        borderRadius: 3, 
+                        bgcolor: 'rgba(255,255,255,0.02)', 
+                        border: '1px solid rgba(255,255,255,0.05)' 
+                      }}
+                    >
+                      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+                        <Stack direction="row" spacing={1.5} alignItems="center">
+                          <Avatar src={user.avatar_url} sx={{ width: 36, height: 36, fontSize: '0.9rem' }}>{user.name[0]}</Avatar>
+                          <Typography variant="body1" fontWeight="700">{user.name}</Typography>
+                        </Stack>
+                        <Chip 
+                          label={user.total_assigned > 0 ? Math.round((user.completed_tasks / user.total_assigned) * 100) + '%' : '0%'} 
+                          size="small"
+                          sx={{ fontWeight: 800, bgcolor: 'primary.main', color: 'white' }}
+                        />
+                      </Stack>
+                      
+                      <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                          <Typography variant="caption" color="text.secondary" fontWeight="700" display="block">ASSIGNED</Typography>
+                          <Typography variant="h6" fontWeight="800">{user.total_assigned}</Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Typography variant="caption" color="text.secondary" fontWeight="700" display="block">COMPLETED</Typography>
+                          <Typography variant="h6" fontWeight="800" color="success.main">{user.completed_tasks}</Typography>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  ))}
+                </Stack>
+              ) : (
+                <Box sx={{ overflowX: 'auto', mx: -1 }}>
+                  <Table size="small" sx={{ minWidth: '100%' }}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Member</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Assigned</TableCell>
+                        <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Done</TableCell>
+                        <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Impact</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Box>
+                    </TableHead>
+                    <TableBody>
+                      {userContributions.map((user) => (
+                        <TableRow key={user.id}>
+                          <TableCell>
+                            <Stack direction="row" spacing={1.5} alignItems="center">
+                              <Avatar src={user.avatar_url} sx={{ width: 28, height: 28, fontSize: '0.8rem' }}>{user.name[0]}</Avatar>
+                              <Typography variant="body2" fontWeight="600" sx={{ whiteSpace: 'nowrap' }}>{user.name}</Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="center">{user.total_assigned}</TableCell>
+                          <TableCell align="center">{user.completed_tasks}</TableCell>
+                          <TableCell align="right">
+                            <Chip 
+                              label={user.total_assigned > 0 ? Math.round((user.completed_tasks / user.total_assigned) * 100) + '%' : '0%'} 
+                              size="small"
+                              sx={{ fontWeight: 800, bgcolor: 'primary.main', color: 'white', height: 20, fontSize: '0.7rem' }}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Box>
+              )}
             </Paper>
           </Grid>
         )}
