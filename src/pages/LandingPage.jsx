@@ -109,13 +109,13 @@ const SprintoraLanding = () => {
       }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
           <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
-            <Stack direction="row" spacing={1.5} alignItems="center" sx={{ cursor: 'pointer', flexShrink: 0 }} onClick={() => navigate('/')}>
-              <BrandLogo size={36} />
+            <Stack direction="row" spacing={1} alignItems="center" sx={{ cursor: 'pointer', flexShrink: 0 }} onClick={() => navigate('/')}>
+              <BrandLogo size={isMobile ? 28 : 36} />
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Typography variant="h6" fontWeight="950" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1, fontSize: { xs: '1rem', md: '1.25rem' }, whiteSpace: 'nowrap' }}>
+                <Typography variant="h6" fontWeight="950" sx={{ letterSpacing: '-0.5px', color: 'text.primary', lineHeight: 1, fontSize: { xs: '0.85rem', md: '1.25rem' }, whiteSpace: 'nowrap' }}>
                   Sprintora
                 </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.6rem', display: 'block', mt: 0, whiteSpace: 'nowrap' }}>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.5rem', display: 'block', mt: 0, whiteSpace: 'nowrap', opacity: 0.8 }}>
                   AI-Powered Agile Intelligence
                 </Typography>
               </Box>
@@ -135,38 +135,36 @@ const SprintoraLanding = () => {
                     </Typography>
                   ))}
                 </Stack>
-              )}
-
-              <IconButton onClick={toggleTheme} sx={{ 
+              )}              <IconButton onClick={toggleTheme} sx={{ 
                 bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
                 border: `1px solid ${theme.palette.divider}`,
-                p: { xs: 0.8, sm: 1 },
-                width: { xs: 36, sm: 40 },
-                height: { xs: 36, sm: 40 },
+                p: { xs: 0.5, sm: 1 },
+                width: { xs: 32, sm: 40 },
+                height: { xs: 32, sm: 40 },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'text.primary'
               }}>
-                {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
+                {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 16, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />}
               </IconButton>
-
+ 
               <Button 
                 variant="contained" 
                 size={isSmallMobile ? "small" : "medium"}
                 onClick={() => navigate('/login')}
                 sx={{ 
-                  borderRadius: 3, fontWeight: 900, px: { xs: 2, md: 4 },
-                  height: { xs: 36, md: 44 },
+                  borderRadius: 2, fontWeight: 900, px: { xs: 1.5, md: 4 },
+                  height: { xs: 32, md: 44 },
                   background: theme.palette.mode === 'dark' ? 'white' : '#030712', 
                   color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
-                  fontSize: { xs: '0.7rem', md: '0.875rem' },
+                  fontSize: { xs: '0.65rem', md: '0.875rem' },
                   whiteSpace: 'nowrap',
                   '&:hover': { background: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
                 }}
               >
                 Start Free
-              </Button>
+              </Button>n>
               {isMobile && (
                 <IconButton 
                   onClick={() => setMobileMenuOpen(true)} 
