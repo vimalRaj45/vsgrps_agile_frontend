@@ -22,6 +22,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { useAppTheme } from '../context/ThemeContext';
+import BrandLogo from '../components/shared/BrandLogo';
 
 const SprintoraLanding = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const SprintoraLanding = () => {
 
   const features = [
     {
-      icon: <AutoAwesomeIcon sx={{ color: '#818cf8', fontSize: 32 }} />,
+      icon: <BrandLogo size={32} />,
       title: 'AI Task Generation',
       desc: 'Turn "Build a login system" into 15 structured, prioritized tasks in seconds.'
     },
@@ -115,7 +116,7 @@ const SprintoraLanding = () => {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 boxShadow: '0 4px 12px -2px rgba(99, 102, 241, 0.4)'
               }}>
-                <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 22, height: 22 }} />
+                <BrandLogo size={22} borderRadius="0" />
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1.1 }}>
@@ -268,7 +269,7 @@ const SprintoraLanding = () => {
                     height: { xs: 56, md: 72 }, px: 5, borderRadius: 3, fontWeight: 800, borderColor: theme.palette.divider, color: 'text.primary',
                     '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'text.secondary' }
                   }}
-                  startIcon={<AutoAwesomeIcon />}
+                  startIcon={<BrandLogo size={20} />}
                 >
                   Learn how it works
                 </Button>
@@ -298,7 +299,7 @@ const SprintoraLanding = () => {
                 >
                    <Card sx={{ p: 1.5, borderRadius: 3, border: `1px solid ${theme.palette.divider}`, bgcolor: 'background.paper', minWidth: 140 }}>
                       <Stack direction="row" spacing={1.5} alignItems="center">
-                        <AutoAwesomeIcon sx={{ color: '#818cf8', fontSize: 18 }} />
+                        <BrandLogo size={18} />
                         <Typography variant="caption" fontWeight="800">AI PLANNER LIVE</Typography>
                       </Stack>
                    </Card>

@@ -11,13 +11,10 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import SecurityIcon from '@mui/icons-material/Security';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import DownloadIcon from '@mui/icons-material/Download';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import StorageIcon from '@mui/icons-material/Storage';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import BrandLogo from '../components/shared/BrandLogo';
 
 const UserGuidePage = () => {
   const steps = [
@@ -43,7 +40,7 @@ const UserGuidePage = () => {
     },
     {
       title: "Use AI Architect",
-      icon: <AutoAwesomeIcon color="primary" />,
+      icon: <BrandLogo size={24} />,
       description: "Decompose complex requirements into actionable backlogs with predictive intelligence.",
       details: [
         "Enter a requirement like 'Build a secure checkout'.",

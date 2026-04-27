@@ -7,11 +7,10 @@ import {
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import InfoIcon from '@mui/icons-material/Info';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BrandLogo from '../shared/BrandLogo';
 import dayjs from 'dayjs';
 import client from '../../api/client';
 
@@ -137,7 +136,7 @@ const AIArchitect = () => {
               display: 'flex',
               boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)' 
             }}>
-              <AutoAwesomeIcon sx={{ color: 'white' }} />
+              <BrandLogo size={24} borderRadius="0" />
             </Box>
             <Box>
               <Typography variant="h5" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>AI Architect</Typography>
@@ -191,7 +190,7 @@ const AIArchitect = () => {
                   size="large"
                   onClick={handleGenerate}
                   disabled={loading || !requirement || !selectedProject}
-                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <AutoAwesomeIcon />}
+                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <BrandLogo size={20} />}
                   sx={{ height: 56, fontWeight: 'bold' }}
                 >
                   {loading ? 'Thinking...' : 'Architect Features'}
