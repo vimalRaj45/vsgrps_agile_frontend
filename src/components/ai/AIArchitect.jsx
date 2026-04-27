@@ -128,27 +128,37 @@ const AIArchitect = () => {
     <Box>
       <Card className="glass-card" sx={{ borderRadius: 3, mb: 3 }}>
         <CardContent sx={{ p: 4 }}>
-          <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 3 }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'flex-start', sm: 'center' }} sx={{ mb: 4 }}>
             <Box sx={{ 
-              p: 1, 
-              borderRadius: 2, 
+              p: 1.5, 
+              borderRadius: 3, 
               bgcolor: 'primary.main', 
               display: 'flex',
-              boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)' 
+              boxShadow: '0 8px 32px rgba(99, 102, 241, 0.4)' 
             }}>
-              <BrandLogo size={24} borderRadius="0" />
+              <BrandLogo size={32} />
             </Box>
-            <Box>
-              <Typography variant="h5" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>AI Architect</Typography>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>Break down high-level requirements into actionable tasks instantly.</Typography>
+            <Box sx={{ flexGrow: 1 }}>
+              <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} alignItems={{ xs: 'flex-start', md: 'center' }} justifyContent="space-between">
+                <Box>
+                  <Typography variant="h5" fontWeight="900" sx={{ fontSize: { xs: '1.5rem', sm: '1.75rem' }, letterSpacing: '-0.5px' }}>
+                    AI Architect
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem', opacity: 0.8 }}>
+                    Break down high-level requirements into actionable tasks instantly.
+                  </Typography>
+                </Box>
                 <Chip 
                   label="Predictive Intelligence Active" 
                   size="small" 
                   color="success" 
                   variant="outlined"
-                  icon={<PsychologyIcon sx={{ fontSize: '0.8rem !important' }} />}
-                  sx={{ height: 20, fontSize: '0.65rem', fontWeight: 800, borderStyle: 'dashed' }}
+                  icon={<PsychologyIcon sx={{ fontSize: '1rem !important' }} />}
+                  sx={{ 
+                    height: 28, px: 1, fontSize: '0.7rem', fontWeight: 900, 
+                    borderStyle: 'dashed', bgcolor: 'rgba(16, 185, 129, 0.05)',
+                    mt: { xs: 1, md: 0 }
+                  }}
                 />
               </Stack>
             </Box>
@@ -190,8 +200,14 @@ const AIArchitect = () => {
                   size="large"
                   onClick={handleGenerate}
                   disabled={loading || !requirement || !selectedProject}
-                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <BrandLogo size={20} />}
-                  sx={{ height: 56, fontWeight: 'bold' }}
+                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <BrandLogo size={22} />}
+                  sx={{ 
+                    height: 64, 
+                    fontWeight: 900, 
+                    fontSize: '1rem',
+                    borderRadius: 3,
+                    boxShadow: '0 8px 32px rgba(99, 102, 241, 0.3)'
+                  }}
                 >
                   {loading ? 'Thinking...' : 'Architect Features'}
                 </Button>

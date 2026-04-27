@@ -94,18 +94,18 @@ const UserGuidePage = () => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} lg={8}>
-          <Typography variant="h5" fontWeight="900" sx={{ mb: 3, letterSpacing: 1 }}>HOW TO USE</Typography>
+          <Typography variant="h5" fontWeight="900" sx={{ mb: 3, mt: { xs: 4, lg: 0 }, letterSpacing: 1, fontSize: { xs: '1.25rem', md: '1.5rem' } }}>HOW TO USE</Typography>
           <Stack spacing={3}>
             {steps.map((step, index) => (
               <Card key={index} sx={{ 
-                borderRadius: 4, 
+                borderRadius: 5, 
                 border: '1px solid rgba(255,255,255,0.05)',
                 bgcolor: 'rgba(255,255,255,0.02)',
                 transition: 'all 0.3s ease',
                 '&:hover': { bgcolor: 'rgba(255,255,255,0.04)', transform: 'translateY(-4px)' }
               }}>
-                <CardContent sx={{ p: 4 }}>
-                  <Stack direction="row" spacing={3} alignItems="flex-start">
+                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 3 }} alignItems="flex-start">
                     <Box sx={{ 
                       p: 2, borderRadius: 3, bgcolor: 'rgba(59, 130, 246, 0.1)', 
                       display: 'flex', alignItems: 'center', justifyContent: 'center'
@@ -113,17 +113,17 @@ const UserGuidePage = () => {
                       {step.icon}
                     </Box>
                     <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="h6" fontWeight="bold" gutterBottom>
+                      <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '1.1rem', md: '1.25rem' }, mb: 1 }}>
                         {index + 1}. {step.title}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6, fontSize: { xs: '0.85rem', md: '0.9rem' } }}>
                         {step.description}
                       </Typography>
                       <List dense disablePadding>
                         {step.details.map((detail, dIndex) => (
-                          <ListItem key={dIndex} sx={{ px: 0, py: 0.5 }}>
-                            <ListItemIcon sx={{ minWidth: 24 }}><VerifiedIcon sx={{ fontSize: 16, color: 'success.main' }} /></ListItemIcon>
-                            <ListItemText primary={detail} primaryTypographyProps={{ variant: 'caption', fontWeight: 600 }} />
+                          <ListItem key={dIndex} sx={{ px: 0, py: 0.5, alignItems: 'flex-start' }}>
+                            <ListItemIcon sx={{ minWidth: 24, mt: 0.5 }}><VerifiedIcon sx={{ fontSize: 16, color: 'success.main' }} /></ListItemIcon>
+                            <ListItemText primary={detail} primaryTypographyProps={{ variant: 'caption', fontWeight: 600, sx: { fontSize: '0.75rem', lineHeight: 1.4 } }} />
                           </ListItem>
                         ))}
                       </List>
