@@ -106,21 +106,22 @@ const SprintoraLanding = () => {
         zIndex: 1000,
         borderRadius: 0
       }}>
-        <Container maxWidth="xl">
-          <Toolbar sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
+        <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
+          <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
             <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
               <Box sx={{ 
                 background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', 
-                p: 0.8, borderRadius: 1.5, display: 'flex',
+                p: 0.8, borderRadius: 1.5, 
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
                 boxShadow: '0 4px 12px -2px rgba(99, 102, 241, 0.4)'
               }}>
-                <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 20, height: 20 }} />
+                <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 22, height: 22 }} />
               </Box>
-              <Box>
-                <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1.1 }}>
                   Sprintora
                 </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block' }}>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block', lineHeight: 1 }}>
                   by VSGRPS Technologies
                 </Typography>
               </Box>
@@ -146,6 +147,11 @@ const SprintoraLanding = () => {
                 bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
                 border: `1px solid ${theme.palette.divider}`,
                 p: { xs: 0.8, sm: 1 },
+                width: { xs: 36, sm: 40 },
+                height: { xs: 36, sm: 40 },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 color: 'text.primary'
               }}>
                 {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
@@ -168,7 +174,18 @@ const SprintoraLanding = () => {
                 Start Free
               </Button>
               {isMobile && (
-                <IconButton onClick={() => setMobileMenuOpen(true)} sx={{ color: 'text.primary', p: 0.5 }}>
+                <IconButton 
+                  onClick={() => setMobileMenuOpen(true)} 
+                  sx={{ 
+                    color: 'text.primary', 
+                    p: 0.8,
+                    width: 36,
+                    height: 36,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
                   <MenuIcon />
                 </IconButton>
               )}

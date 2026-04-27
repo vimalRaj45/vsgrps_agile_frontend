@@ -181,7 +181,7 @@ const OnboardingPage = () => {
               Your workspace is primed. The AI is standing by. It is time to turn your idea into execution.
             </Typography>
             <Typography variant="body1" fontWeight="800" sx={{ mb: 6, color: '#6366f1', letterSpacing: 1 }}>
-               PSST... HIDDEN AI FEATURES ARE WAITING FOR YOU INSIDE! 🤫
+               PSST... HIDDEN FEATURES ARE WAITING FOR YOU INSIDE! 🤫
             </Typography>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
               <Button 

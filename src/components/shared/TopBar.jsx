@@ -168,7 +168,12 @@ const TopBar = ({ handleDrawerToggle }) => {
             <IconButton onClick={toggleTheme} color="inherit" sx={{ 
               bgcolor: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.08)',
-              p: { xs: 0.5, sm: 1 }
+              p: { xs: 0.5, sm: 1 },
+              width: { xs: 32, sm: 40 },
+              height: { xs: 32, sm: 40 },
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
               {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
             </IconButton>

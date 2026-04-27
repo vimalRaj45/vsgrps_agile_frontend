@@ -60,7 +60,7 @@ const FilesPage = () => {
           </Typography>
           <Typography variant="body2" color="text.secondary">Manage project assets and documentation</Typography>
         </Box>
-        <Stack direction="row" spacing={1.5} sx={{ width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'space-between', sm: 'flex-start' } }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ width: { xs: '100%', sm: 'auto' } }}>
           <LinkInput onLinkAdded={() => { fetchData(); setSnackbar({ open: true, message: 'Link added successfully!' }); }} />
           <FileUpload onUploadSuccess={() => { fetchData(); setSnackbar({ open: true, message: 'File uploaded successfully!' }); }} />
         </Stack>
@@ -86,9 +86,17 @@ const FilesPage = () => {
                         </IconButton>
                       }
                     >
-                      <ListItemIcon><FilePresentIcon /></ListItemIcon>
+                      <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}><FilePresentIcon /></ListItemIcon>
                       <ListItemText
                         primary={file.filename}
+                        primaryTypographyProps={{ 
+                          variant: 'body2', 
+                          fontWeight: 700,
+                          sx: { 
+                            wordBreak: 'break-all',
+                            pr: 4 // Space for download icon
+                          }
+                        }}
                         secondary={
                           <Stack spacing={0.5} sx={{ mt: 0.5 }}>
                             <Stack direction="row" spacing={1} alignItems="center">
@@ -137,12 +145,12 @@ const FilesPage = () => {
                         href={link.url}
                         target="_blank"
                       >
-                        <ListItemIcon><LinkIcon /></ListItemIcon>
+                        <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}><LinkIcon /></ListItemIcon>
                         <ListItemText
                           primary={link.title || link.url}
                           secondary={
                             <Stack spacing={0.5} sx={{ mt: 0.5 }}>
-                              <Typography variant="caption" noWrap sx={{ maxWidth: 200 }}>{link.url}</Typography>
+                              <Typography variant="caption" noWrap sx={{ maxWidth: { xs: 150, sm: 300 } }}>{link.url}</Typography>
                               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                 {link.project_name && (
                                   <Chip label={link.project_name} size="small" variant="outlined" sx={{ height: 16, fontSize: '0.6rem', fontWeight: 600 }} />
@@ -159,7 +167,12 @@ const FilesPage = () => {
                               </Box>
                             </Stack>
                           }
-                          primaryTypographyProps={{ noWrap: true }}
+                          primaryTypographyProps={{ 
+                            variant: 'body2', 
+                            fontWeight: 700, 
+                            noWrap: true,
+                            sx: { maxWidth: { xs: 200, sm: '100%' } }
+                          }}
                           secondaryTypographyProps={{ component: 'div' }}
                         />
                       </ListItemButton>

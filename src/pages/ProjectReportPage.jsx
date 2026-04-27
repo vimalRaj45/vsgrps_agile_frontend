@@ -150,16 +150,16 @@ const ProjectReportPage = () => {
         <Grid item xs={12} md={4}>
           <Grid container spacing={2}>
             {summaryCards.map((card, i) => (
-              <Grid item xs={12} sm={6} key={i}>
-                <Paper className="glass-card" sx={{ p: 2, textAlign: 'center' }}>
+              <Grid item xs={6} sm={6} md={12} key={i}>
+                <Paper className="glass-card" sx={{ p: { xs: 1.5, sm: 2 }, textAlign: 'center', height: '100%' }}>
                   <Box sx={{ 
                     display: 'inline-flex', p: 1, borderRadius: 2, 
                     bgcolor: `${card.color}15`, color: card.color, mb: 1 
                   }}>
                     {card.icon}
                   </Box>
-                  <Typography variant="h5" fontWeight="900">{card.value}</Typography>
-                  <Typography variant="caption" color="text.secondary" fontWeight="600">{card.label}</Typography>
+                  <Typography variant="h5" fontWeight="900" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>{card.value}</Typography>
+                  <Typography variant="caption" color="text.secondary" fontWeight="600" sx={{ display: 'block', lineHeight: 1.2 }}>{card.label}</Typography>
                 </Paper>
               </Grid>
             ))}
@@ -173,14 +173,14 @@ const ProjectReportPage = () => {
               <GroupIcon color="primary" />
               <Typography variant="h6" fontWeight="800">Team Contribution</Typography>
             </Stack>
-            <TableContainer>
-              <Table size="small">
+            <Box sx={{ overflowX: 'auto', mx: -1 }}>
+              <Table size="small" sx={{ minWidth: { xs: 450, sm: '100%' } }}>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 700, color: 'text.secondary' }}>Member</TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary' }}>Assigned</TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary' }}>Done</TableCell>
-                    <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary' }}>Impact</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Member</TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Assigned</TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Done</TableCell>
+                    <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>Impact</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -188,8 +188,8 @@ const ProjectReportPage = () => {
                     <TableRow key={user.id}>
                       <TableCell>
                         <Stack direction="row" spacing={1.5} alignItems="center">
-                          <Avatar src={user.avatar_url} sx={{ width: 32, height: 32 }}>{user.name[0]}</Avatar>
-                          <Typography variant="body2" fontWeight="600">{user.name}</Typography>
+                          <Avatar src={user.avatar_url} sx={{ width: 28, height: 28, fontSize: '0.8rem' }}>{user.name[0]}</Avatar>
+                          <Typography variant="body2" fontWeight="600" sx={{ whiteSpace: 'nowrap' }}>{user.name}</Typography>
                         </Stack>
                       </TableCell>
                       <TableCell align="center">{user.total_assigned}</TableCell>
@@ -198,14 +198,14 @@ const ProjectReportPage = () => {
                         <Chip 
                           label={user.total_assigned > 0 ? Math.round((user.completed_tasks / user.total_assigned) * 100) + '%' : '0%'} 
                           size="small"
-                          sx={{ fontWeight: 800, bgcolor: 'primary.main', color: 'white' }}
+                          sx={{ fontWeight: 800, bgcolor: 'primary.main', color: 'white', height: 20, fontSize: '0.7rem' }}
                         />
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
-            </TableContainer>
+            </Box>
           </Paper>
         </Grid>
 
