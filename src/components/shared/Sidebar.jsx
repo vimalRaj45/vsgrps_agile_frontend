@@ -130,25 +130,27 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
           mb: 2, 
           p: 2, 
           borderRadius: 2, 
-          bgcolor: 'rgba(34, 197, 94, 0.05)',
-          border: '1px solid rgba(34, 197, 94, 0.1)'
+          bgcolor: storage?.healthPercent > 80 ? 'rgba(34, 197, 94, 0.05)' : 'rgba(234, 179, 8, 0.05)',
+          border: `1px solid ${storage?.healthPercent > 80 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(234, 179, 8, 0.1)'}`
         }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
             <Typography variant="caption" fontWeight="700">Workspace Health</Typography>
-            <Typography variant="caption" fontWeight="800" color="success.main">
-              98% Optimal
+            <Typography variant="caption" fontWeight="800" color={storage?.healthPercent > 80 ? 'success.main' : 'warning.main'}>
+              {storage?.healthPercent || 98}% {storage?.healthPercent > 80 ? 'Optimal' : storage?.healthPercent > 50 ? 'Stable' : 'Action Needed'}
             </Typography>
           </Stack>
           <LinearProgress 
             variant="determinate" 
-            value={98} 
+            value={storage?.healthPercent || 98} 
             sx={{ 
               height: 6, 
               borderRadius: 3,
               bgcolor: 'rgba(255,255,255,0.05)',
               '& .MuiLinearProgress-bar': {
                 borderRadius: 3,
-                background: 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)'
+                background: storage?.healthPercent > 80 
+                  ? 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)'
+                  : 'linear-gradient(90deg, #eab308 0%, #facc15 100%)'
               }
             }}
           />
