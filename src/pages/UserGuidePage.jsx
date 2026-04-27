@@ -16,6 +16,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import StorageIcon from '@mui/icons-material/Storage';
+import PsychologyIcon from '@mui/icons-material/Psychology';
 import BrandLogo from '../components/shared/BrandLogo';
 
 const UserGuidePage = () => {
@@ -42,7 +43,7 @@ const UserGuidePage = () => {
     },
     {
       title: "Use AI Architect",
-      icon: <BrandLogo size={24} />,
+      icon: <PsychologyIcon color="primary" />,
       description: "Decompose complex requirements into actionable backlogs with predictive intelligence.",
       details: [
         "Enter a requirement like 'Build a secure checkout'.",

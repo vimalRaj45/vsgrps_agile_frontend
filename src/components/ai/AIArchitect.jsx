@@ -136,7 +136,7 @@ const AIArchitect = () => {
               display: 'flex',
               boxShadow: '0 8px 32px rgba(99, 102, 241, 0.4)' 
             }}>
-              <BrandLogo size={32} />
+              <PsychologyIcon sx={{ color: 'white', fontSize: 32 }} />
             </Box>
             <Box sx={{ flexGrow: 1 }}>
               <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} alignItems={{ xs: 'flex-start', md: 'center' }} justifyContent="space-between">
@@ -200,7 +200,7 @@ const AIArchitect = () => {
                   size="large"
                   onClick={handleGenerate}
                   disabled={loading || !requirement || !selectedProject}
-                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <BrandLogo size={22} />}
+                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <PsychologyIcon />}
                   sx={{ 
                     height: 64, 
                     fontWeight: 900, 

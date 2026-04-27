@@ -65,24 +65,13 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
 
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 2 }}>
-      {/* Brand Section */}
-      <Box sx={{ px: 2, py: 3, mb: 2 }}>
-        <Stack direction="row" spacing={1.5} alignItems="center">
-          <Box sx={{ 
-            bgcolor: 'primary.main', 
-            p: 0.8, 
-            borderRadius: 1.5,
-            boxShadow: '0 4px 12px rgba(59, 130, 246, 0.4)',
-            display: 'flex'
-          }}>
-            <img src="/favicon.png" alt="VSGRPS Logo" style={{ width: 24, height: 24, borderRadius: '4px' }} />
-          </Box>
-          <Typography variant="h5" fontWeight="800" letterSpacing="-1px">
-            Sprintora
-          </Typography>
-        </Stack>
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block', fontWeight: 600, ml: 6 }}>
-          by VSGRPS Technologies
+      {/* Organization Header (Simplified) */}
+      <Box sx={{ px: 2, py: 2, mb: 1 }}>
+        <Typography variant="h6" fontWeight="950" color="primary.main" letterSpacing="-1px">
+          Sprintora
+        </Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem' }}>
+          AI Powered Agile Hub
         </Typography>
       </Box>
 
