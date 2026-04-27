@@ -61,18 +61,18 @@ const ProjectReportPage = () => {
         <Stack 
           direction={{ xs: 'column', sm: 'row' }} 
           spacing={2} 
-          alignItems={{ xs: 'flex-start', sm: 'center' }} 
+          alignItems={{ xs: 'stretch', sm: 'center' }} 
           sx={{ mb: { xs: 3, md: 5 } }}
         >
-          <Stack direction="row" spacing={2} alignItems="center">
-            <IconButton onClick={() => navigate(-1)} sx={{ bgcolor: 'background.paper', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <ArrowBackIcon />
+          <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: { xs: 1, sm: 0 } }}>
+            <IconButton onClick={() => navigate(-1)} sx={{ bgcolor: 'background.paper', border: '1px solid rgba(255,255,255,0.05)', width: 40, height: 40 }}>
+              <ArrowBackIcon sx={{ fontSize: 20 }} />
             </IconButton>
             <Box>
-              <Typography variant="h4" fontWeight="950" letterSpacing="-1.5px" sx={{ fontSize: { xs: '1.75rem', md: '2.5rem' }, lineHeight: 1 }}>
+              <Typography variant="h4" fontWeight="950" letterSpacing="-1.5px" sx={{ fontSize: { xs: '1.5rem', md: '2.5rem' }, lineHeight: 1.2 }}>
                 Project Report
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                 {project.name}
               </Typography>
             </Box>
@@ -85,10 +85,12 @@ const ProjectReportPage = () => {
             fullWidth={isMobile}
             sx={{ 
               borderRadius: 3, 
-              bgcolor: 'background.paper', 
-              color: 'text.primary',
-              border: '1px solid rgba(255,255,255,0.1)',
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.05)' }
+              bgcolor: 'primary.main', 
+              color: 'white',
+              boxShadow: '0 8px 20px -6px rgba(99, 102, 241, 0.4)',
+              '&:hover': { bgcolor: 'primary.dark' },
+              height: { xs: 48, sm: 40 },
+              fontSize: { xs: '0.9rem', sm: '0.875rem' }
             }}
           >
             Export Report
@@ -102,45 +104,45 @@ const ProjectReportPage = () => {
           <Paper className="glass-card" sx={{ p: 3, height: '100%' }}>
             <Typography variant="h6" fontWeight="800" gutterBottom>Project Timeline</Typography>
             <Divider sx={{ mb: 3 }} />
-            <Grid container spacing={4}>
-              <Grid item xs={12} sm={4}>
-                <Stack spacing={1}>
-                  <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: 'uppercase' }}>Project Started</Typography>
+            <Grid container spacing={{ xs: 2, sm: 4 }}>
+              <Grid item xs={6} sm={4}>
+                <Stack spacing={0.5}>
+                  <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: 'uppercase', fontSize: '0.65rem' }}>Started</Typography>
                   <Stack direction="row" spacing={1} alignItems="center">
-                    <CalendarTodayIcon sx={{ color: 'primary.main', fontSize: 20 }} />
-                    <Typography variant="body1" fontWeight="600">{formatDate(project.created_at)}</Typography>
+                    <CalendarTodayIcon sx={{ color: 'primary.main', fontSize: 16 }} />
+                    <Typography variant="body2" fontWeight="700">{formatDate(project.created_at)}</Typography>
+                  </Stack>
+                </Stack>
+              </Grid>
+              <Grid item xs={6} sm={4}>
+                <Stack spacing={0.5}>
+                  <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: 'uppercase', fontSize: '0.65rem' }}>First Task</Typography>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <AssignmentIcon sx={{ color: 'info.main', fontSize: 16 }} />
+                    <Typography variant="body2" fontWeight="700">{formatDate(project.first_task_date)}</Typography>
                   </Stack>
                 </Stack>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Stack spacing={1}>
-                  <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: 'uppercase' }}>First Task Added</Typography>
+                <Stack spacing={0.5}>
+                  <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: 'uppercase', fontSize: '0.65rem' }}>Last Activity</Typography>
                   <Stack direction="row" spacing={1} alignItems="center">
-                    <AssignmentIcon sx={{ color: 'info.main', fontSize: 20 }} />
-                    <Typography variant="body1" fontWeight="600">{formatDate(project.first_task_date)}</Typography>
-                  </Stack>
-                </Stack>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Stack spacing={1}>
-                  <Typography variant="caption" color="text.secondary" fontWeight="700" sx={{ textTransform: 'uppercase' }}>Last Activity</Typography>
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <TrendingUpIcon sx={{ color: 'success.main', fontSize: 20 }} />
-                    <Typography variant="body1" fontWeight="600">{formatDate(project.last_completed_date)}</Typography>
+                    <TrendingUpIcon sx={{ color: 'success.main', fontSize: 16 }} />
+                    <Typography variant="body2" fontWeight="700">{formatDate(project.last_completed_date)}</Typography>
                   </Stack>
                 </Stack>
               </Grid>
             </Grid>
 
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: { xs: 3, md: 5 } }}>
               <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-                <Typography variant="body2" fontWeight="700">Overall Completion</Typography>
-                <Typography variant="body2" fontWeight="900" color="primary">{stats.completionRate}%</Typography>
+                <Typography variant="body2" fontWeight="700" sx={{ fontSize: '0.8rem' }}>Overall Completion</Typography>
+                <Typography variant="body2" fontWeight="900" color="primary" sx={{ fontSize: '0.8rem' }}>{stats.completionRate}%</Typography>
               </Stack>
               <LinearProgress 
                 variant="determinate" 
                 value={stats.completionRate} 
-                sx={{ height: 10, borderRadius: 5, bgcolor: 'rgba(0,0,0,0.05)' }} 
+                sx={{ height: 8, borderRadius: 5, bgcolor: 'rgba(0,0,0,0.05)' }} 
               />
             </Box>
           </Paper>
@@ -168,10 +170,10 @@ const ProjectReportPage = () => {
 
         {/* User Contribution */}
         <Grid item xs={12} lg={7}>
-          <Paper className="glass-card" sx={{ p: 3 }}>
-            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 3 }}>
-              <GroupIcon color="primary" />
-              <Typography variant="h6" fontWeight="800">Team Contribution</Typography>
+          <Paper className="glass-card" sx={{ p: { xs: 2, sm: 3 } }}>
+            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+              <GroupIcon color="primary" sx={{ fontSize: 20 }} />
+              <Typography variant="h6" fontWeight="800" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>Team Contribution</Typography>
             </Stack>
             <Box sx={{ overflowX: 'auto', mx: -1 }}>
               <Table size="small" sx={{ minWidth: { xs: 450, sm: '100%' } }}>
