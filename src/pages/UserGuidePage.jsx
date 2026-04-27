@@ -82,6 +82,7 @@ const UserGuidePage = () => {
     }
   ];
 
+  return (
     <Box sx={{ pb: 6 }}>
       <Stack spacing={1} sx={{ mb: 6 }}>
         <Typography variant="h3" fontWeight="800" letterSpacing="-1.5px" sx={{ fontSize: { xs: '2rem', md: '3rem' } }}>
