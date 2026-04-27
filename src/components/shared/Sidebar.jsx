@@ -75,7 +75,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             boxShadow: '0 4px 12px rgba(59, 130, 246, 0.4)',
             display: 'flex'
           }}>
-            <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 24, height: 24 }} />
+            <img src="/favicon.png" alt="VSGRPS Logo" style={{ width: 24, height: 24, borderRadius: '4px' }} />
           </Box>
           <Typography variant="h5" fontWeight="800" letterSpacing="-1px">
             Sprintora
