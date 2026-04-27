@@ -68,8 +68,11 @@ const RegisterPage = () => {
             <Stack spacing={3}>
               <Box>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
-                  <AutoAwesomeIcon sx={{ color: '#6366f1' }} />
-                  <Typography variant="h6" fontWeight="900">Sprintora</Typography>
+                  <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 24, height: 24 }} />
+                  <Box>
+                    <Typography variant="h6" fontWeight="900" sx={{ lineHeight: 1 }}>Sprintora</Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.6rem' }}>by VSGRPS Technologies</Typography>
+                  </Box>
                 </Stack>
                 
                 <Typography variant="h4" fontWeight="950" gutterBottom sx={{ letterSpacing: '-1.5px' }}>

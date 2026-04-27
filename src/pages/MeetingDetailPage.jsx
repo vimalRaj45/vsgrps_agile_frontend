@@ -46,8 +46,10 @@ const MeetingDetailPage = () => {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(24);
     doc.text('Sprintora', 15, 20);
+    doc.setFontSize(8);
+    doc.text('by VSGRPS Technologies', 15, 25);
     doc.setFontSize(10);
-    doc.text('OFFICIAL MEETING MINUTES', 15, 30);
+    doc.text('OFFICIAL MEETING MINUTES', 15, 33);
     
     // Header Info
     doc.setFontSize(9);
@@ -117,7 +119,7 @@ const MeetingDetailPage = () => {
     doc.line(15, 275, 195, 275);
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text('This is a system generated document from Sprintora Platform.', 15, 282);
+    doc.text('This is a system generated document from Sprintora Workspace by VSGRPS Technologies.', 15, 282);
     doc.text('Confidential & Internal Use Only', 160, 282);
     
     doc.save(`Meeting_${meeting.title.replace(/\s+/g, '_')}.pdf`);

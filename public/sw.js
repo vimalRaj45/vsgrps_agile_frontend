@@ -1,5 +1,5 @@
 // Cache basic assets for PWA
-const CACHE_NAME = 'vsgrps-agile-v2';
+const CACHE_NAME = 'sprintora-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -40,7 +40,7 @@ self.addEventListener('push', (event) => {
   console.log('--- Push Received ---');
   
   let payload = {
-    title: 'VSGRPS Agile',
+    title: 'Sprintora',
     body: 'You have a new update.',
     icon: '/favicon.svg',
     data: { url: '/' }
@@ -68,7 +68,7 @@ self.addEventListener('push', (event) => {
     actions: [
       { action: 'open', title: 'View Details' }
     ],
-    tag: 'vsgrps-notification', // Prevents multiple notifications stacking
+    tag: 'sprintora-notification', // Prevents multiple notifications stacking
     requireInteraction: true   // Keeps it visible until user acts
   };
 

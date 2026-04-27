@@ -114,11 +114,16 @@ const SprintoraLanding = () => {
                 p: 0.8, borderRadius: 1.5, display: 'flex',
                 boxShadow: '0 4px 12px -2px rgba(99, 102, 241, 0.4)'
               }}>
-                <AutoAwesomeIcon sx={{ color: 'white', fontSize: 20 }} />
+                <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 20, height: 20 }} />
               </Box>
-              <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary' }}>
-                Sprintora
-              </Typography>
+              <Box>
+                <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1 }}>
+                  Sprintora
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block' }}>
+                  by VSGRPS Technologies
+                </Typography>
+              </Box>
             </Stack>
             
             <Stack direction="row" spacing={{ xs: 1, sm: 2 }} sx={{ alignItems: 'center' }}>
@@ -485,9 +490,12 @@ const SprintoraLanding = () => {
         <Container maxWidth="xl">
           <Grid container spacing={6}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h6" fontWeight="900" sx={{ mb: 2, color: 'text.primary' }}>Sprintora</Typography>
+              <Typography variant="h6" fontWeight="900" sx={{ mb: 0.5, color: 'text.primary' }}>Sprintora</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block', mb: 2 }}>
+                by VSGRPS Technologies
+              </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300 }}>
-                The AI-powered agile workspace for modern teams.
+                The AI-powered workspace for modern teams.
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>

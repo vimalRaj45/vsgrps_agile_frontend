@@ -75,12 +75,15 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             boxShadow: '0 4px 12px rgba(59, 130, 246, 0.4)',
             display: 'flex'
           }}>
-            <SecurityIcon sx={{ color: 'white', fontSize: 24 }} />
+            <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 24, height: 24 }} />
           </Box>
           <Typography variant="h5" fontWeight="800" letterSpacing="-1px">
-            Sprintora <span style={{ color: '#3b82f6' }}>Agile</span>
+            Sprintora
           </Typography>
         </Stack>
+        <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block', fontWeight: 600, ml: 6 }}>
+          by VSGRPS Technologies
+        </Typography>
       </Box>
 
       {/* Menu List */}
