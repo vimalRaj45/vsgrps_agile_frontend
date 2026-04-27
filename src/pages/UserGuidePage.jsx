@@ -14,6 +14,8 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import StorageIcon from '@mui/icons-material/Storage';
 import BrandLogo from '../components/shared/BrandLogo';
 
 const UserGuidePage = () => {
