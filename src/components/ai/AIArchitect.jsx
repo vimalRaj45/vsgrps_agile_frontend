@@ -290,36 +290,58 @@ const AIArchitect = () => {
                       )}
 
                       {/* Explainable AI & Predictive Intelligence */}
-                      <Grid container spacing={2} sx={{ mb: 2 }}>
+                      <Grid container spacing={2} sx={{ mb: 2.5 }}>
                         <Grid item xs={12} sm={6}>
                           <Box sx={{ 
-                            p: 1.5, borderRadius: 2, bgcolor: 'rgba(99, 102, 241, 0.05)', 
+                            p: 2, 
+                            borderRadius: 3, 
+                            background: 'rgba(99, 102, 241, 0.03)', 
                             border: '1px solid rgba(99, 102, 241, 0.1)',
                             height: '100%',
-                            display: 'flex', flexDirection: 'column'
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            '&::before': {
+                              content: '""',
+                              position: 'absolute',
+                              top: 0, left: 0, width: 4, height: '100%',
+                              bgcolor: 'primary.main'
+                            }
                           }}>
-                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
-                              <PsychologyIcon sx={{ fontSize: 16, color: 'primary.main' }} />
-                              <Typography variant="caption" fontWeight="800" color="primary">EXPLAINABLE AI RATIONALE</Typography>
+                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
+                              <PsychologyIcon sx={{ fontSize: 18, color: 'primary.main' }} />
+                              <Typography variant="caption" fontWeight="900" sx={{ letterSpacing: 1, color: 'primary.main' }}>EXPLAINABLE AI RATIONALE</Typography>
                             </Stack>
-                            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', fontStyle: 'italic', flexGrow: 1 }}>
-                              {task.estimation_rationale || "AI Rationale: Determining priority based on task complexity and project dependencies."}
+                            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.6, fontStyle: 'italic', flexGrow: 1 }}>
+                              {task.estimation_rationale || "Analyzing historical complexity patterns to determine optimal timeframe and priority logic..."}
                             </Typography>
                           </Box>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                           <Box sx={{ 
-                            p: 1.5, borderRadius: 2, bgcolor: 'rgba(244, 63, 94, 0.05)', 
+                            p: 2, 
+                            borderRadius: 3, 
+                            background: 'rgba(244, 63, 94, 0.03)', 
                             border: '1px solid rgba(244, 63, 94, 0.1)',
                             height: '100%',
-                            display: 'flex', flexDirection: 'column'
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            '&::before': {
+                              content: '""',
+                              position: 'absolute',
+                              top: 0, left: 0, width: 4, height: '100%',
+                              bgcolor: 'error.main'
+                            }
                           }}>
-                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
-                              <WarningAmberIcon sx={{ fontSize: 16, color: 'error.main' }} />
-                              <Typography variant="caption" fontWeight="800" color="error">PREDICTIVE RISK ANALYSIS</Typography>
+                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
+                              <WarningAmberIcon sx={{ fontSize: 18, color: 'error.main' }} />
+                              <Typography variant="caption" fontWeight="900" sx={{ letterSpacing: 1, color: 'error.main' }}>PREDICTIVE RISK ANALYSIS</Typography>
                             </Stack>
-                            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', fontStyle: 'italic', flexGrow: 1 }}>
-                              {task.predictive_risk_analysis || "Predictive Intelligence: Analyzing potential integration bottlenecks and resource constraints."}
+                            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.6, fontStyle: 'italic', flexGrow: 1 }}>
+                              {task.predictive_risk_analysis || "Simulating potential technical bottlenecks and resource dependency constraints..."}
                             </Typography>
                           </Box>
                         </Grid>
