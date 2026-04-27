@@ -76,9 +76,9 @@ const UserGuidePage = () => {
       content: "The system identifies potential technical bottlenecks and resource risks before they happen. Look for the 'Risk Analysis' box on every AI-suggested task."
     },
     {
-      title: "Mobile Reports",
-      icon: <StorageIcon color="success" />,
-      content: "Access executive-level project reports from your phone. Our mobile-optimized layout uses tabs and cards to ensure you never lose track of team velocity, even on the go."
+      title: "Workspace Health vs. Storage",
+      icon: <TimelineIcon color="success" />,
+      content: "Workspace Health is a high-level performance metric and is NOT affected by your file uploads. Your 200MB Organization Storage is an independent limit dedicated to project assets and research documentation."
     }
   ];
 
@@ -158,9 +158,9 @@ const UserGuidePage = () => {
               boxShadow: '0 8px 32px rgba(59, 130, 246, 0.3)'
             }}>
               <StorageIcon sx={{ fontSize: 40, mb: 2, opacity: 0.9 }} />
-              <Typography variant="h5" fontWeight="bold" gutterBottom>Storage Limits</Typography>
+              <Typography variant="h5" fontWeight="bold" gutterBottom>Storage Hub</Typography>
               <Typography variant="body2" sx={{ opacity: 0.9, mb: 3, lineHeight: 1.6 }}>
-                Every organization receives **200MB** of high-speed Cloudflare R2 storage. Individual files are capped at **50MB** to ensure stability.
+                Every organization receives **200MB** of independent R2 storage. Individual files are capped at **50MB**. This limit is separate from your **Workspace Health** metrics.
               </Typography>
               <Button 
                 variant="contained" 

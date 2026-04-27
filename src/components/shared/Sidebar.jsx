@@ -125,6 +125,36 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
 
       {/* Storage & Organization Info */}
       <Box sx={{ mt: 'auto', p: 2 }}>
+        {/* Workspace Health Section */}
+        <Box sx={{ 
+          mb: 2, 
+          p: 2, 
+          borderRadius: 2, 
+          bgcolor: 'rgba(34, 197, 94, 0.05)',
+          border: '1px solid rgba(34, 197, 94, 0.1)'
+        }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+            <Typography variant="caption" fontWeight="700">Workspace Health</Typography>
+            <Typography variant="caption" fontWeight="800" color="success.main">
+              98% Optimal
+            </Typography>
+          </Stack>
+          <LinearProgress 
+            variant="determinate" 
+            value={98} 
+            sx={{ 
+              height: 6, 
+              borderRadius: 3,
+              bgcolor: 'rgba(255,255,255,0.05)',
+              '& .MuiLinearProgress-bar': {
+                borderRadius: 3,
+                background: 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)'
+              }
+            }}
+          />
+        </Box>
+
+        {/* Storage Metric (Separate) */}
         {storage && (
           <Box sx={{ 
             mb: 2, 
@@ -134,26 +164,29 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             border: '1px solid rgba(59, 130, 246, 0.1)'
           }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-              <Typography variant="caption" fontWeight="700">Workspace Health</Typography>
+              <Typography variant="caption" fontWeight="700">Asset Storage</Typography>
               <Typography variant="caption" fontWeight="800" color={storage.percent > 90 ? 'error' : 'primary'}>
-                {storage.percent.toFixed(4)}% Used
+                {storage.percent.toFixed(2)}%
               </Typography>
             </Stack>
             <LinearProgress 
               variant="determinate" 
               value={Math.min(storage.percent, 100)} 
               sx={{ 
-                height: 6, 
-                borderRadius: 3,
+                height: 4, 
+                borderRadius: 2,
                 bgcolor: 'rgba(255,255,255,0.05)',
                 '& .MuiLinearProgress-bar': {
-                  borderRadius: 3,
+                  borderRadius: 2,
                   background: storage.percent > 90 
                     ? 'linear-gradient(90deg, #ef4444 0%, #f87171 100%)'
                     : 'linear-gradient(90deg, #3b82f6 0%, #0ea5e9 100%)'
                 }
               }}
             />
+            <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.6rem', mt: 0.5, display: 'block' }}>
+              200MB Org Limit (Independent)
+            </Typography>
           </Box>
         )}
 
