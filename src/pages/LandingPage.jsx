@@ -116,7 +116,7 @@ const SprintoraLanding = () => {
                   Sprintora
                 </Typography>
                 <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.6rem', display: 'block', mt: 0, whiteSpace: 'nowrap' }}>
-                  by VSGRPS Technologies
+                  AI-Powered Agile Intelligence
                 </Typography>
               </Box>
             </Stack>
