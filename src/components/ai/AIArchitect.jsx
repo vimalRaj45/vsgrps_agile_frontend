@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
+  Box, Typography, TextField, Button, Stack, Card, CardContent,
+  Chip, IconButton, Divider, Grid, CircularProgress, Alert,
   Dialog, DialogTitle, DialogContent, DialogActions, Paper, Tooltip
 } from '@mui/material';
 import PsychologyIcon from '@mui/icons-material/Psychology';
