@@ -1,7 +1,8 @@
 import axios from 'axios';
 //https://vsgrps-agile-backend.onrender.com/
 const client = axios.create({
-  baseURL: 'https://vsgrps-agile-backend.onrender.com',
+  baseURL: 'http://localhost:3000', // Switched to local for AI updates
+  // baseURL: 'https://vsgrps-agile-backend.onrender.com',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
