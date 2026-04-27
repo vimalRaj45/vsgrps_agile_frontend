@@ -3,7 +3,7 @@ import { useAppTheme } from '../../context/ThemeContext';
 
 const BrandLogo = ({ size = 24, borderRadius = '0', sx = {} }) => {
   const { mode } = useAppTheme();
-  const logoSrc = mode === 'light' ? '/logo_light.png' : '/logo_dark.png';
+  const logoSrc = mode === 'light' ? '/light_sprintora_logo.jpeg' : '/dark_sprintora_logo.jpeg';
 
   return (
     <Box
