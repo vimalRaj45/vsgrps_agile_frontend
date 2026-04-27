@@ -108,7 +108,7 @@ const SprintoraLanding = () => {
         borderRadius: 0
       }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
-          <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
+          <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 52, md: 68 } }}>
             <Stack direction="row" spacing={1} alignItems="center" sx={{ cursor: 'pointer', flexShrink: 0 }} onClick={() => navigate('/')}>
               <BrandLogo size={isMobile ? 28 : 36} />
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -204,7 +204,7 @@ const SprintoraLanding = () => {
       </Drawer>
 
       {/* Hero Section */}
-      <Container maxWidth="xl" sx={{ pt: { xs: 15, md: 28 }, pb: { xs: 10, md: 20 }, position: 'relative', zIndex: 1 }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: 12, md: 20 }, pb: { xs: 10, md: 20 }, position: 'relative', zIndex: 1 }}>
         <Grid container spacing={4} sx={{ alignItems: 'center' }}>
           <Grid item xs={12} md={7} data-aos="fade-up">
             <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
