@@ -39,8 +39,8 @@ const FileUpload = ({ taskId, meetingId, projectId: initialProjectId, onUploadSu
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
-    if (file && file.size > 5 * 1024 * 1024) {
-      alert('File size exceeds 5MB limit per file.');
+    if (file && file.size > 50 * 1024 * 1024) {
+      alert('File size exceeds 50MB limit per file.');
       e.target.value = ''; // Reset input
       return;
     }
@@ -110,7 +110,7 @@ const FileUpload = ({ taskId, meetingId, projectId: initialProjectId, onUploadSu
               {selectedFile ? selectedFile.name : 'Click or drag file to upload'}
             </Typography>
             <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-              Max 5MB per file
+              Max 50MB per file
             </Typography>
           </Box>
 
