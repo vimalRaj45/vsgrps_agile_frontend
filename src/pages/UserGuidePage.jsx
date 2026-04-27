@@ -22,63 +22,82 @@ import BrandLogo from '../components/shared/BrandLogo';
 const UserGuidePage = () => {
   const steps = [
     {
-      title: "Set Up Your Workspace",
-      icon: <AppRegistrationIcon color="primary" />,
-      description: "Register your organization and verify your email. The first user becomes the Workspace Admin.",
+      title: "Dashboard & Real-Time Pulse",
+      icon: <DashboardIcon color="primary" />,
+      description: "Get an executive overview of your workspace health and team velocity.",
       details: [
-        "Sign up with your professional email.",
-        "Check your inbox for the activation link.",
-        "Onboard team members from the 'Users' page."
+        "Monitor dynamic Workspace Health (Activity + Completion).",
+        "Track pending tasks and upcoming project deadlines.",
+        "Quick access to recently modified tasks and meetings."
       ]
     },
     {
-      title: "Initialize a Project",
+      title: "Project Lifecycle Management",
       icon: <RocketLaunchIcon color="primary" />,
-      description: "Create your first project and define its scope and objectives.",
+      description: "From inception to delivery, manage your project roadmap with precision.",
       details: [
-        "Go to 'Projects' and click 'New Project'.",
-        "Add members to the project team.",
-        "Set high-level goals and status."
+        "Create multi-member projects with specific goals.",
+        "Toggle project visibility (Public vs Private).",
+        "Archive completed projects to keep your workspace clean."
       ]
     },
     {
-      title: "Use AI Architect",
+      title: "Intelligent AI Architect",
       icon: <PsychologyIcon color="primary" />,
-      description: "Decompose complex requirements into actionable backlogs with predictive intelligence.",
+      description: "The core engine that automates task planning and risk forecasting.",
       details: [
-        "Enter a requirement like 'Build a secure checkout'.",
-        "Review 'Explainable AI' rationales for estimations.",
-        "Check 'Predictive Risk Analysis' for bottlenecks.",
-        "Analyze 'Impact Scores' to prioritize the most critical work."
+        "Generate 15+ subtasks from a single requirement.",
+        "Review AI-generated Rationales (Explainable AI).",
+        "Analyze Predictive Risk Scores for technical bottlenecks."
       ]
     },
     {
-      title: "Manage Assets (R2 Storage)",
-      icon: <CloudUploadIcon color="primary" />,
-      description: "Securely upload and share project documentation and assets.",
+      title: "Advanced Task Orchestration",
+      icon: <AssignmentIcon color="primary" />,
+      description: "A professional Kanban system designed for high-performance engineers.",
       details: [
-        "Upload files up to 50MB per item.",
-        "Monitor your 200MB organizational storage limit.",
-        "Pin external research links for quick access."
+        "Manage subtasks with drag-and-drop simplicity.",
+        "Assign priority labels (Critical, High, Medium, Low).",
+        "Real-time comments and activity tracking per task."
       ]
-    }
+    },
+    {
+      title: "Meeting Automation Hub",
+      icon: <GroupsIcon color="primary" />,
+      description: "Streamline communication with integrated meeting notes and attendee tracking.",
+      details: [
+        "Schedule meetings and invite team members.",
+        "Collaborate on real-time meeting notes and action items.",
+        "Link files directly to meeting contexts for quick reference."
+      ]
+    },
+    {
+      title: "Cloud Asset Storage (R2)",
+      icon: <CloudUploadIcon color="primary" />,
+      description: "Secure, high-speed storage for your organizational documentation.",
+      details: [
+        "Upload files up to 50MB with industrial encryption.",
+        "Pin research links with automated metadata scraping.",
+        "Independent 200MB quota that doesn't affect health scores."
+      ]
+    },
   ];
 
   const faq = [
     {
-      title: "Explainable AI (XAI)",
+      title: "RBAC Security",
+      icon: <SecurityIcon color="error" />,
+      content: "Role-Based Access Control ensures data integrity. Admins can manage users, while Members focus on execution, and Auditors maintain transparency."
+    },
+    {
+      title: "Audit Transparency",
       icon: <VerifiedIcon color="info" />,
-      content: "Sprintora's AI doesn't just estimate—it explains. Every task includes a Rationale detailing the logic behind its priority and hours, giving you full transparency into the AI's decision-making process."
+      content: "Every action is logged. Audit logs provide a verifiable trail of changes to tasks, projects, and files, ensuring accountability across the team."
     },
     {
-      title: "Predictive Intelligence",
-      icon: <NotificationsActiveIcon color="warning" />,
-      content: "The system identifies potential technical bottlenecks and resource risks before they happen. Look for the 'Risk Analysis' box on every AI-suggested task."
-    },
-    {
-      title: "Workspace Health vs. Storage",
+      title: "Analytics Reports",
       icon: <TimelineIcon color="success" />,
-      content: "Workspace Health is a high-level performance metric and is NOT affected by your file uploads. Your 200MB Organization Storage is an independent limit dedicated to project assets and research documentation."
+      content: "Access executive-level velocity reports and project status summaries, optimized for both desktop and mobile decision-making."
     }
   ];
 
@@ -95,7 +114,7 @@ const UserGuidePage = () => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} lg={8}>
-          <Typography variant="h5" fontWeight="900" sx={{ mb: 3, mt: { xs: 4, lg: 0 }, letterSpacing: 1, fontSize: { xs: '1.25rem', md: '1.5rem' } }}>HOW TO USE</Typography>
+        <Typography variant="h5" fontWeight="900" sx={{ mb: 3, mt: { xs: 4, lg: 0 }, letterSpacing: 1, fontSize: { xs: '1.25rem', md: '1.5rem' } }}>FEATURE DEEP DIVE</Typography>
           <Stack spacing={3}>
             {steps.map((step, index) => (
               <Card key={index} sx={{ 
