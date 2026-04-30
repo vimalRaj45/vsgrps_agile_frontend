@@ -555,6 +555,21 @@ const SprintoraLanding = () => {
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/privacy')}>Privacy</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/terms')}>Terms</Typography>
                 </Stack>
+                <Stack spacing={1.5}>
+                  <Typography variant="caption" fontWeight="900" color="#fb7185">SUPPORT</Typography>
+                  <Typography 
+                    variant="caption" 
+                    color="error.main" 
+                    sx={{ cursor: 'pointer', fontWeight: 800 }} 
+                    onClick={() => {
+                      localStorage.clear();
+                      sessionStorage.clear();
+                      window.location.href = '/';
+                    }}
+                  >
+                    Technical Reset
+                  </Typography>
+                </Stack>
               </Stack>
             </Grid>
           </Grid>
