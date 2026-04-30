@@ -50,14 +50,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    setUser(null);
     try {
       const { unsubscribeFromPush } = await import('../utils/pushManager');
       await unsubscribeFromPush();
     } catch (err) {
       console.warn('Push unsubscription failed during logout:', err);
     }
-    await authApi.logout();
-    setUser(null);
+    try {
+      await authApi.logout();
+    } catch (err) {
+      console.error('Logout API call failed:', err);
+    }
   };
 
   return (

@@ -27,11 +27,14 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
 
   React.useEffect(() => {
     const fetchStorage = async () => {
+      if (!user) return;
       try {
         const res = await client.get('/files/storage');
         setStorage(res.data);
       } catch (err) {
-        console.error('Failed to fetch storage');
+        if (err.response?.status !== 401) {
+          console.error('Failed to fetch storage:', err);
+        }
       }
     };
     fetchStorage();
@@ -46,7 +49,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
       clearInterval(interval);
       window.removeEventListener('storage-refresh', handleRefresh);
     };
-  }, []);
+  }, [user]);
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon sx={{ fontSize: 22 }} />, path: '/' },
