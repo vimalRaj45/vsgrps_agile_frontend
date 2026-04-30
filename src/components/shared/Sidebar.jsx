@@ -63,11 +63,6 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
     { text: 'Audit Log', icon: <HistoryIcon sx={{ fontSize: 22 }} />, path: '/audit', permission: 'audit:view' },
     { text: 'Settings', icon: <SettingsIcon sx={{ fontSize: 22 }} />, path: '/settings' },
     { text: 'User Guide', icon: <HelpIcon sx={{ fontSize: 22 }} />, path: '/guide' },
-    { 
-      text: 'Install App', 
-      icon: <AppShortcutIcon sx={{ fontSize: 22, color: 'primary.main' }} />, 
-      action: () => window.dispatchEvent(new CustomEvent('trigger-pwa-prompt')) 
-    },
   ];
 
   const filteredMenuItems = menuItems.filter(item => !item.permission || can(user?.role, item.permission));
