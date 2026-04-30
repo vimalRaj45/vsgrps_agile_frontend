@@ -218,6 +218,23 @@ const UserGuidePage = () => {
                 </Typography>
               </Paper>
             ))}
+
+            <Paper sx={{ p: 3, borderRadius: 4, border: '2px dashed rgba(239, 68, 68, 0.2)', bgcolor: 'rgba(239, 68, 68, 0.02)' }}>
+              <Typography variant="subtitle2" fontWeight="900" color="error.main" sx={{ mb: 1 }}>TECHNICAL RESET</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.6, fontWeight: 500, display: 'block', mb: 2 }}>
+                If you encounter synchronization issues, loading errors, or UI glitches, performing a **Hard Refresh** will clear temporary cache and resync with the server.
+              </Typography>
+              <Button 
+                variant="outlined" 
+                color="error" 
+                fullWidth 
+                size="small"
+                onClick={() => window.location.href = window.location.href}
+                sx={{ fontWeight: 800, borderRadius: 2 }}
+              >
+                Force App Reload
+              </Button>
+            </Paper>
           </Stack>
         </Grid>
       </Grid>
