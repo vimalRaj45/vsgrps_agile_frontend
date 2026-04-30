@@ -16,6 +16,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import HistoryIcon from '@mui/icons-material/History';
 import PeopleIcon from '@mui/icons-material/People';
 import AssessmentIcon from '@mui/icons-material/Assessment';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 import { useAuth } from '../../context/AuthContext';
 import { can } from '../../utils/rbac';
 
@@ -62,6 +63,11 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
     { text: 'Audit Log', icon: <HistoryIcon sx={{ fontSize: 22 }} />, path: '/audit', permission: 'audit:view' },
     { text: 'Settings', icon: <SettingsIcon sx={{ fontSize: 22 }} />, path: '/settings' },
     { text: 'User Guide', icon: <HelpIcon sx={{ fontSize: 22 }} />, path: '/guide' },
+    { 
+      text: 'Install App', 
+      icon: <AppShortcutIcon sx={{ fontSize: 22, color: 'primary.main' }} />, 
+      action: () => window.dispatchEvent(new CustomEvent('trigger-pwa-prompt')) 
+    },
   ];
 
   const filteredMenuItems = menuItems.filter(item => !item.permission || can(user?.role, item.permission));
@@ -86,7 +92,11 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             <ListItem key={item.text} disablePadding sx={{ mb: 0.8 }}>
               <ListItemButton
                 onClick={() => {
-                  navigate(item.path);
+                  if (item.action) {
+                    item.action();
+                  } else {
+                    navigate(item.path);
+                  }
                   if (mobileOpen) handleDrawerToggle();
                 }}
                 selected={active}
