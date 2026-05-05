@@ -10,15 +10,61 @@ import {
   Visibility, VisibilityOff, 
   ArrowForward as ArrowForwardIcon
 } from '@mui/icons-material';
-import { 
-  SignIn
-} from '@clerk/react';
 import BrandLogo from '../components/shared/BrandLogo';
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [orgs, setOrgs] = useState([]); // List of organizations for picker
+  const [showOrgPicker, setShowOrgPicker] = useState(false);
+  
+  const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccess(location.state.message);
+    }
+  }, [location]);
+
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      const data = await login(email, password, rememberMe);
+      if (data.multipleOrgs) {
+        setOrgs(data.orgs);
+        setShowOrgPicker(true);
+      } else {
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || 'Failed to login');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOrgSelect = async (companyId) => {
+    setLoading(true);
+    try {
+      await login(email, password, rememberMe, companyId);
+      navigate('/');
+    } catch (err) {
+      setError('Failed to enter organization.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Box sx={{ 
@@ -61,60 +107,128 @@ const LoginPage = () => {
           )}
 
           {/* Form Side */}
-          <Grid item xs={12} md={6} sx={{ 
-            p: { xs: 3, md: 5 }, 
-            bgcolor: theme.palette.mode === 'dark' ? 'rgba(3, 7, 18, 0.4)' : 'rgba(0, 0, 0, 0.02)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <Stack spacing={3} sx={{ width: '100%', maxWidth: 400 }}>
-              <Box>
-                <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
-                  <BrandLogo size={24} />
-                  <Box>
-                    <Typography variant="h6" fontWeight="900" sx={{ lineHeight: 1 }}>Sprintora</Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.6rem' }}>by VSGRPS Technologies</Typography>
-                  </Box>
-                </Stack>
-              </Box>
+          <Grid item xs={12} md={6} sx={{ p: { xs: 3, md: 5 }, bgcolor: theme.palette.mode === 'dark' ? 'rgba(3, 7, 18, 0.4)' : 'rgba(0, 0, 0, 0.02)' }}>
+            <Stack spacing={3}>
+              {showOrgPicker ? (
+                <Box>
+                  <Typography variant="h5" fontWeight="950" gutterBottom sx={{ letterSpacing: '-1px' }}>
+                    Select Workspace
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+                    Your email is associated with multiple organizations. Please choose one to enter.
+                  </Typography>
 
-              <SignIn 
-                routing="path" 
-                path="/login" 
-                signUpUrl="/register"
-                appearance={{
-                  elements: {
-                    rootBox: { width: '100%' },
-                    card: { 
-                      boxShadow: 'none', 
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      width: '100%'
-                    },
-                    headerTitle: { color: theme.palette.text.primary },
-                    headerSubtitle: { color: theme.palette.text.secondary },
-                    socialButtonsBlockButton: { 
-                      borderRadius: '12px',
-                      backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'white',
-                      border: `1px solid ${theme.palette.divider}`
-                    },
-                    formButtonPrimary: {
-                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                      borderRadius: '12px',
-                      height: '48px',
-                      fontSize: '1rem',
-                      fontWeight: '700'
-                    },
-                    formFieldInput: {
-                      borderRadius: '12px',
-                      backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'white',
-                      border: `1px solid ${theme.palette.divider}`
-                    }
-                  }
-                }}
-              />
+                  <Stack spacing={2}>
+                    {orgs.map((org) => (
+                      <Box 
+                        key={org.companyId}
+                        onClick={() => handleOrgSelect(org.companyId)}
+                        sx={{ 
+                          p: 3, 
+                          borderRadius: 3, 
+                          bgcolor: 'rgba(99, 102, 241, 0.05)',
+                          border: '1px solid rgba(99, 102, 241, 0.1)',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            bgcolor: 'rgba(99, 102, 241, 0.12)',
+                            transform: 'translateY(-2px)',
+                            borderColor: '#6366f1'
+                          }
+                        }}
+                      >
+                        <Typography variant="h6" fontWeight="800">{org.companyName}</Typography>
+                        <Typography variant="caption" color="text.secondary">{org.role}</Typography>
+                      </Box>
+                    ))}
+                    
+                    <Button 
+                      fullWidth 
+                      variant="text" 
+                      onClick={() => setShowOrgPicker(false)}
+                      sx={{ mt: 2, fontWeight: 700 }}
+                    >
+                      Back to Login
+                    </Button>
+                  </Stack>
+                </Box>
+              ) : (
+                <>
+                  <Box>
+                    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
+                      <BrandLogo size={24} />
+                      <Box>
+                        <Typography variant="h6" fontWeight="900" sx={{ lineHeight: 1 }}>Sprintora</Typography>
+                        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.6rem' }}>by VSGRPS Technologies</Typography>
+                      </Box>
+                    </Stack>
+                    
+                    <Typography variant="h4" fontWeight="950" gutterBottom sx={{ letterSpacing: '-1px' }}>
+                      Welcome Back
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                      Enter your credentials to access your workspace.
+                    </Typography>
+                  </Box>
+
+                  {success && <Alert severity="success" sx={{ borderRadius: 3 }}>{success}</Alert>}
+                  {error && <Alert severity="error" sx={{ borderRadius: 3 }}>{error}</Alert>}
+
+                  <form onSubmit={handleSubmit}>
+                    <Stack spacing={3}>
+                      <TextField
+                        fullWidth label="Email Address" variant="outlined"
+                        value={email} onChange={(e) => setEmail(e.target.value)} required
+                        InputProps={{ sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' } }}
+                      />
+                      <TextField
+                        fullWidth label="Password" type={showPassword ? 'text' : 'password'}
+                        value={password} onChange={(e) => setPassword(e.target.value)} required
+                        InputProps={{ 
+                          sx: { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.02)' },
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{ color: 'text.secondary' }}>
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                      
+                      <Stack direction="row" justifyContent="space-between" alignItems="center">
+                        <FormControlLabel
+                          control={<Checkbox size="small" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />}
+                          label={<Typography variant="body2" color="text.secondary">Remember me</Typography>}
+                        />
+                        <Link component={RouterLink} to="/forgot-password" variant="body2" sx={{ fontWeight: 700, textDecoration: 'none', color: '#6366f1' }}>
+                          Forgot?
+                        </Link>
+                      </Stack>
+
+                      <Button
+                        fullWidth variant="contained" size="large" type="submit" disabled={loading}
+                        sx={{ 
+                          height: 64, borderRadius: 3, fontWeight: 900, fontSize: '1.1rem',
+                          background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                          boxShadow: '0 20px 40px -10px rgba(99, 102, 241, 0.4)'
+                        }}
+                      >
+                        {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
+                      </Button>
+                    </Stack>
+                  </form>
+
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="body2" color="text.secondary">
+                      New to Sprintora?{' '}
+                      <Link component={RouterLink} to="/register" sx={{ fontWeight: 900, textDecoration: 'none', color: '#6366f1' }}>
+                        Create Account
+                      </Link>
+                    </Typography>
+                  </Box>
+                </>
+              )}
             </Stack>
           </Grid>
         </Grid>
