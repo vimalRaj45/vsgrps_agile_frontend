@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
-import { ClerkProvider } from '@clerk/react';
-
 // Register service worker for PWA and Push Notifications
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -16,9 +14,7 @@ if ('serviceWorker' in navigator) {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ClerkProvider afterSignOutUrl="/">
-      <App />
-    </ClerkProvider>
+    <App />
   </React.StrictMode>,
 );
 

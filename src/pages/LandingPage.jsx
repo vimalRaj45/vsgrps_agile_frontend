@@ -23,12 +23,6 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { useAppTheme } from '../context/ThemeContext';
 import BrandLogo from '../components/shared/BrandLogo';
-import {
-  Show,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/react";
 
 const SprintoraLanding = () => {
   const navigate = useNavigate();
@@ -155,45 +149,22 @@ const SprintoraLanding = () => {
                 {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 16, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />}
               </IconButton>
  
-              <Show when="signed-out">
-                <SignInButton mode="modal">
-                  <Button 
-                    variant="contained" 
-                    size={isSmallMobile ? "small" : "medium"}
-                    sx={{ 
-                      borderRadius: 2, fontWeight: 900, px: { xs: 1.5, md: 4 },
-                      height: { xs: 32, md: 44 },
-                      background: theme.palette.mode === 'dark' ? 'white' : '#030712', 
-                      color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
-                      fontSize: { xs: '0.65rem', md: '0.875rem' },
-                      whiteSpace: 'nowrap',
-                      '&:hover': { background: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' },
-                      mr: 1
-                    }}
-                  >
-                    Login
-                  </Button>
-                </SignInButton>
-                <SignUpButton mode="modal">
-                  <Button 
-                    variant="contained" 
-                    size={isSmallMobile ? "small" : "medium"}
-                    sx={{ 
-                      borderRadius: 2, fontWeight: 900, px: { xs: 1.5, md: 4 },
-                      height: { xs: 32, md: 44 },
-                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                      color: 'white', 
-                      fontSize: { xs: '0.65rem', md: '0.875rem' },
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    Start Free
-                  </Button>
-                </SignUpButton>
-              </Show>
-              <Show when="signed-in">
-                <UserButton />
-              </Show>
+              <Button 
+                variant="contained" 
+                size={isSmallMobile ? "small" : "medium"}
+                onClick={() => navigate('/login')}
+                sx={{ 
+                  borderRadius: 2, fontWeight: 900, px: { xs: 1.5, md: 4 },
+                  height: { xs: 32, md: 44 },
+                  background: theme.palette.mode === 'dark' ? 'white' : '#030712', 
+                  color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
+                  fontSize: { xs: '0.65rem', md: '0.875rem' },
+                  whiteSpace: 'nowrap',
+                  '&:hover': { background: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
+                }}
+              >
+                Start Free
+              </Button>
               {isMobile && (
                 <IconButton 
                   onClick={() => setMobileMenuOpen(true)} 
@@ -273,32 +244,16 @@ const SprintoraLanding = () => {
               </Typography>
               
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                <Show when="signed-out">
-                  <SignUpButton mode="modal">
-                    <Button 
-                      variant="contained" fullWidth={isSmallMobile} size="large"
-                      sx={{ 
-                        height: { xs: 56, md: 72 }, px: 6, borderRadius: 3, fontWeight: 900, fontSize: '1.1rem',
-                        background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                      }}
-                      endIcon={<ArrowForwardIcon />}
-                    >
-                      Start Free
-                    </Button>
-                  </SignUpButton>
-                </Show>
-                <Show when="signed-in">
-                  <Button 
-                    variant="contained" fullWidth={isSmallMobile} size="large" onClick={() => navigate('/')}
-                    sx={{ 
-                      height: { xs: 56, md: 72 }, px: 6, borderRadius: 3, fontWeight: 900, fontSize: '1.1rem',
-                      background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-                    }}
-                    endIcon={<ArrowForwardIcon />}
-                  >
-                    Go to Dashboard
-                  </Button>
-                </Show>
+                <Button 
+                  variant="contained" fullWidth={isSmallMobile} size="large" onClick={() => navigate('/register')}
+                  sx={{ 
+                    height: { xs: 56, md: 72 }, px: 6, borderRadius: 3, fontWeight: 900, fontSize: '1.1rem',
+                    background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                  }}
+                  endIcon={<ArrowForwardIcon />}
+                >
+                  Start Free
+                </Button>
                 <Button 
                   variant="outlined" fullWidth={isSmallMobile} size="large" onClick={() => navigate('/onboarding')}
                   sx={{ 
