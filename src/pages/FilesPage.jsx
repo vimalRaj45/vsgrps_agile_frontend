@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import {
   Box, Typography, Grid, Alert, Card, CardContent,
   IconButton, List, ListItem, ListItemIcon, ListItemText, ListItemButton,
-  Chip, Stack, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText,
-  DialogActions, Button
+  Chip, Stack, Snackbar
 } from '@mui/material';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 import DownloadIcon from '@mui/icons-material/Download';
 import LinkIcon from '@mui/icons-material/Link';
-import DeleteIcon from '@mui/icons-material/Delete';
 import client from '../api/client';
-import { useAuth } from '../context/AuthContext';
 import LoadingScreen from '../components/shared/LoadingScreen';
 import FileUpload from '../components/files/FileUpload';
 import LinkInput from '../components/files/LinkInput';
@@ -21,8 +18,6 @@ const FilesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
-  const [deleteDialog, setDeleteDialog] = useState({ open: false, id: null, type: null, title: '' });
-  const { user } = useAuth();
 
   const fetchData = async () => {
     try {
@@ -45,23 +40,6 @@ const FilesPage = () => {
 
   const handleDownload = (id, filename) => {
     window.open(`${client.defaults.baseURL}/files/${id}/download`, '_blank');
-  };
-
-  const confirmDelete = async () => {
-    try {
-      const endpoint = deleteDialog.type === 'file' ? `/files/${deleteDialog.id}` : `/files/links/${deleteDialog.id}`;
-      await client.delete(endpoint);
-      fetchData();
-      setSnackbar({ open: true, message: `${deleteDialog.type === 'file' ? 'File' : 'Link'} deleted successfully!` });
-    } catch (err) {
-      setSnackbar({ open: true, message: err.response?.data?.error || `Failed to delete ${deleteDialog.type}` });
-    } finally {
-      setDeleteDialog({ ...deleteDialog, open: false });
-    }
-  };
-
-  const handleDeleteClick = (id, type, title) => {
-    setDeleteDialog({ open: true, id, type, title });
   };
 
   if (loading) return <LoadingScreen />;
@@ -103,16 +81,9 @@ const FilesPage = () => {
                     <ListItem
                       key={file.id}
                       secondaryAction={
-                        <Stack direction="row" spacing={0.5}>
-                          <IconButton edge="end" onClick={() => handleDownload(file.id, file.filename)}>
-                            <DownloadIcon />
-                          </IconButton>
-                          {(file.uploaded_by === user?.id || user?.role === 'Admin') && (
-                            <IconButton edge="end" color="error" onClick={() => handleDeleteClick(file.id, 'file', file.filename)}>
-                              <DeleteIcon />
-                            </IconButton>
-                          )}
-                        </Stack>
+                        <IconButton edge="end" onClick={() => handleDownload(file.id, file.filename)}>
+                          <DownloadIcon />
+                        </IconButton>
                       }
                     >
                       <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}><FilePresentIcon /></ListItemIcon>
@@ -173,7 +144,6 @@ const FilesPage = () => {
                         component="a"
                         href={link.url}
                         target="_blank"
-                        sx={{ pr: 9 }} // Space for absolute delete button
                       >
                         <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}><LinkIcon /></ListItemIcon>
                         <ListItemText
@@ -206,22 +176,6 @@ const FilesPage = () => {
                           secondaryTypographyProps={{ component: 'div' }}
                         />
                       </ListItemButton>
-                      {(link.added_by === user?.id || user?.role === 'Admin') && (
-                        <IconButton 
-                          edge="end" 
-                          color="error" 
-                          onClick={(e) => { e.stopPropagation(); handleDeleteClick(link.id, 'link', link.title); }}
-                          sx={{ 
-                            position: 'absolute', 
-                            right: 16, 
-                            top: '50%', 
-                            transform: 'translateY(-50%)',
-                            zIndex: 2
-                          }}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      )}
                     </ListItem>
                   ))
                 )}
@@ -238,40 +192,6 @@ const FilesPage = () => {
         message={snackbar.message}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       />
-
-      {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={deleteDialog.open}
-        onClose={() => setDeleteDialog({ ...deleteDialog, open: false })}
-        PaperProps={{ sx: { borderRadius: 3, p: 1 } }}
-      >
-        <DialogTitle sx={{ fontWeight: 'bold' }}>
-          Confirm Deletion
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete <strong>{deleteDialog.title}</strong>? This action cannot be undone.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button 
-            onClick={() => setDeleteDialog({ ...deleteDialog, open: false })}
-            variant="outlined"
-            sx={{ borderRadius: 2 }}
-          >
-            Cancel
-          </Button>
-          <Button 
-            onClick={confirmDelete}
-            color="error"
-            variant="contained"
-            sx={{ borderRadius: 2, px: 3 }}
-            autoFocus
-          >
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 };

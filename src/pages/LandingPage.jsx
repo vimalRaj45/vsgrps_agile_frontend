@@ -22,7 +22,6 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { useAppTheme } from '../context/ThemeContext';
-import BrandLogo from '../components/shared/BrandLogo';
 
 const SprintoraLanding = () => {
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const SprintoraLanding = () => {
 
   const features = [
     {
-      icon: <BrandLogo size={32} />,
+      icon: <AutoAwesomeIcon sx={{ color: '#818cf8', fontSize: 32 }} />,
       title: 'AI Task Generation',
       desc: 'Turn "Build a login system" into 15 structured, prioritized tasks in seconds.'
     },
@@ -108,15 +107,22 @@ const SprintoraLanding = () => {
         borderRadius: 0
       }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
-          <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 52, md: 68 } }}>
-            <Stack direction="row" spacing={1} alignItems="center" sx={{ cursor: 'pointer', flexShrink: 0 }} onClick={() => navigate('/')}>
-              <BrandLogo size={isMobile ? 28 : 36} />
+          <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: { xs: 60, md: 85 } }}>
+            <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
+              <Box sx={{ 
+                background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', 
+                p: 0.8, borderRadius: 1.5, 
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 4px 12px -2px rgba(99, 102, 241, 0.4)'
+              }}>
+                <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 22, height: 22 }} />
+              </Box>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Typography variant="h6" fontWeight="950" sx={{ letterSpacing: '-0.5px', color: 'text.primary', lineHeight: 1, fontSize: { xs: '0.85rem', md: '1.25rem' }, whiteSpace: 'nowrap' }}>
+                <Typography variant="h6" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary', lineHeight: 1.1 }}>
                   Sprintora
                 </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.5rem', display: 'block', mt: 0, whiteSpace: 'nowrap', opacity: 0.8 }}>
-                  AI-Powered Agile Intelligence
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem', display: 'block', lineHeight: 1 }}>
+                  by VSGRPS Technologies
                 </Typography>
               </Box>
             </Stack>
@@ -135,30 +141,32 @@ const SprintoraLanding = () => {
                     </Typography>
                   ))}
                 </Stack>
-              )}              <IconButton onClick={toggleTheme} sx={{ 
+              )}
+
+              <IconButton onClick={toggleTheme} sx={{ 
                 bgcolor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
                 border: `1px solid ${theme.palette.divider}`,
-                p: { xs: 0.5, sm: 1 },
-                width: { xs: 32, sm: 40 },
-                height: { xs: 32, sm: 40 },
+                p: { xs: 0.8, sm: 1 },
+                width: { xs: 36, sm: 40 },
+                height: { xs: 36, sm: 40 },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'text.primary'
               }}>
-                {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 16, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />}
+                {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
               </IconButton>
- 
+
               <Button 
                 variant="contained" 
                 size={isSmallMobile ? "small" : "medium"}
                 onClick={() => navigate('/login')}
                 sx={{ 
-                  borderRadius: 2, fontWeight: 900, px: { xs: 1.5, md: 4 },
-                  height: { xs: 32, md: 44 },
+                  borderRadius: 3, fontWeight: 900, px: { xs: 2, md: 4 },
+                  height: { xs: 36, md: 44 },
                   background: theme.palette.mode === 'dark' ? 'white' : '#030712', 
                   color: theme.palette.mode === 'dark' ? '#030712' : 'white', 
-                  fontSize: { xs: '0.65rem', md: '0.875rem' },
+                  fontSize: { xs: '0.7rem', md: '0.875rem' },
                   whiteSpace: 'nowrap',
                   '&:hover': { background: theme.palette.mode === 'dark' ? '#f3f4f6' : '#1f2937' }
                 }}
@@ -204,7 +212,7 @@ const SprintoraLanding = () => {
       </Drawer>
 
       {/* Hero Section */}
-      <Container maxWidth="xl" sx={{ pt: { xs: 12, md: 20 }, pb: { xs: 10, md: 20 }, position: 'relative', zIndex: 1 }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: 15, md: 28 }, pb: { xs: 10, md: 20 }, position: 'relative', zIndex: 1 }}>
         <Grid container spacing={4} sx={{ alignItems: 'center' }}>
           <Grid item xs={12} md={7} data-aos="fade-up">
             <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
@@ -260,7 +268,7 @@ const SprintoraLanding = () => {
                     height: { xs: 56, md: 72 }, px: 5, borderRadius: 3, fontWeight: 800, borderColor: theme.palette.divider, color: 'text.primary',
                     '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'text.secondary' }
                   }}
-                  startIcon={<BrandLogo size={20} />}
+                  startIcon={<AutoAwesomeIcon />}
                 >
                   Learn how it works
                 </Button>
@@ -290,7 +298,7 @@ const SprintoraLanding = () => {
                 >
                    <Card sx={{ p: 1.5, borderRadius: 3, border: `1px solid ${theme.palette.divider}`, bgcolor: 'background.paper', minWidth: 140 }}>
                       <Stack direction="row" spacing={1.5} alignItems="center">
-                        <BrandLogo size={18} />
+                        <AutoAwesomeIcon sx={{ color: '#818cf8', fontSize: 18 }} />
                         <Typography variant="caption" fontWeight="800">AI PLANNER LIVE</Typography>
                       </Stack>
                    </Card>
@@ -498,85 +506,30 @@ const SprintoraLanding = () => {
       <Box sx={{ py: 8, borderTop: `1px solid ${theme.palette.divider}`, bgcolor: 'background.default' }}>
         <Container maxWidth="xl">
           <Grid container spacing={6}>
-            <Grid item xs={12} md={4}>
-              <Stack spacing={2}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                  <BrandLogo size={32} />
-                  <Typography variant="h5" fontWeight="900" sx={{ letterSpacing: '-1px', color: 'text.primary' }}>Sprintora</Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300, lineHeight: 1.6 }}>
-                  The AI-powered workspace engineered for high-performance teams. Plan, track, and deliver with industrial precision.
-                </Typography>
-              </Stack>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" fontWeight="900" sx={{ mb: 0.5, color: 'text.primary' }}>Sprintora</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block', mb: 2 }}>
+                by VSGRPS Technologies
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300 }}>
+                The AI-powered workspace for modern teams.
+              </Typography>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <Stack spacing={2}>
-                <Typography variant="overline" fontWeight="900" color="primary.main" sx={{ letterSpacing: 2 }}>DEVELOPED BY</Typography>
-                <Box 
-                  component="a" 
-                  href="https://vsgrps.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: 2, 
-                    textDecoration: 'none',
-                    p: 2,
-                    borderRadius: 3,
-                    bgcolor: 'rgba(255,255,255,0.02)',
-                    border: '1px solid rgba(255,255,255,0.05)',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      bgcolor: 'rgba(255,255,255,0.04)',
-                      transform: 'translateY(-2px)',
-                      borderColor: 'primary.main'
-                    }
-                  }}
-                >
-                  <Box component="img" src="/vsgrps_logo.png" sx={{ width: 40, height: 40, borderRadius: 2 }} />
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight="900" color="text.primary">VSGRPS Technologies</Typography>
-                    <Typography variant="caption" color="text.secondary">Visit vsgrps.com</Typography>
-                  </Box>
-                </Box>
-              </Stack>
-            </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
               <Stack direction="row" spacing={6} sx={{ justifyContent: { md: 'flex-end' } }}>
                 <Stack spacing={1.5}>
                   <Typography variant="caption" fontWeight="900" color="#818cf8">SYSTEM</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/features')}>Features</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/mission')}>Our Mission</Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/guide')}>User Guide</Typography>
                 </Stack>
                 <Stack spacing={1.5}>
                   <Typography variant="caption" fontWeight="900" color="#c084fc">LEGAL</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/privacy')}>Privacy</Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ cursor: 'pointer' }} onClick={() => navigate('/terms')}>Terms</Typography>
                 </Stack>
-                <Stack spacing={1.5}>
-                  <Typography variant="caption" fontWeight="900" color="#fb7185">SUPPORT</Typography>
-                  <Typography 
-                    variant="caption" 
-                    color="error.main" 
-                    sx={{ cursor: 'pointer', fontWeight: 800 }} 
-                    onClick={() => {
-                      localStorage.clear();
-                      sessionStorage.clear();
-                      window.location.href = '/';
-                    }}
-                  >
-                    Technical Reset
-                  </Typography>
-                </Stack>
               </Stack>
             </Grid>
           </Grid>
-          <Divider sx={{ my: 4, opacity: 0.1 }} />
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center' }}>
-            © {new Date().getFullYear()} VSGRPS Technologies. All rights reserved. Sprintora is a registered trademark.
-          </Typography>
         </Container>
       </Box>
     </Box>

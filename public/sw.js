@@ -4,7 +4,7 @@ const ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/favicon.png'
+  '/favicon.svg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -42,7 +42,7 @@ self.addEventListener('push', (event) => {
   let payload = {
     title: 'Sprintora',
     body: 'You have a new update.',
-    icon: '/favicon.png',
+    icon: '/favicon.svg',
     data: { url: '/' }
   };
 
@@ -61,8 +61,8 @@ self.addEventListener('push', (event) => {
 
   const options = {
     body: payload.body,
-    icon: payload.icon || '/favicon.png',
-    badge: '/favicon.png',
+    icon: payload.icon || '/favicon.svg',
+    badge: '/favicon.svg',
     vibrate: [200, 100, 200],
     data: payload.data || { url: '/' },
     actions: [

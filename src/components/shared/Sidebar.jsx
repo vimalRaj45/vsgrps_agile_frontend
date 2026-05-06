@@ -16,7 +16,6 @@ import HelpIcon from '@mui/icons-material/Help';
 import HistoryIcon from '@mui/icons-material/History';
 import PeopleIcon from '@mui/icons-material/People';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 import { useAuth } from '../../context/AuthContext';
 import { can } from '../../utils/rbac';
 
@@ -28,14 +27,11 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
 
   React.useEffect(() => {
     const fetchStorage = async () => {
-      if (!user) return;
       try {
         const res = await client.get('/files/storage');
         setStorage(res.data);
       } catch (err) {
-        if (err.response?.status !== 401) {
-          console.error('Failed to fetch storage:', err);
-        }
+        console.error('Failed to fetch storage');
       }
     };
     fetchStorage();
@@ -50,7 +46,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
       clearInterval(interval);
       window.removeEventListener('storage-refresh', handleRefresh);
     };
-  }, [user]);
+  }, []);
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon sx={{ fontSize: 22 }} />, path: '/' },
@@ -69,13 +65,24 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
 
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 2 }}>
-      {/* Organization Header (Simplified) */}
-      <Box sx={{ px: 2, py: 2, mb: 1 }}>
-        <Typography variant="h6" fontWeight="950" color="primary.main" letterSpacing="-1px">
-          Sprintora
-        </Typography>
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.65rem' }}>
-          AI Powered Agile Hub
+      {/* Brand Section */}
+      <Box sx={{ px: 2, py: 3, mb: 2 }}>
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          <Box sx={{ 
+            bgcolor: 'primary.main', 
+            p: 0.8, 
+            borderRadius: 1.5,
+            boxShadow: '0 4px 12px rgba(59, 130, 246, 0.4)',
+            display: 'flex'
+          }}>
+            <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 24, height: 24 }} />
+          </Box>
+          <Typography variant="h5" fontWeight="800" letterSpacing="-1px">
+            Sprintora
+          </Typography>
+        </Stack>
+        <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block', fontWeight: 600, ml: 6 }}>
+          by VSGRPS Technologies
         </Typography>
       </Box>
 
@@ -87,11 +94,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             <ListItem key={item.text} disablePadding sx={{ mb: 0.8 }}>
               <ListItemButton
                 onClick={() => {
-                  if (item.action) {
-                    item.action();
-                  } else {
-                    navigate(item.path);
-                  }
+                  navigate(item.path);
                   if (mobileOpen) handleDrawerToggle();
                 }}
                 selected={active}
@@ -133,38 +136,6 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
 
       {/* Storage & Organization Info */}
       <Box sx={{ mt: 'auto', p: 2 }}>
-        {/* Workspace Health Section */}
-        <Box sx={{ 
-          mb: 2, 
-          p: 2, 
-          borderRadius: 2, 
-          bgcolor: storage?.healthPercent > 80 ? 'rgba(34, 197, 94, 0.05)' : 'rgba(234, 179, 8, 0.05)',
-          border: `1px solid ${storage?.healthPercent > 80 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(234, 179, 8, 0.1)'}`
-        }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-            <Typography variant="caption" fontWeight="700">Workspace Health</Typography>
-            <Typography variant="caption" fontWeight="800" color={storage?.healthPercent > 80 ? 'success.main' : 'warning.main'}>
-              {storage?.healthPercent || 98}% {storage?.healthPercent > 80 ? 'Optimal' : storage?.healthPercent > 50 ? 'Stable' : 'Action Needed'}
-            </Typography>
-          </Stack>
-          <LinearProgress 
-            variant="determinate" 
-            value={storage?.healthPercent || 98} 
-            sx={{ 
-              height: 6, 
-              borderRadius: 3,
-              bgcolor: 'rgba(255,255,255,0.05)',
-              '& .MuiLinearProgress-bar': {
-                borderRadius: 3,
-                background: storage?.healthPercent > 80 
-                  ? 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)'
-                  : 'linear-gradient(90deg, #eab308 0%, #facc15 100%)'
-              }
-            }}
-          />
-        </Box>
-
-        {/* Storage Metric (Separate) */}
         {storage && (
           <Box sx={{ 
             mb: 2, 
@@ -174,29 +145,26 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             border: '1px solid rgba(59, 130, 246, 0.1)'
           }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-              <Typography variant="caption" fontWeight="700">Asset Storage</Typography>
+              <Typography variant="caption" fontWeight="700">Workspace Health</Typography>
               <Typography variant="caption" fontWeight="800" color={storage.percent > 90 ? 'error' : 'primary'}>
-                {storage.percent.toFixed(2)}%
+                {storage.percent.toFixed(4)}% Used
               </Typography>
             </Stack>
             <LinearProgress 
               variant="determinate" 
               value={Math.min(storage.percent, 100)} 
               sx={{ 
-                height: 4, 
-                borderRadius: 2,
+                height: 6, 
+                borderRadius: 3,
                 bgcolor: 'rgba(255,255,255,0.05)',
                 '& .MuiLinearProgress-bar': {
-                  borderRadius: 2,
+                  borderRadius: 3,
                   background: storage.percent > 90 
                     ? 'linear-gradient(90deg, #ef4444 0%, #f87171 100%)'
                     : 'linear-gradient(90deg, #3b82f6 0%, #0ea5e9 100%)'
                 }
               }}
             />
-            <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.6rem', mt: 0.5, display: 'block' }}>
-              200MB Org Limit (Independent)
-            </Typography>
           </Box>
         )}
 

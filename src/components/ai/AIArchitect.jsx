@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Box, Typography, TextField, Button, Stack, Card, CardContent,
-  Chip, IconButton, Divider, Grid, CircularProgress, Alert,
   Dialog, DialogTitle, DialogContent, DialogActions, Paper, Tooltip
 } from '@mui/material';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import InfoIcon from '@mui/icons-material/Info';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import BrandLogo from '../shared/BrandLogo';
 import dayjs from 'dayjs';
 import client from '../../api/client';
 
@@ -129,39 +127,19 @@ const AIArchitect = () => {
     <Box>
       <Card className="glass-card" sx={{ borderRadius: 3, mb: 3 }}>
         <CardContent sx={{ p: 4 }}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'flex-start', sm: 'center' }} sx={{ mb: 4 }}>
+          <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 3 }}>
             <Box sx={{ 
-              p: 1.5, 
-              borderRadius: 3, 
+              p: 1, 
+              borderRadius: 2, 
               bgcolor: 'primary.main', 
               display: 'flex',
-              boxShadow: '0 8px 32px rgba(99, 102, 241, 0.4)' 
+              boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)' 
             }}>
-              <PsychologyIcon sx={{ color: 'white', fontSize: 32 }} />
+              <AutoAwesomeIcon sx={{ color: 'white' }} />
             </Box>
-            <Box sx={{ flexGrow: 1 }}>
-              <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} alignItems={{ xs: 'flex-start', md: 'center' }} justifyContent="space-between">
-                <Box>
-                  <Typography variant="h5" fontWeight="900" sx={{ fontSize: { xs: '1.5rem', sm: '1.75rem' }, letterSpacing: '-0.5px' }}>
-                    AI Architect
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem', opacity: 0.8 }}>
-                    Break down high-level requirements into actionable tasks instantly.
-                  </Typography>
-                </Box>
-                <Chip 
-                  label="Predictive Intelligence Active" 
-                  size="small" 
-                  color="success" 
-                  variant="outlined"
-                  icon={<PsychologyIcon sx={{ fontSize: '1rem !important' }} />}
-                  sx={{ 
-                    height: 28, px: 1, fontSize: '0.7rem', fontWeight: 900, 
-                    borderStyle: 'dashed', bgcolor: 'rgba(16, 185, 129, 0.05)',
-                    mt: { xs: 1, md: 0 }
-                  }}
-                />
-              </Stack>
+            <Box>
+              <Typography variant="h5" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>AI Architect</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>Break down high-level requirements into actionable tasks instantly.</Typography>
             </Box>
           </Stack>
 
@@ -201,14 +179,8 @@ const AIArchitect = () => {
                   size="large"
                   onClick={handleGenerate}
                   disabled={loading || !requirement || !selectedProject}
-                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <PsychologyIcon />}
-                  sx={{ 
-                    height: 64, 
-                    fontWeight: 900, 
-                    fontSize: '1rem',
-                    borderRadius: 3,
-                    boxShadow: '0 8px 32px rgba(99, 102, 241, 0.3)'
-                  }}
+                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <AutoAwesomeIcon />}
+                  sx={{ height: 56, fontWeight: 'bold' }}
                 >
                   {loading ? 'Thinking...' : 'Architect Features'}
                 </Button>
@@ -279,20 +251,6 @@ const AIArchitect = () => {
                           variant="outlined" 
                           sx={{ height: 20, fontSize: '0.65rem', borderColor: 'primary.main', color: 'primary.main' }}
                         />
-                        {task.impact_score && (
-                          <Tooltip title="Predictive Project Impact Score">
-                            <Chip 
-                              label={`Impact: ${task.impact_score}%`} 
-                              size="small" 
-                              sx={{ 
-                                height: 20, fontSize: '0.65rem', fontWeight: 900,
-                                bgcolor: 'rgba(168, 85, 247, 0.1)', 
-                                color: '#a855f7',
-                                border: '1px solid rgba(168, 85, 247, 0.2)'
-                              }}
-                            />
-                          </Tooltip>
-                        )}
                       </Box>
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>{task.description}</Typography>
                       
@@ -306,61 +264,41 @@ const AIArchitect = () => {
                       )}
 
                       {/* Explainable AI & Predictive Intelligence */}
-                      <Grid container spacing={2} sx={{ mb: 2.5 }}>
-                        <Grid item xs={12} sm={6}>
-                          <Box sx={{ 
-                            p: 2, 
-                            borderRadius: 3, 
-                            background: 'rgba(99, 102, 241, 0.03)', 
-                            border: '1px solid rgba(99, 102, 241, 0.1)',
-                            height: '100%',
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            '&::before': {
-                              content: '""',
-                              position: 'absolute',
-                              top: 0, left: 0, width: 4, height: '100%',
-                              bgcolor: 'primary.main'
-                            }
-                          }}>
-                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                              <PsychologyIcon sx={{ fontSize: 18, color: 'primary.main' }} />
-                              <Typography variant="caption" fontWeight="900" sx={{ letterSpacing: 1, color: 'primary.main' }}>EXPLAINABLE AI RATIONALE</Typography>
-                            </Stack>
-                            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.6, fontStyle: 'italic', flexGrow: 1 }}>
-                              {task.estimation_rationale || "Analyzing historical complexity patterns to determine optimal timeframe and priority logic..."}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <Box sx={{ 
-                            p: 2, 
-                            borderRadius: 3, 
-                            background: 'rgba(244, 63, 94, 0.03)', 
-                            border: '1px solid rgba(244, 63, 94, 0.1)',
-                            height: '100%',
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            '&::before': {
-                              content: '""',
-                              position: 'absolute',
-                              top: 0, left: 0, width: 4, height: '100%',
-                              bgcolor: 'error.main'
-                            }
-                          }}>
-                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                              <WarningAmberIcon sx={{ fontSize: 18, color: 'error.main' }} />
-                              <Typography variant="caption" fontWeight="900" sx={{ letterSpacing: 1, color: 'error.main' }}>PREDICTIVE RISK ANALYSIS</Typography>
-                            </Stack>
-                            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.6, fontStyle: 'italic', flexGrow: 1 }}>
-                              {task.predictive_risk_analysis || "Simulating potential technical bottlenecks and resource dependency constraints..."}
-                            </Typography>
-                          </Box>
-                        </Grid>
+                      <Grid container spacing={2} sx={{ mb: 2 }}>
+                        {task.estimation_rationale && (
+                          <Grid item xs={12} sm={6}>
+                            <Box sx={{ 
+                              p: 1.5, borderRadius: 2, bgcolor: 'rgba(99, 102, 241, 0.05)', 
+                              border: '1px solid rgba(99, 102, 241, 0.1)',
+                              height: '100%'
+                            }}>
+                              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
+                                <PsychologyIcon sx={{ fontSize: 16, color: 'primary.main' }} />
+                                <Typography variant="caption" fontWeight="800" color="primary">EXPLAINABLE AI RATIONALE</Typography>
+                              </Stack>
+                              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', fontStyle: 'italic' }}>
+                                {task.estimation_rationale}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        )}
+                        {task.predictive_risk_analysis && (
+                          <Grid item xs={12} sm={6}>
+                            <Box sx={{ 
+                              p: 1.5, borderRadius: 2, bgcolor: 'rgba(244, 63, 94, 0.05)', 
+                              border: '1px solid rgba(244, 63, 94, 0.1)',
+                              height: '100%'
+                            }}>
+                              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
+                                <WarningAmberIcon sx={{ fontSize: 16, color: 'error.main' }} />
+                                <Typography variant="caption" fontWeight="800" color="error">PREDICTIVE RISK ANALYSIS</Typography>
+                              </Stack>
+                              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', fontStyle: 'italic' }}>
+                                {task.predictive_risk_analysis}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                        )}
                       </Grid>
 
                       <TextField

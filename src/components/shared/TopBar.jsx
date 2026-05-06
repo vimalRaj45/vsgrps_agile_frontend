@@ -31,14 +31,11 @@ const TopBar = ({ handleDrawerToggle }) => {
 
   React.useEffect(() => {
     const fetchStorage = async () => {
-      if (!user) return;
       try {
         const res = await client.get('/files/storage');
         setStorage(res.data);
       } catch (err) {
-        if (err.response?.status !== 401) {
-          console.error('Failed to fetch storage:', err);
-        }
+        console.error('Failed to fetch storage');
       }
     };
     fetchStorage();
@@ -51,7 +48,7 @@ const TopBar = ({ handleDrawerToggle }) => {
       clearInterval(interval);
       window.removeEventListener('storage-refresh', handleRefresh);
     };
-  }, [user]);
+  }, []);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

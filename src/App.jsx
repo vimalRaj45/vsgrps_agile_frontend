@@ -52,7 +52,7 @@ const AppRoutes = () => {
   if (loading) return <LoadingScreen />;
 
   return (
-    <>
+    <Router>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={user ? <AppLayout><DashboardPage /></AppLayout> : <LandingPage />} />
@@ -84,21 +84,19 @@ const AppRoutes = () => {
         <Route path="/master-access" element={<SuperAdminPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </>
+    </Router>
   );
 };
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <AppThemeProvider>
-          <NotificationProvider>
-            <AppRoutes />
-          </NotificationProvider>
-        </AppThemeProvider>
-      </AuthProvider>
-    </Router>
+    <AuthProvider>
+      <AppThemeProvider>
+        <NotificationProvider>
+          <AppRoutes />
+        </NotificationProvider>
+      </AppThemeProvider>
+    </AuthProvider>
   );
 }
 
