@@ -8,9 +8,9 @@ import {
 } from '@mui/material';
 import { 
   Visibility, VisibilityOff, 
-  ArrowForward as ArrowForwardIcon,
-  AutoAwesome as AutoAwesomeIcon
+  ArrowForward as ArrowForwardIcon
 } from '@mui/icons-material';
+import BrandLogo from '../components/shared/BrandLogo';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -155,8 +155,8 @@ const LoginPage = () => {
               ) : (
                 <>
                   <Box>
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
-                      <img src="/favicon.svg" alt="VSGRPS Logo" style={{ width: 24, height: 24 }} />
+                    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 4, cursor: 'pointer' }} onClick={() => navigate('/')}>
+                      <BrandLogo size={24} />
                       <Box>
                         <Typography variant="h6" fontWeight="900" sx={{ lineHeight: 1 }}>Sprintora</Typography>
                         <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 800, fontSize: '0.6rem' }}>by VSGRPS Technologies</Typography>
