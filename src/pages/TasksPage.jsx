@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { 
   Box, Typography, Button, Grid, CircularProgress, Alert, 
-  Stack, TextField, MenuItem, Drawer
+  Stack, TextField, MenuItem, Drawer, Skeleton
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
