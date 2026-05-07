@@ -14,7 +14,7 @@ const ProjectMembers = ({ projectId }) => {
     try {
       const [memRes, userRes] = await Promise.all([
         client.get(`/projects/${projectId}/members`),
-        client.get('/auth/users')
+        client.get('/users')
       ]);
       setMembers(memRes.data);
       setAllUsers(userRes.data);

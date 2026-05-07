@@ -23,7 +23,7 @@ const MeetingForm = ({ open, onClose, onSuccess, projectId }) => {
       try {
         const [projRes, userRes] = await Promise.all([
           client.get('/projects'),
-          client.get('/auth/users')
+          client.get('/users')
         ]);
         setProjects(projRes.data);
         setUsers(userRes.data);
