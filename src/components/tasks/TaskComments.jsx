@@ -56,7 +56,7 @@ const TaskComments = ({ taskId }) => {
     setNewComment(val);
 
     const lastAtPos = val.lastIndexOf('@');
-    if (lastAtPos !== -1 && (lastAtPos === 0 || val[lastAtPos - 1] === ' ')) {
+    if (lastAtPos !== -1) {
       const searchPart = val.substring(lastAtPos + 1).split(' ')[0];
       const matches = users.filter(u => u.name.toLowerCase().includes(searchPart.toLowerCase()));
       setFilteredUsers(matches);

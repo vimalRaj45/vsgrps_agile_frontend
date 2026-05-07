@@ -348,7 +348,6 @@ const SettingsPage = () => {
         open={openInvite}
         onClose={() => setOpenInvite(false)}
         onSuccess={() => {
-          setOpenInvite(false);
           fetchTeam();
         }}
       />
