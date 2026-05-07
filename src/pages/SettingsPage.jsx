@@ -27,6 +27,7 @@ const SettingsPage = () => {
 
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const [avatarTimestamp, setAvatarTimestamp] = useState(Date.now());
 
   const fetchTeam = async () => {
     try {
