@@ -83,6 +83,7 @@ const SettingsPage = () => {
       }
 
       setSuccess('Profile picture updated successfully!');
+      fetchTeam();
       setTimeout(() => setSuccess(''), 5000);
     } catch (err) {
       setError('Failed to upload profile picture');
@@ -162,7 +163,7 @@ const SettingsPage = () => {
               }}>
                 <Box sx={{ position: 'relative' }}>
                   <Avatar 
-                    src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}?v=${user?.avatar_url}`}
+                    src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}?v=${avatarTimestamp}`}
                     sx={{ 
                       width: { xs: 80, sm: 64 }, 
                       height: { xs: 80, sm: 64 }, 
@@ -258,7 +259,7 @@ const SettingsPage = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                       <ListItemAvatar>
                         <Avatar 
-                          src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${member.id}`}
+                          src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${member.id}?v=${member.id === user?.id ? avatarTimestamp : member.avatar_url}`}
                           sx={{ bgcolor: 'primary.main', fontSize: 14, fontWeight: 'bold' }}
                         >
                           {member.name.charAt(0)}
