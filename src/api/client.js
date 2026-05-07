@@ -6,11 +6,24 @@ console.log('🚀 Connecting to Backend at:', API_URL);
 
 const client = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }
 });
+
+// Request interceptor to add JWT token
+client.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // Response interceptor to handle 401 errors
 client.interceptors.response.use(

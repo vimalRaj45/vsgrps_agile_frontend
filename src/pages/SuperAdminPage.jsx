@@ -51,7 +51,10 @@ const SuperAdminPage = () => {
     setLoading(true);
     setError('');
     try {
-      await client.post('/superadmin/verify-otp', { email, otp });
+      const res = await client.post('/superadmin/verify-otp', { email, otp });
+      if (res.data.token) {
+        localStorage.setItem('token', res.data.token);
+      }
       setIsSuperAdmin(true);
       setStep(3);
     } catch (err) {
@@ -212,6 +215,7 @@ const SuperAdminPage = () => {
                 variant="text" 
                 onClick={async () => {
                   await client.post('/superadmin/logout');
+                  localStorage.removeItem('token');
                   setIsSuperAdmin(false);
                   setStep(1);
                 }}

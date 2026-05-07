@@ -30,6 +30,7 @@ import MissionPage from './pages/MissionPage';
 import FeaturesPage from './pages/FeaturesPage';
 import { PrivacyPage, TermsPage } from './pages/LegalPages';
 import ProjectReportPage from './pages/ProjectReportPage';
+import AuthSuccessPage from './pages/AuthSuccessPage';
 import AppLayout from './components/shared/AppLayout';
 import ScrollToTop from './components/shared/ScrollToTop';
 import { NotificationProvider } from './context/NotificationContext';
@@ -63,6 +64,7 @@ const AppRoutes = () => {
         <Route path="/reset-password" element={<PublicRoute><ResetPasswordPage /></PublicRoute>} />
         <Route path="/verify" element={<VerifyPage />} />
         <Route path="/invite/:token" element={<InvitePage />} />
+        <Route path="/auth-success" element={<AuthSuccessPage />} />
         
         <Route path="/tasks" element={<PrivateRoute><TasksPage /></PrivateRoute>} />
         <Route path="/projects" element={<PrivateRoute><ProjectsPage /></PrivateRoute>} />

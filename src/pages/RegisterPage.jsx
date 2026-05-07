@@ -119,6 +119,39 @@ const RegisterPage = () => {
                   >
                     {loading ? <CircularProgress size={24} color="inherit" /> : 'Launch Workspace'}
                   </Button>
+
+                  <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
+                    <Box sx={{ flex: 1, height: '1px', bgcolor: 'divider' }} />
+                    <Typography variant="caption" color="text.secondary" sx={{ px: 2, fontWeight: 700 }}>OR SIGN UP WITH</Typography>
+                    <Box sx={{ flex: 1, height: '1px', bgcolor: 'divider' }} />
+                  </Box>
+
+                  <Stack direction="row" spacing={2}>
+                    <Button 
+                      fullWidth 
+                      variant="outlined" 
+                      onClick={() => window.location.href = `${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/auth/login/google`}
+                      sx={{ 
+                        height: 56, borderRadius: 3, fontWeight: 700, 
+                        borderColor: 'divider', color: 'text.primary',
+                        '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'text.primary' }
+                      }}
+                    >
+                      Google
+                    </Button>
+                    <Button 
+                      fullWidth 
+                      variant="outlined" 
+                      onClick={() => window.location.href = `${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/auth/login/github`}
+                      sx={{ 
+                        height: 56, borderRadius: 3, fontWeight: 700,
+                        borderColor: 'divider', color: 'text.primary',
+                        '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', borderColor: 'text.primary' }
+                      }}
+                    >
+                      GitHub
+                    </Button>
+                  </Stack>
                 </Stack>
               </form>
 

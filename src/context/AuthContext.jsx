@@ -12,11 +12,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setLoading(false);
+        return;
+      }
       try {
         const res = await authApi.me();
         setUser(res.data.user);
       } catch (err) {
         setUser(null);
+        localStorage.removeItem('token');
       } finally {
         setLoading(false);
       }
@@ -31,6 +37,7 @@ export const AuthProvider = ({ children }) => {
       (error) => {
         if (error.response && error.response.status === 401) {
           setUser(null);
+          localStorage.removeItem('token');
         }
         return Promise.reject(error);
       }
@@ -43,14 +50,18 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, rememberMe, companyId) => {
     const res = await authApi.login(email, password, rememberMe, companyId);
-    if (res.data.user) {
-      setUser(res.data.user);
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token);
+      if (res.data.user) {
+        setUser(res.data.user);
+      }
     }
     return res.data;
   };
 
   const logout = async () => {
     setUser(null);
+    localStorage.removeItem('token');
     try {
       const { unsubscribeFromPush } = await import('../utils/pushManager');
       await unsubscribeFromPush();
