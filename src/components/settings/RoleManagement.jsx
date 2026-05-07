@@ -27,6 +27,8 @@ const RoleManagement = () => {
   const [roleForm, setRoleForm] = useState({ name: '', description: '', selectedPermissions: [] });
   const [saving, setSaving] = useState(false);
 
+  const [deleteConfirm, setDeleteConfirm] = useState({ open: false, id: null });
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -106,15 +108,20 @@ const RoleManagement = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this role?')) return;
-    
+  const handleDeleteClick = (id) => {
+    setDeleteConfirm({ open: true, id });
+  };
+
+  const confirmDelete = async () => {
+    const id = deleteConfirm.id;
     try {
       await client.delete(`/users/roles/${id}`);
       setSuccess('Role deleted successfully');
       fetchData();
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to delete role');
+    } finally {
+      setDeleteConfirm({ open: false, id: null });
     }
   };
 
@@ -166,7 +173,7 @@ const RoleManagement = () => {
                         <IconButton size="small" onClick={() => handleOpen(role)}>
                           <EditIcon fontSize="small" />
                         </IconButton>
-                        <IconButton size="small" color="error" onClick={() => handleDelete(role.id)}>
+                        <IconButton size="small" color="error" onClick={() => handleDeleteClick(role.id)}>
                           <DeleteIcon fontSize="small" />
                         </IconButton>
                       </Stack>
@@ -242,6 +249,40 @@ const RoleManagement = () => {
             disabled={saving || (!editingRole && !roleForm.name)}
           >
             {saving ? <CircularProgress size={24} color="inherit" /> : editingRole ? 'Save Changes' : 'Create Role'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteConfirm.open}
+        onClose={() => setDeleteConfirm({ open: false, id: null })}
+        PaperProps={{ sx: { borderRadius: 3, p: 1 } }}
+      >
+        <DialogTitle sx={{ fontWeight: 'bold' }}>
+          Confirm Role Deletion
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Are you sure you want to delete this custom role? This action cannot be undone. 
+            Users assigned to this role will lose their custom permissions.
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button 
+            onClick={() => setDeleteConfirm({ open: false, id: null })}
+            variant="outlined"
+            sx={{ borderRadius: 2 }}
+          >
+            Cancel
+          </Button>
+          <Button 
+            onClick={confirmDelete}
+            color="error"
+            variant="contained"
+            sx={{ borderRadius: 2, px: 3 }}
+          >
+            Delete Role
           </Button>
         </DialogActions>
       </Dialog>
