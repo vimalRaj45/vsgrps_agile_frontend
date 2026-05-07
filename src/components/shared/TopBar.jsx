@@ -101,9 +101,10 @@ const TopBar = ({ handleDrawerToggle }) => {
   };
 
   const handleSupportSubmit = () => {
+    const adminEmail = user?.admin_email || 'vimalraj@vsgrps.com';
     const subject = encodeURIComponent(`Support Request: ${user?.name} (${user?.company_name})`);
     const body = encodeURIComponent(`Issue Details:\n${supportMessage}\n\n---\nUser Info:\nName: ${user?.name}\nEmail: ${user?.email}\nRole: ${user?.role}\nOrganization: ${user?.company_name}`);
-    window.location.href = `mailto:vimalraj@vsgrps.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
     setHelpDialogOpen(false);
     setSupportMessage('');
   };
