@@ -9,6 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DownloadIcon from '@mui/icons-material/Download';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useAuth } from '../../context/AuthContext';
 import { useAppTheme } from '../../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +33,8 @@ const TopBar = ({ handleDrawerToggle }) => {
   const [isInstallable, setIsInstallable] = useState(!!window.deferredPWAEvent);
   const [isInstalled, setIsInstalled] = useState(window.matchMedia('(display-mode: standalone)').matches);
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState('Notification' in window && Notification.permission === 'granted');
+  const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+  const [supportMessage, setSupportMessage] = useState('');
 
   React.useEffect(() => {
     const fetchStorage = async () => {
@@ -95,6 +98,14 @@ const TopBar = ({ handleDrawerToggle }) => {
   const handleLogout = () => {
     handleMenuClose();
     logout();
+  };
+
+  const handleSupportSubmit = () => {
+    const subject = encodeURIComponent(`Support Request: ${user?.name} (${user?.company_name})`);
+    const body = encodeURIComponent(`Issue Details:\n${supportMessage}\n\n---\nUser Info:\nName: ${user?.name}\nEmail: ${user?.email}\nRole: ${user?.role}\nOrganization: ${user?.company_name}`);
+    window.location.href = `mailto:vimalraj@vsgrps.com?subject=${subject}&body=${body}`;
+    setHelpDialogOpen(false);
+    setSupportMessage('');
   };
 
   return (
@@ -266,6 +277,21 @@ const TopBar = ({ handleDrawerToggle }) => {
               {mode === 'dark' ? <LightModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} /> : <DarkModeIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />}
             </IconButton>
           </Tooltip>
+          
+          <Tooltip title="Help & Support">
+            <IconButton onClick={() => setHelpDialogOpen(true)} color="inherit" sx={{ 
+              bgcolor: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              p: { xs: 0.5, sm: 1 },
+              width: { xs: 32, sm: 40 },
+              height: { xs: 32, sm: 40 },
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <HelpOutlineIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
+            </IconButton>
+          </Tooltip>
 
           <NotificationBell />
 
@@ -341,6 +367,39 @@ const TopBar = ({ handleDrawerToggle }) => {
             <Typography variant="body2" fontWeight="600">Logout</Typography>
           </MenuItem>
         </Menu>
+
+        <Dialog open={helpDialogOpen} onClose={() => setHelpDialogOpen(false)} maxWidth="sm" fullWidth PaperProps={{ sx: { borderRadius: 4 } }}>
+          <DialogTitle sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+            <HelpOutlineIcon color="primary" />
+            Help & Support
+          </DialogTitle>
+          <DialogContent>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              Encountered an issue or need assistance? Describe your problem below, and we'll prepare an email to our support team.
+            </Typography>
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              label="Describe your issue"
+              placeholder="Please provide details about what you were doing and what went wrong..."
+              value={supportMessage}
+              onChange={(e) => setSupportMessage(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+          </DialogContent>
+          <DialogActions sx={{ p: 3 }}>
+            <Button onClick={() => setHelpDialogOpen(false)}>Cancel</Button>
+            <Button 
+              variant="contained" 
+              onClick={handleSupportSubmit}
+              disabled={!supportMessage.trim()}
+              startIcon={<NotificationsActiveIcon />}
+            >
+              Prepare Support Email
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Toolbar>
     </AppBar>
   );
