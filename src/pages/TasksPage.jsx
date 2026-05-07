@@ -58,7 +58,7 @@ const TasksPage = () => {
     }
   }, [filters]);
 
-  if (loading && tasks.length === 0) return <LoadingScreen />;
+
 
   return (
     <Box>
@@ -128,11 +128,29 @@ const TasksPage = () => {
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
       <Grid container spacing={2}>
-        {tasks.map(task => (
-          <Grid item xs={12} sm={6} md={4} key={task.id}>
-            <TaskCard task={task} onClick={() => setSelectedTask(task)} onUpdate={fetchTasks} />
+        {loading ? (
+          Array.from(new Array(6)).map((_, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Skeleton 
+                variant="rectangular" 
+                height={200} 
+                sx={{ borderRadius: 3, bgcolor: 'rgba(255,255,255,0.05)' }} 
+              />
+            </Grid>
+          ))
+        ) : tasks.length === 0 ? (
+          <Grid item xs={12}>
+            <Box sx={{ textAlign: 'center', py: 10, bgcolor: 'background.paper', borderRadius: 3 }}>
+              <Typography variant="h6" color="text.secondary">No tasks found</Typography>
+            </Box>
           </Grid>
-        ))}
+        ) : (
+          tasks.map(task => (
+            <Grid item xs={12} sm={6} md={4} key={task.id}>
+              <TaskCard task={task} onClick={() => setSelectedTask(task)} onUpdate={fetchTasks} />
+            </Grid>
+          ))
+        )}
       </Grid>
 
       <TaskForm 

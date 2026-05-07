@@ -41,7 +41,7 @@ const ProjectsPage = () => {
     setLoading(true);
   };
 
-  if (loading && projects.length === 0) return <LoadingScreen />;
+
 
   return (
     <Box>
@@ -79,8 +79,18 @@ const ProjectsPage = () => {
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
       <Grid container spacing={3}>
-        {projects.length === 0 ? (
-          <Grid item="true" xs={12}>
+        {loading ? (
+          Array.from(new Array(6)).map((_, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Skeleton 
+                variant="rectangular" 
+                height={220} 
+                sx={{ borderRadius: 3, bgcolor: 'rgba(255,255,255,0.05)' }} 
+              />
+            </Grid>
+          ))
+        ) : projects.length === 0 ? (
+          <Grid item xs={12}>
             <Box sx={{ textAlign: 'center', py: 10, bgcolor: 'background.paper', borderRadius: 3 }}>
               <Typography variant="h6" color="text.secondary">No projects found</Typography>
               <Button sx={{ mt: 2 }} onClick={() => setOpenForm(true)}>Create your first project</Button>

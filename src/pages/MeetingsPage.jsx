@@ -32,7 +32,7 @@ const MeetingsPage = () => {
     fetchMeetings();
   }, []);
 
-  if (loading && meetings.length === 0) return <LoadingScreen />;
+
 
   return (
     <Box>
@@ -63,7 +63,17 @@ const MeetingsPage = () => {
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
       <Grid container spacing={3}>
-        {meetings.length === 0 ? (
+        {loading ? (
+          Array.from(new Array(6)).map((_, index) => (
+            <Grid item xs={12} md={6} lg={4} key={index}>
+              <Skeleton 
+                variant="rectangular" 
+                height={180} 
+                sx={{ borderRadius: 3, bgcolor: 'rgba(255,255,255,0.05)' }} 
+              />
+            </Grid>
+          ))
+        ) : meetings.length === 0 ? (
           <Grid item="true" xs={12}>
             <Box sx={{ textAlign: 'center', py: 10, bgcolor: 'background.paper', borderRadius: 3 }}>
               <Typography variant="h6" color="text.secondary">No meetings scheduled</Typography>
