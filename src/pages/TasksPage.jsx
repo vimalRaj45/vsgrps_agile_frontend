@@ -129,7 +129,7 @@ const TasksPage = () => {
 
       <Grid container spacing={2}>
         {tasks.map(task => (
-          <Grid item="true" xs={12} sm={6} md={4} key={task.id}>
+          <Grid item xs={12} sm={6} md={4} key={task.id}>
             <TaskCard task={task} onClick={() => setSelectedTask(task)} onUpdate={fetchTasks} />
           </Grid>
         ))}

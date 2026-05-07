@@ -57,7 +57,7 @@ const TaskForm = ({ open, onClose, onSuccess, projectId }) => {
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Grid container spacing={2}>
-            <Grid item="true" xs={12}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Task Title"
@@ -67,7 +67,7 @@ const TaskForm = ({ open, onClose, onSuccess, projectId }) => {
                 required
               />
             </Grid>
-            <Grid item="true" xs={12}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Description"
@@ -78,7 +78,7 @@ const TaskForm = ({ open, onClose, onSuccess, projectId }) => {
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
             </Grid>
-            <Grid item="true" xs={6}>
+            <Grid item xs={6}>
               <TextField
                 select
                 fullWidth
@@ -95,7 +95,7 @@ const TaskForm = ({ open, onClose, onSuccess, projectId }) => {
                 </MenuItem>
               </TextField>
             </Grid>
-            <Grid item="true" xs={6}>
+            <Grid item xs={6}>
               <TextField
                 select
                 fullWidth
@@ -110,7 +110,7 @@ const TaskForm = ({ open, onClose, onSuccess, projectId }) => {
                 <MenuItem value="Critical">Critical</MenuItem>
               </TextField>
             </Grid>
-            <Grid item="true" xs={12}>
+            <Grid item xs={12}>
               {!projectId && (
                 <TextField
                   select
@@ -125,7 +125,7 @@ const TaskForm = ({ open, onClose, onSuccess, projectId }) => {
                 </TextField>
               )}
             </Grid>
-            <Grid item="true" xs={6}>
+            <Grid item xs={6}>
               <TextField
                 fullWidth
                 label="Due Date"
@@ -136,7 +136,7 @@ const TaskForm = ({ open, onClose, onSuccess, projectId }) => {
                 onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
               />
             </Grid>
-            <Grid item="true" xs={6}>
+            <Grid item xs={6}>
               <TextField
                 select
                 fullWidth

@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Button, Snackbar, Slide, CircularProgress, Backdrop, Typography, Box } from '@mui/material';
 import { NotificationsActive as NotifyIcon } from '@mui/icons-material';
 import { subscribeToPush } from '../../utils/pushManager';
+import { useAuth } from '../../context/AuthContext';
 
 const PushNotificationPrompt = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { user } = useAuth();
+  
   useEffect(() => {
-    // Check if browser supports notifications
-    if (!('Notification' in window)) return;
+    // Check if browser supports notifications and user is logged in
+    if (!('Notification' in window) || !user) return;
 
     const isSubscribed = localStorage.getItem('push_subscribed');
 
@@ -20,7 +23,7 @@ const PushNotificationPrompt = () => {
       }, 2000); // Wait 2 seconds after login
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [user]);
 
   const handleEnable = async () => {
     if (loading) return;
