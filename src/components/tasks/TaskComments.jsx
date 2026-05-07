@@ -85,7 +85,7 @@ const TaskComments = ({ taskId }) => {
           <ListItem key={c.id} alignItems="flex-start" sx={{ px: 0 }}>
             <ListItemAvatar>
               <Avatar 
-                src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${c.user_id}`}
+                src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${c.user_id}?v=${c.avatar_url}`}
                 sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: 14 }}
               >
                 {c.user_name?.charAt(0)}

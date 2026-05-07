@@ -137,7 +137,7 @@ const TaskDetail = ({ task, onClose, onUpdate }) => {
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>Assigned To</Typography>
           <Stack direction="row" spacing={2} alignItems="center">
             <Avatar 
-              src={currentTask.assigned_to ? `${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${currentTask.assigned_to}` : undefined}
+              src={currentTask.assigned_to ? `${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${currentTask.assigned_to}?v=${currentTask.assignee_avatar}` : undefined}
               sx={{ width: 40, height: 40, bgcolor: 'primary.main', fontWeight: 'bold' }}
             >
               {currentTask.assignee_name?.charAt(0) || '?'}

@@ -243,7 +243,7 @@ const AdminUsersPage = () => {
                       fontSize: '0.9rem', 
                       fontWeight: 'bold' 
                     }} 
-                    src={`${API_URL}/users/avatar/${user.id}`}
+                    src={`${API_URL}/users/avatar/${user.id}?v=${user.avatar_url}`}
                   >
                     {user.name.charAt(0)}
                   </Avatar>
@@ -344,7 +344,7 @@ const AdminUsersPage = () => {
                 <TableRow key={user.id} hover>
                   <TableCell>
                     <Stack direction="row" spacing={2} alignItems="center">
-                      <Avatar src={`${API_URL}/users/avatar/${user.id}`} sx={{ width: 40, height: 40 }}>
+                      <Avatar src={`${API_URL}/users/avatar/${user.id}?v=${user.avatar_url}`} sx={{ width: 40, height: 40 }}>
                         {user.name.charAt(0)}
                       </Avatar>
                       <Box>
