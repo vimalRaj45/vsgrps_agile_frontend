@@ -75,11 +75,19 @@ const CompleteSignupPage = () => {
 
   if (initLoading) {
     return (
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', bgcolor: '#0a0a0f' }}>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        height: '100vh', 
+        bgcolor: 'background.default' 
+      }}>
         <CircularProgress />
       </Box>
     );
   }
+
+  const isDark = theme.palette.mode === 'dark';
 
   return (
     <Box sx={{ 
@@ -89,10 +97,35 @@ const CompleteSignupPage = () => {
       alignItems: 'center',
       justifyContent: 'center',
       p: 2,
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
-      <Container maxWidth="sm">
-        <Paper sx={{ p: 4, borderRadius: 4, backdropFilter: 'blur(10px)', bgcolor: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(255,255,255,0.1)' }}>
+      {/* Background Orbs */}
+      <Box sx={{ 
+        position: 'absolute', top: '-10%', right: '-10%', width: '600px', height: '600px', 
+        background: `radial-gradient(circle, ${isDark ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.05)'} 0%, transparent 70%)`, 
+        filter: 'blur(80px)', zIndex: 0 
+      }} />
+      <Box sx={{ 
+        position: 'absolute', bottom: '-10%', left: '-10%', width: '400px', height: '400px', 
+        background: `radial-gradient(circle, ${isDark ? 'rgba(236, 72, 153, 0.05)' : 'rgba(236, 72, 153, 0.03)'} 0%, transparent 70%)`, 
+        filter: 'blur(80px)', zIndex: 0 
+      }} />
+
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
+        <Paper 
+          elevation={0}
+          sx={{ 
+            p: { xs: 4, md: 5 }, 
+            borderRadius: 6, 
+            backdropFilter: 'blur(20px)', 
+            bgcolor: isDark ? 'rgba(15, 23, 42, 0.8)' : 'rgba(255, 255, 255, 0.9)', 
+            border: `1px solid ${theme.palette.divider}`,
+            boxShadow: isDark 
+              ? '0 50px 100px -20px rgba(0,0,0,0.5)' 
+              : '0 20px 40px -10px rgba(0,0,0,0.05)'
+          }}
+        >
           <Stack spacing={3}>
             <Box sx={{ textAlign: 'center' }}>
               <BrandLogo size={40} sx={{ mb: 2 }} />
@@ -104,7 +137,7 @@ const CompleteSignupPage = () => {
               </Typography>
             </Box>
 
-            {error && <Alert severity="error">{error}</Alert>}
+            {error && <Alert severity="error" sx={{ borderRadius: 2 }}>{error}</Alert>}
 
             <form onSubmit={handleSubmit}>
               <Stack spacing={3}>
@@ -123,8 +156,11 @@ const CompleteSignupPage = () => {
                 <Button
                   fullWidth variant="contained" size="large" type="submit" disabled={loading}
                   sx={{ 
-                    height: 60, borderRadius: 3, fontWeight: 900, 
-                    background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                    height: 60, borderRadius: 3, fontWeight: 900,
+                    fontSize: '1.1rem',
+                    boxShadow: isDark 
+                      ? '0 8px 24px rgba(99, 102, 241, 0.4)' 
+                      : `0 8px 24px ${theme.palette.primary.main}44`
                   }}
                 >
                   {loading ? <CircularProgress size={24} color="inherit" /> : 'Complete Setup'}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   Button, TextField, Box, MenuItem, Typography, Alert, FormControlLabel, Checkbox
@@ -8,10 +8,29 @@ import client from '../../api/client';
 const InviteDialog = ({ open, onClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('Developer');
+  const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [inviteUrl, setInviteUrl] = useState('');
   const [checkInfo, setCheckInfo] = useState(null); // { exists, sameOrg, companyName }
   const [crossOrgConfirm, setCrossOrgConfirm] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      const fetchRoles = async () => {
+        try {
+          const res = await client.get('/users/roles');
+          setRoles(res.data);
+          // If 'Developer' is not in roles, pick the first one
+          if (!res.data.find(r => r.name === 'Developer') && res.data.length > 0) {
+            setRole(res.data[0].name);
+          }
+        } catch (err) {
+          console.error('Failed to fetch roles:', err);
+        }
+      };
+      fetchRoles();
+    }
+  }, [open]);
 
   const handleCheckEmail = async () => {
     if (!email || !email.includes('@')) return;
@@ -30,6 +49,7 @@ const InviteDialog = ({ open, onClose, onSuccess }) => {
       await client.post('/invite', { email, role });
       setInviteUrl('sent'); // Use as a flag for success state
       setEmail('');
+      if (onSuccess) onSuccess();
     } catch (err) {
       console.error(err);
     } finally {
@@ -103,11 +123,9 @@ const InviteDialog = ({ open, onClose, onSuccess }) => {
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
               >
-                <MenuItem value="Admin">Admin</MenuItem>
-                <MenuItem value="Product Owner">Product Owner</MenuItem>
-                <MenuItem value="Scrum Master">Scrum Master</MenuItem>
-                <MenuItem value="Developer">Developer</MenuItem>
-                <MenuItem value="Stakeholder">Stakeholder</MenuItem>
+                {roles.map((r) => (
+                  <MenuItem key={r.id} value={r.name}>{r.name}</MenuItem>
+                ))}
               </TextField>
             </>
           )}

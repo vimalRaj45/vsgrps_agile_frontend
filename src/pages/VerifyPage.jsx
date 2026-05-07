@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Card, CardContent, CircularProgress, Button, Container } from '@mui/material';
+import { Box, Typography, Card, CardContent, CircularProgress, Button, Container, useTheme } from '@mui/material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import client from '../api/client';
 
 const VerifyPage = () => {
+  const theme = useTheme();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const token = searchParams.get('token');
@@ -36,17 +37,42 @@ const VerifyPage = () => {
     verifyEmail();
   }, [token]);
 
+  const isDark = theme.palette.mode === 'dark';
+
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', py: 4 }}>
+    <Box sx={{ 
+      minHeight: '100vh', 
+      bgcolor: 'background.default',
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+      p: 2
+    }}>
+      {/* Background Orbs consistent with other auth pages */}
+      <Box sx={{ 
+        position: 'absolute', top: '-10%', right: '-10%', width: '600px', height: '600px', 
+        background: `radial-gradient(circle, ${isDark ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.05)'} 0%, transparent 70%)`, 
+        filter: 'blur(80px)', zIndex: 0 
+      }} />
+      <Box sx={{ 
+        position: 'absolute', bottom: '-10%', left: '-10%', width: '400px', height: '400px', 
+        background: `radial-gradient(circle, ${isDark ? 'rgba(236, 72, 153, 0.05)' : 'rgba(236, 72, 153, 0.03)'} 0%, transparent 70%)`, 
+        filter: 'blur(80px)', zIndex: 0 
+      }} />
+
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
         <Card sx={{ 
-          borderRadius: 3, 
+          borderRadius: 6, 
           textAlign: 'center', 
-          p: 4, 
-          boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
-          background: 'rgba(255,255,255,0.02)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255,255,255,0.05)'
+          p: { xs: 2, md: 4 }, 
+          bgcolor: 'background.paper',
+          backdropFilter: 'blur(20px)',
+          border: `1px solid ${theme.palette.divider}`,
+          boxShadow: isDark 
+            ? '0 50px 100px -20px rgba(0,0,0,0.5)' 
+            : '0 20px 40px -10px rgba(0,0,0,0.1)'
         }}>
           <CardContent>
             {status === 'verifying' && (
@@ -67,7 +93,14 @@ const VerifyPage = () => {
                   fullWidth 
                   size="large" 
                   onClick={() => navigate('/login')}
-                  sx={{ borderRadius: 3, fontWeight: 'bold', py: 1.5 }}
+                  sx={{ 
+                    borderRadius: 3, 
+                    fontWeight: 'bold', 
+                    py: 2,
+                    boxShadow: isDark 
+                      ? '0 8px 16px rgba(99, 102, 241, 0.4)' 
+                      : `0 8px 16px ${theme.palette.primary.main}33`
+                  }}
                 >
                   Go to Login
                 </Button>
@@ -92,8 +125,8 @@ const VerifyPage = () => {
             )}
           </CardContent>
         </Card>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

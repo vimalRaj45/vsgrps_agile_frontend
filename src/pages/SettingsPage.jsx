@@ -8,16 +8,20 @@ import {
 
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SecurityIcon from '@mui/icons-material/Security';
 import client from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import InviteDialog from '../components/auth/InviteDialog';
 import LoadingScreen from '../components/shared/LoadingScreen';
+import RoleManagement from '../components/settings/RoleManagement';
 
 const SettingsPage = () => {
   const { user } = useAuth();
   const [team, setTeam] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [openInvite, setOpenInvite] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState({ open: false, id: null });
 
@@ -25,8 +29,12 @@ const SettingsPage = () => {
 
   const fetchTeam = async () => {
     try {
-      const res = await client.get('/auth/users');
-      setTeam(res.data);
+      const [teamRes, rolesRes] = await Promise.all([
+        client.get('/users'),
+        client.get('/users/roles')
+      ]);
+      setTeam(teamRes.data);
+      setRoles(rolesRes.data);
     } catch (err) {
       setError('Failed to fetch team members');
     } finally {
@@ -43,11 +51,22 @@ const SettingsPage = () => {
   const handleDeleteUser = async () => {
     const memberId = deleteConfirm.id;
     try {
-      await client.delete(`/auth/users/${memberId}`);
+      await client.delete(`/users/${memberId}`);
       fetchTeam();
       setDeleteConfirm({ open: false, id: null });
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to remove user');
+    }
+  };
+
+  const handleRoleChange = async (memberId, newRole) => {
+    try {
+      await client.patch(`/users/${memberId}`, { role: newRole });
+      setSuccess('User role updated successfully');
+      fetchTeam();
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err) {
+      setError(err.response?.data?.error || 'Failed to update role');
     }
   };
 
@@ -68,13 +87,20 @@ const SettingsPage = () => {
 
   if (loading && team.length === 0) return <LoadingScreen />;
 
+  const isAdmin = user?.role === 'Admin';
+
   return (
     <Box>
-      <Typography variant="h4" fontWeight="bold" gutterBottom>Settings</Typography>
+      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h4" fontWeight="bold">Settings</Typography>
+        {success && <Alert severity="success" sx={{ py: 0 }}>{success}</Alert>}
+      </Box>
 
-      <Grid container spacing={3} sx={{ mt: 2 }}>
+      {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
+
+      <Grid container spacing={3}>
         <Grid item="true" xs={12} md={6}>
-          <Card sx={{ borderRadius: 3, mb: 3 }}>
+          <Card sx={{ borderRadius: 3, height: '100%' }}>
             <CardContent>
               <Typography variant="h6" fontWeight="bold" gutterBottom>My Profile</Typography>
               <Box sx={{ 
@@ -136,11 +162,11 @@ const SettingsPage = () => {
         </Grid>
 
         <Grid item="true" xs={12} md={6}>
-          <Card sx={{ borderRadius: 3 }}>
+          <Card sx={{ borderRadius: 3, height: '100%' }}>
             <CardContent>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Typography variant="h6" fontWeight="bold">Team Members</Typography>
-                {user?.role === 'Admin' && (
+                {isAdmin && (
                   <Button
                     variant="outlined"
                     startIcon={<PersonAddIcon />}
@@ -172,23 +198,28 @@ const SettingsPage = () => {
                         secondary={member.email}
                         sx={{ flexGrow: 1 }}
                       />
-                      <Box sx={{ display: { xs: 'flex', sm: 'none' }, gap: 1 }}>
-                        {user?.role === 'Admin' && member.id !== user?.id && (
-                          <IconButton 
-                            color="error" 
-                            size="small" 
-                            onClick={() => setDeleteConfirm({ open: true, id: member.id })}
-                          >
-                            <DeleteIcon fontSize="small" />
-                          </IconButton>
-                        )}
-                      </Box>
                     </Box>
                     
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'space-between', sm: 'flex-end' }, mt: { xs: 1, sm: 0 }, ml: { xs: 0, sm: 2 } }}>
-                      <Chip label={member.role} size="small" color={getRoleColor(member.role)} variant="outlined" />
-                      <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        {user?.role === 'Admin' && member.id !== user?.id && (
+                      {isAdmin && member.id !== user?.id ? (
+                        <TextField
+                          select
+                          size="small"
+                          value={member.role}
+                          onChange={(e) => handleRoleChange(member.id, e.target.value)}
+                          sx={{ minWidth: 120 }}
+                          SelectProps={{ sx: { fontSize: '0.875rem', fontWeight: 600 } }}
+                        >
+                          {roles.map(r => (
+                            <MenuItem key={r.id} value={r.name}>{r.name}</MenuItem>
+                          ))}
+                        </TextField>
+                      ) : (
+                        <Chip label={member.role} size="small" color={getRoleColor(member.role)} variant="outlined" sx={{ fontWeight: 700 }} />
+                      )}
+
+                      <Box sx={{ minWidth: 40, textAlign: 'right' }}>
+                        {isAdmin && member.id !== user?.id && (
                           <IconButton 
                             color="error" 
                             size="small" 
@@ -202,10 +233,19 @@ const SettingsPage = () => {
                   </ListItem>
                 ))}
               </List>
-
             </CardContent>
           </Card>
         </Grid>
+
+        {isAdmin && (
+          <Grid item xs={12}>
+            <Card sx={{ borderRadius: 3, mt: 1 }}>
+              <CardContent>
+                <RoleManagement />
+              </CardContent>
+            </Card>
+          </Grid>
+        )}
       </Grid>
 
       <InviteDialog
@@ -213,6 +253,7 @@ const SettingsPage = () => {
         onClose={() => setOpenInvite(false)}
         onSuccess={() => {
           setOpenInvite(false);
+          fetchTeam();
         }}
       />
 

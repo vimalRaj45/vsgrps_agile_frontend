@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { 
   Box, Button, TextField, Typography, Container, 
-  Alert, CircularProgress, Link, Stack 
+  Alert, CircularProgress, Link, Stack, useTheme
 } from '@mui/material';
 import { 
   EmailOutlined as EmailIcon
@@ -10,6 +10,7 @@ import {
 import * as authApi from '../api/auth';
 
 const ForgotPasswordPage = () => {
+  const theme = useTheme();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -30,35 +31,55 @@ const ForgotPasswordPage = () => {
     }
   };
 
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box sx={{ 
       minHeight: '100vh', 
+      bgcolor: 'background.default',
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'center',
       position: 'relative',
+      overflow: 'hidden',
       p: 2
     }}>
-      <div className="bg-gradient" />
+      {/* Background Orbs consistent with other auth pages */}
+      <Box sx={{ 
+        position: 'absolute', top: '-10%', right: '-10%', width: '600px', height: '600px', 
+        background: `radial-gradient(circle, ${isDark ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.05)'} 0%, transparent 70%)`, 
+        filter: 'blur(80px)', zIndex: 0 
+      }} />
+      <Box sx={{ 
+        position: 'absolute', bottom: '-10%', left: '-10%', width: '400px', height: '400px', 
+        background: `radial-gradient(circle, ${isDark ? 'rgba(236, 72, 153, 0.05)' : 'rgba(236, 72, 153, 0.03)'} 0%, transparent 70%)`, 
+        filter: 'blur(80px)', zIndex: 0 
+      }} />
       
-      <Container maxWidth="sm" className="fade-in">
+      <Container maxWidth="sm" className="fade-in" sx={{ position: 'relative', zIndex: 1 }}>
         <Box 
-          className="glass-card" 
           sx={{ 
             p: { xs: 4, md: 6 }, 
             width: '100%',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+            bgcolor: 'background.paper',
+            borderRadius: 6,
+            backdropFilter: 'blur(20px)',
+            border: `1px solid ${theme.palette.divider}`,
+            boxShadow: isDark 
+              ? '0 50px 100px -20px rgba(0,0,0,0.5)' 
+              : '0 20px 40px -10px rgba(0,0,0,0.1)'
           }}
         >
           <Stack spacing={1} sx={{ alignItems: 'center', mb: 4 }}>
             <Box sx={{ mb: 2 }}>
               <Box 
                 sx={{ 
-                  p: 2, borderRadius: '50%', bgcolor: 'rgba(99, 102, 241, 0.1)',
+                  p: 2, borderRadius: '50%', 
+                  bgcolor: isDark ? 'rgba(99, 102, 241, 0.1)' : 'rgba(37, 99, 235, 0.05)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}
               >
-                <EmailIcon sx={{ fontSize: 60, color: '#6366f1' }} />
+                <EmailIcon sx={{ fontSize: 60, color: theme.palette.primary.main }} />
               </Box>
             </Box>
 
@@ -94,7 +115,9 @@ const ForgotPasswordPage = () => {
                   height: 56, 
                   fontSize: '1.1rem',
                   mt: 1,
-                  boxShadow: '0 8px 16px rgba(99, 102, 241, 0.4)'
+                  boxShadow: isDark 
+                    ? '0 8px 16px rgba(99, 102, 241, 0.4)' 
+                    : `0 8px 16px ${theme.palette.primary.main}33`
                 }}
               >
                 {loading ? <CircularProgress size={24} color="inherit" /> : 'Send Reset Link'}
