@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  AppBar, Toolbar, IconButton, Typography, Box, Avatar, Menu, MenuItem, Tooltip, Stack, Dialog
-} from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Menu, MenuItem, Tooltip, Stack, Dialog, Button } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -9,9 +7,12 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
+import DownloadIcon from '@mui/icons-material/Download';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useAuth } from '../../context/AuthContext';
 import { useAppTheme } from '../../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
+import { subscribeToPush } from '../../utils/pushManager';
 import SearchBar from './SearchBar';
 import NotificationBell from './NotificationBell';
 import client from '../../api/client';
@@ -28,6 +29,9 @@ const TopBar = ({ handleDrawerToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [storage, setStorage] = useState(null);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [isInstallable, setIsInstallable] = useState(!!window.deferredPWAEvent);
+  const [isInstalled, setIsInstalled] = useState(window.matchMedia('(display-mode: standalone)').matches);
+  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState('Notification' in window && Notification.permission === 'granted');
 
   React.useEffect(() => {
     const fetchStorage = async () => {
@@ -46,12 +50,39 @@ const TopBar = ({ handleDrawerToggle }) => {
     const handleRefresh = () => fetchStorage();
     window.addEventListener('storage-refresh', handleRefresh);
 
+    const handlePwaReady = () => setIsInstallable(true);
+    window.addEventListener('pwa-ready', handlePwaReady);
+    
+    const checkNotification = () => {
+      setIsNotificationsEnabled('Notification' in window && Notification.permission === 'granted');
+    };
+    window.addEventListener('focus', checkNotification);
+
     const interval = setInterval(fetchStorage, 30000);
     return () => {
       clearInterval(interval);
       window.removeEventListener('storage-refresh', handleRefresh);
+      window.removeEventListener('pwa-ready', handlePwaReady);
+      window.removeEventListener('focus', checkNotification);
     };
   }, [user]);
+
+  const handleInstall = () => {
+    window.dispatchEvent(new CustomEvent('trigger-pwa-prompt'));
+  };
+
+  const handleEnableNotifications = async () => {
+    if (!('Notification' in window)) return;
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
+        await subscribeToPush();
+        setIsNotificationsEnabled(true);
+      }
+    } catch (err) {
+      console.error('Notification permission error:', err);
+    }
+  };
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -166,6 +197,60 @@ const TopBar = ({ handleDrawerToggle }) => {
               </Box>
             </Tooltip>
           )}
+
+          <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <Tooltip title={isInstalled ? "App is already installed" : !isInstallable ? "Installation not available" : "Install Sprintora App"}>
+              <span>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  disabled={isInstalled || !isInstallable}
+                  onClick={handleInstall}
+                  startIcon={<DownloadIcon />}
+                  sx={{ 
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    fontWeight: '700',
+                    height: 36,
+                    borderColor: 'rgba(59, 130, 246, 0.3)',
+                    color: 'primary.main',
+                    '&.Mui-disabled': {
+                      borderColor: 'rgba(255, 255, 255, 0.05)',
+                      color: 'text.disabled'
+                    }
+                  }}
+                >
+                  Install App
+                </Button>
+              </span>
+            </Tooltip>
+
+            <Tooltip title={isNotificationsEnabled ? "Notifications are enabled" : "Enable real-time notifications"}>
+              <span>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  disabled={isNotificationsEnabled}
+                  onClick={handleEnableNotifications}
+                  startIcon={<NotificationsActiveIcon />}
+                  sx={{ 
+                    borderRadius: 2,
+                    textTransform: 'none',
+                    fontWeight: '700',
+                    height: 36,
+                    borderColor: 'rgba(16, 185, 129, 0.3)',
+                    color: '#10b981',
+                    '&.Mui-disabled': {
+                      borderColor: 'rgba(255, 255, 255, 0.05)',
+                      color: 'text.disabled'
+                    }
+                  }}
+                >
+                  {isNotificationsEnabled ? 'Notifications Active' : 'Enable Notifications'}
+                </Button>
+              </span>
+            </Tooltip>
+          </Stack>
 
           <Tooltip title="Toggle light/dark mode">
             <IconButton onClick={toggleTheme} color="inherit" sx={{ 
