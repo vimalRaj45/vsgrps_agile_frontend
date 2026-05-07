@@ -33,7 +33,7 @@ const FileList = ({ projectId, taskId, meetingId }) => {
             <ListItem
               key={file.id}
               secondaryAction={
-                <IconButton edge="end" href={`${client.defaults.baseURL}/files/${file.id}/download`} target="_blank">
+                <IconButton edge="end" href={`${client.defaults.baseURL}/files/${file.id}/download?token=${localStorage.getItem('token')}`} target="_blank">
                   <DownloadIcon />
                 </IconButton>
               }

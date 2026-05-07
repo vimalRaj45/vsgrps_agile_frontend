@@ -44,7 +44,8 @@ const FilesPage = () => {
   }, []);
 
   const handleDownload = (id, filename) => {
-    window.open(`${client.defaults.baseURL}/files/${id}/download`, '_blank');
+    const token = localStorage.getItem('token');
+    window.open(`${client.defaults.baseURL}/files/${id}/download?token=${token}`, '_blank');
   };
 
   const confirmDelete = async () => {
