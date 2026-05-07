@@ -211,7 +211,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
           </Typography>
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Avatar 
-              src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}`}
+              src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}?v=${user?.avatar_url}`}
               sx={{ width: 32, height: 32, bgcolor: 'secondary.main', fontSize: 14, fontWeight: 'bold' }}
             >
               {user?.name?.charAt(0) || 'U'}

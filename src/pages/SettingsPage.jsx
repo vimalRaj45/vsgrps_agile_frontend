@@ -72,8 +72,18 @@ const SettingsPage = () => {
       await client.post('/users/avatar', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      setSuccess('Profile picture updated successfully! Please log out and log back in to see the changes take effect across the platform.');
-      // Remove auto-reload to allow user to read the message
+      
+      // Force refresh the image in UI
+      setAvatarTimestamp(Date.now());
+      
+      // Refresh user context to update avatar_url globally
+      const meRes = await client.get('/auth/me');
+      if (meRes.data.user) {
+        setUser(meRes.data.user);
+      }
+
+      setSuccess('Profile picture updated successfully!');
+      setTimeout(() => setSuccess(''), 5000);
     } catch (err) {
       setError('Failed to upload profile picture');
     } finally {
@@ -152,7 +162,7 @@ const SettingsPage = () => {
               }}>
                 <Box sx={{ position: 'relative' }}>
                   <Avatar 
-                    src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}`}
+                    src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}?v=${user?.avatar_url}`}
                     sx={{ 
                       width: { xs: 80, sm: 64 }, 
                       height: { xs: 80, sm: 64 }, 
