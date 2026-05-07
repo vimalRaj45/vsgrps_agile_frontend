@@ -20,19 +20,6 @@ export const NotificationProvider = ({ children }) => {
   const lastFetchedIds = useRef(new Set());
   const isFirstFetch = useRef(true);
 
-  const playNotificationSound = useCallback(() => {
-    try {
-      const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3');
-      audio.volume = 0.4;
-      audio.play().catch(e => {
-        // Autoplay policy might block sound until first interaction
-        console.log('Audio playback pending user interaction');
-      });
-    } catch (err) {
-      console.error('Notification sound error:', err);
-    }
-  }, []);
-
   const fetchNotifications = useCallback(async () => {
     if (!user) return;
     
@@ -49,8 +36,6 @@ export const NotificationProvider = ({ children }) => {
         if (newOnes.length > 0) {
           // Show the most recent new notification in the banner
           setBannerNotification(newOnes[0]);
-          // Play smooth notification sound
-          playNotificationSound();
         }
       }
 
