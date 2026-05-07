@@ -55,8 +55,8 @@ const SettingsPage = () => {
       await client.post('/users/avatar', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      setSuccess('Profile picture updated successfully!');
-      setTimeout(() => window.location.reload(), 1000); // Reload to refresh user context
+      setSuccess('Profile picture updated successfully! Please log out and log back in to see the changes take effect across the platform.');
+      // Remove auto-reload to allow user to read the message
     } catch (err) {
       setError('Failed to upload profile picture');
     } finally {
