@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { 
   Box, Typography, Button, Grid, CircularProgress, Alert, 
   Stack, TextField, MenuItem, Drawer
@@ -26,6 +27,7 @@ const TasksPage = () => {
   });
   const [openForm, setOpenForm] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const fetchTasks = async () => {
     try {
@@ -44,6 +46,16 @@ const TasksPage = () => {
 
   useEffect(() => {
     fetchTasks();
+    
+    // Auto-open task if taskId is in URL
+    const taskId = searchParams.get('taskId');
+    if (taskId) {
+      taskApi.getTaskById(taskId).then(res => {
+        setSelectedTask(res.data);
+      }).catch(() => {
+        // Silently fail if task not found
+      });
+    }
   }, [filters]);
 
   if (loading && tasks.length === 0) return <LoadingScreen />;
@@ -135,7 +147,11 @@ const TasksPage = () => {
       <Drawer
         anchor="right"
         open={Boolean(selectedTask)}
-        onClose={() => setSelectedTask(null)}
+        onClose={() => {
+          setSelectedTask(null);
+          searchParams.delete('taskId');
+          setSearchParams(searchParams);
+        }}
         slotProps={{ paper: { sx: { width: { xs: '100%', sm: 500 }, backgroundImage: 'none' } } }}
       >
         {selectedTask && <TaskDetail task={selectedTask} onClose={() => setSelectedTask(null)} onUpdate={fetchTasks} />}

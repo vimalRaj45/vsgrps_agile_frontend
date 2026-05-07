@@ -4,8 +4,9 @@ import {
   Button, List, ListItem, Checkbox, ListItemText, Avatar,
   Stack, Select, MenuItem, FormControl, InputLabel, Menu,
   Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Alert,
-  CircularProgress
+  CircularProgress, Link
 } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -24,6 +25,7 @@ const TaskDetail = ({ task, onClose, onUpdate }) => {
   const [priorityAnchor, setPriorityAnchor] = useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const isAdmin = currentUser?.role === 'Admin';
   const isAssigned = currentUser?.id === currentTask.assigned_to;
@@ -132,18 +134,34 @@ const TaskDetail = ({ task, onClose, onUpdate }) => {
         </Stack>
 
         <Typography variant="subtitle2" color="text.secondary" gutterBottom>Description</Typography>
-        <TextField
-          fullWidth
-          multiline
-          rows={4}
-          variant="outlined"
-          placeholder="Add a description..."
-          value={currentTask.description || ''}
-          onChange={(e) => setCurrentTask({ ...currentTask, description: e.target.value })}
-          onBlur={() => handleUpdate({ description: currentTask.description })}
-          sx={{ mb: 4 }}
-          disabled={!canEditCore || loading}
-        />
+        <Box sx={{ mb: 4 }}>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            variant="outlined"
+            placeholder="Add a description..."
+            value={currentTask.description || ''}
+            onChange={(e) => setCurrentTask({ ...currentTask, description: e.target.value })}
+            onBlur={() => handleUpdate({ description: currentTask.description })}
+            sx={{ mb: 1 }}
+            disabled={!canEditCore || loading}
+          />
+          {currentTask.description && (
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', px: 1 }}>
+              Mentions: {currentTask.description.match(/#\d+/g)?.map((m, i) => (
+                <Link 
+                  key={i} 
+                  component="button" 
+                  onClick={() => { searchParams.set('taskId', m.substring(1)); setSearchParams(searchParams); }}
+                  sx={{ mr: 1, fontWeight: 'bold', color: '#6366f1', textDecoration: 'none' }}
+                >
+                  {m}
+                </Link>
+              ))}
+            </Typography>
+          )}
+        </Box>
 
         <Typography variant="subtitle2" color="text.secondary" gutterBottom>Due Date</Typography>
         <TextField

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, List, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, IconButton, Typography, Popper, Paper, ListItemButton } from '@mui/material';
+import { Box, List, ListItem, ListItemAvatar, Avatar, ListItemText, TextField, IconButton, Typography, Popper, Paper, ListItemButton, Link } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import client from '../../api/client';
 
@@ -10,6 +11,7 @@ const TaskComments = ({ taskId }) => {
   const [users, setUsers] = useState([]);
   const [mentionAnchor, setMentionAnchor] = useState(null);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const fetchComments = async () => {
     try {
@@ -95,9 +97,29 @@ const TaskComments = ({ taskId }) => {
               }
               secondary={
                 <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>
-                  {c.content.split(/(@[\w_]+)/g).map((part, i) =>
-                    part.startsWith('@') ? <Box component="span" key={i} sx={{ color: 'primary.main', fontWeight: 'bold' }}>{part}</Box> : part
-                  )}
+                  {c.content.split(/(@[\w_]+|#\d+)/g).map((part, i) => {
+                    if (part.startsWith('@')) {
+                      return <Box component="span" key={i} sx={{ color: 'primary.main', fontWeight: 'bold' }}>{part}</Box>;
+                    }
+                    if (part.startsWith('#')) {
+                      const taskIdMatch = part.substring(1);
+                      return (
+                        <Link 
+                          key={i} 
+                          component="button" 
+                          variant="body2" 
+                          onClick={() => {
+                            searchParams.set('taskId', taskIdMatch);
+                            setSearchParams(searchParams);
+                          }}
+                          sx={{ color: '#6366f1', fontWeight: 'bold', textDecoration: 'none', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                        >
+                          {part}
+                        </Link>
+                      );
+                    }
+                    return part;
+                  })}
                 </Typography>
               }
             />

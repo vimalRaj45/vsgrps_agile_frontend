@@ -8,3 +8,5 @@ export const addComment = (id, content) => client.post(`/tasks/${id}/comments`, 
 export const getSubtasks = (id) => client.get(`/tasks/${id}/subtasks`);
 export const addSubtask = (id, title) => client.post(`/tasks/${id}/subtasks`, { title });
 export const updateSubtask = (id, data) => client.patch(`/tasks/subtasks/${id}`, data);
+export const getTaskById = (id) => client.get(/tasks/);
+export const deleteTask = (id) => client.delete(/tasks/);
