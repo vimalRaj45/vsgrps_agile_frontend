@@ -30,14 +30,24 @@ const SettingsPage = () => {
 
   const fetchTeam = async () => {
     try {
-      const [teamRes, rolesRes] = await Promise.all([
-        client.get('/users'),
-        client.get('/users/roles')
-      ]);
+      // 1. Always try to fetch team members (requires user:view)
+      const teamRes = await client.get('/users');
       setTeam(teamRes.data);
-      setRoles(rolesRes.data);
+
+      // 2. Only fetch roles if user is Admin (requires role:manage)
+      if (user?.role === 'Admin') {
+        const rolesRes = await client.get('/users/roles');
+        setRoles(rolesRes.data);
+      }
     } catch (err) {
-      setError('Failed to fetch team members');
+      console.error('Settings fetch error:', err);
+      // Only show error if the core team fetch fails and it's not a 403
+      if (err.response?.status === 403) {
+        // Silently handle 403 for roles if we already have the team
+        if (team.length === 0) setError('Insufficient permissions to view team members');
+      } else {
+        setError('Failed to fetch team members');
+      }
     } finally {
       setLoading(false);
     }
