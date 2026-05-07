@@ -287,6 +287,7 @@ const TopBar = ({ handleDrawerToggle }) => {
             onClick={handleMenuOpen}
           >
             <Avatar 
+              src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}`}
               sx={{ 
                 width: { xs: 32, sm: 36 }, 
                 height: { xs: 32, sm: 36 }, 
