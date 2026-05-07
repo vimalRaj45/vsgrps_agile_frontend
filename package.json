@@ -25,6 +25,7 @@
     "jspdf": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-easy-crop": "^5.5.7",
     "react-router-dom": "^7.1.5",
     "recharts": "^3.8.1",
     "typewriter-effect": "^2.22.0"

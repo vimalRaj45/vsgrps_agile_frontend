@@ -14,9 +14,11 @@ import { useAuth } from '../context/AuthContext';
 import InviteDialog from '../components/auth/InviteDialog';
 import LoadingScreen from '../components/shared/LoadingScreen';
 import RoleManagement from '../components/settings/RoleManagement';
+import Cropper from 'react-easy-crop';
+import getCroppedImg from '../utils/cropImage';
 
 const SettingsPage = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [team, setTeam] = useState([]);
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +30,13 @@ const SettingsPage = () => {
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
   const [avatarTimestamp, setAvatarTimestamp] = useState(Date.now());
+
+  // Image Cropper State
+  const [imageToCrop, setImageToCrop] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [showCropper, setShowCropper] = useState(false);
 
   const fetchTeam = async () => {
     try {
@@ -60,19 +69,33 @@ const SettingsPage = () => {
       setLoading(false);
     }
   };
-
-  const handleAvatarUpload = async (e) => {
+  const handleAvatarUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('file', file);
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      setImageToCrop(reader.result);
+      setShowCropper(true);
+    });
+    reader.readAsDataURL(file);
+    // Reset the input value so the same file can be selected again
+    e.target.value = '';
+  };
 
-    setIsUploadingAvatar(true);
+  const handleSaveCrop = async () => {
     try {
+      setIsUploadingAvatar(true);
+      const croppedImage = await getCroppedImg(imageToCrop, croppedAreaPixels);
+      
+      const formData = new FormData();
+      formData.append('file', croppedImage, 'avatar.png');
+
       await client.post('/users/avatar', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
+      
+      setShowCropper(false);
       
       // Force refresh the image in UI
       setAvatarTimestamp(Date.now());
@@ -338,6 +361,46 @@ const SettingsPage = () => {
         <DialogActions sx={{ p: 3 }}>
           <Button onClick={() => setDeleteConfirm({ open: false, id: null })}>Cancel</Button>
           <Button variant="contained" color="error" onClick={handleDeleteUser}>Remove Member</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Image Cropper Dialog */}
+      <Dialog 
+        open={showCropper} 
+        onClose={() => setShowCropper(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: { borderRadius: 4, overflow: 'hidden' }
+        }}
+      >
+        <DialogTitle sx={{ fontWeight: 'bold' }}>Crop Profile Picture</DialogTitle>
+        <DialogContent sx={{ position: 'relative', height: 400, p: 0, bgcolor: '#000' }}>
+          {imageToCrop && (
+            <Cropper
+              image={imageToCrop}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              onCropChange={setCrop}
+              onCropComplete={(_, pixels) => setCroppedAreaPixels(pixels)}
+              onZoomChange={setZoom}
+              cropShape="round"
+              showGrid={false}
+            />
+          )}
+        </DialogContent>
+        <DialogActions sx={{ p: 2, bgcolor: 'background.paper' }}>
+          <Button onClick={() => setShowCropper(false)}>Cancel</Button>
+          <Button 
+            variant="contained" 
+            onClick={handleSaveCrop}
+            disabled={isUploadingAvatar}
+            startIcon={isUploadingAvatar ? <CircularProgress size={20} color="inherit" /> : null}
+            sx={{ borderRadius: 2, px: 3 }}
+          >
+            {isUploadingAvatar ? 'Saving...' : 'Apply Crop'}
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>
