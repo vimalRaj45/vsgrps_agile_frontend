@@ -84,7 +84,10 @@ const TaskComments = ({ taskId }) => {
         {comments.map((c) => (
           <ListItem key={c.id} alignItems="flex-start" sx={{ px: 0 }}>
             <ListItemAvatar>
-              <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: 14 }}>
+              <Avatar 
+                src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${c.user_id}`}
+                sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: 14 }}
+              >
                 {c.user_name?.charAt(0)}
               </Avatar>
             </ListItemAvatar>

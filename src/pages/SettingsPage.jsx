@@ -26,6 +26,7 @@ const SettingsPage = () => {
   const [deleteConfirm, setDeleteConfirm] = useState({ open: false, id: null });
 
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
 
   const fetchTeam = async () => {
     try {
@@ -39,6 +40,27 @@ const SettingsPage = () => {
       setError('Failed to fetch team members');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAvatarUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    setIsUploadingAvatar(true);
+    try {
+      await client.post('/users/avatar', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setSuccess('Profile picture updated successfully!');
+      setTimeout(() => window.location.reload(), 1000); // Reload to refresh user context
+    } catch (err) {
+      setError('Failed to upload profile picture');
+    } finally {
+      setIsUploadingAvatar(false);
     }
   };
 
@@ -111,24 +133,41 @@ const SettingsPage = () => {
                 mb: 4,
                 gap: 3 
               }}>
-                <Avatar 
-                  sx={{ 
-                    width: { xs: 80, sm: 64 }, 
-                    height: { xs: 80, sm: 64 }, 
-                    bgcolor: 'secondary.main', 
-                    fontSize: { xs: '2rem', sm: '1.5rem' },
-                    boxShadow: '0 8px 16px rgba(0,0,0,0.2)'
-                  }}
-                >
-                  {user?.name?.charAt(0)}
-                </Avatar>
+                <Box sx={{ position: 'relative' }}>
+                  <Avatar 
+                    src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${user?.id}`}
+                    sx={{ 
+                      width: { xs: 80, sm: 64 }, 
+                      height: { xs: 80, sm: 64 }, 
+                      bgcolor: 'secondary.main', 
+                      fontSize: { xs: '2rem', sm: '1.5rem' },
+                      boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    {user?.name?.charAt(0)}
+                  </Avatar>
+                  <input
+                    type="file"
+                    id="avatar-upload"
+                    hidden
+                    accept="image/*"
+                    onChange={handleAvatarUpload}
+                  />
+                </Box>
                 <Box>
                   <Typography variant="h5" fontWeight="800">{user?.name}</Typography>
-                  <Typography variant="body2" color="text.secondary">{user?.email}</Typography>
-                  <Typography variant="caption" sx={{ fontWeight: 800, color: 'primary.main', display: 'block', mt: 0.5, letterSpacing: 0.5 }}>
-                    ORGANIZATION: {user?.company_name?.toUpperCase()}
-                  </Typography>
-                  <Chip label={user?.role} size="small" color={getRoleColor(user?.role)} sx={{ mt: 1.5, fontWeight: 'bold', borderRadius: 1.5 }} />
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>{user?.email}</Typography>
+                  <Button 
+                    size="small" 
+                    variant="outlined" 
+                    component="label" 
+                    htmlFor="avatar-upload"
+                    disabled={isUploadingAvatar}
+                    sx={{ borderRadius: 2, fontWeight: 700 }}
+                  >
+                    {isUploadingAvatar ? 'Uploading...' : 'Change Photo'}
+                  </Button>
                 </Box>
               </Box>
 
@@ -191,7 +230,12 @@ const SettingsPage = () => {
                   >
                     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                       <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: 'primary.main', fontSize: 14 }}>{member.name.charAt(0)}</Avatar>
+                        <Avatar 
+                          src={`${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${member.id}`}
+                          sx={{ bgcolor: 'primary.main', fontSize: 14, fontWeight: 'bold' }}
+                        >
+                          {member.name.charAt(0)}
+                        </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={<Typography variant="body1" fontWeight="bold">{member.name}</Typography>}

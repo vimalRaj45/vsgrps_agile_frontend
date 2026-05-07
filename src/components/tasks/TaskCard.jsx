@@ -138,6 +138,7 @@ const TaskCard = ({ task, onClick, onUpdate }) => {
           </Stack>
           <Tooltip title={task.assignee_name || 'Awaiting Assignment'}>
             <Avatar 
+              src={task.assigned_to ? `${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${task.assigned_to}` : undefined}
               sx={{ 
                 width: 28, 
                 height: 28, 

@@ -133,6 +133,26 @@ const TaskDetail = ({ task, onClose, onUpdate }) => {
           </Menu>
         </Stack>
 
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="subtitle2" color="text.secondary" gutterBottom>Assigned To</Typography>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Avatar 
+              src={currentTask.assigned_to ? `${import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com'}/users/avatar/${currentTask.assigned_to}` : undefined}
+              sx={{ width: 40, height: 40, bgcolor: 'primary.main', fontWeight: 'bold' }}
+            >
+              {currentTask.assignee_name?.charAt(0) || '?'}
+            </Avatar>
+            <Box>
+              <Typography variant="body1" fontWeight="800">
+                {currentTask.assignee_name || 'Awaiting Assignment'}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {currentTask.assigned_to ? 'Assigned' : 'Unassigned'}
+              </Typography>
+            </Box>
+          </Stack>
+        </Box>
+
         <Typography variant="subtitle2" color="text.secondary" gutterBottom>Description</Typography>
         <Box sx={{ mb: 4 }}>
           <TextField
