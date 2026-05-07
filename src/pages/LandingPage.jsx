@@ -385,6 +385,55 @@ const SprintoraLanding = () => {
         </Container>
       </Box>
 
+      {/* Sync Section */}
+      <Box sx={{ py: { xs: 10, md: 15 }, position: 'relative', bgcolor: theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.02)' }}>
+        <Container maxWidth="xl">
+          <Grid container spacing={8} alignItems="center">
+            <Grid item xs={12} md={6} data-aos="fade-right">
+              <Typography variant="overline" fontWeight="900" color="#fb7185" gutterBottom sx={{ letterSpacing: 3 }}>
+                REAL-TIME SYNC
+              </Typography>
+              <Typography variant="h2" fontWeight="950" sx={{ mb: 3, fontSize: { xs: '2.5rem', md: '3.5rem' }, letterSpacing: '-2px', lineHeight: 1, color: 'text.primary' }}>
+                Sync with your <br/> Team, Instantly.
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 4, fontSize: '1.1rem', lineHeight: 1.7 }}>
+                Stay in the loop with live updates, instant notifications, and collaborative task boards. Sprintora ensures every team member is always on the same page, no matter where they are.
+              </Typography>
+              <Stack spacing={2}>
+                {[
+                  'Live Collaboration Boards',
+                  'Instant Push Notifications',
+                  'Contextual Team Discussions'
+                ].map((item, i) => (
+                  <Stack key={i} direction="row" spacing={2} alignItems="center">
+                    <Box sx={{ bgcolor: 'rgba(251, 113, 133, 0.1)', p: 0.5, borderRadius: 1 }}>
+                      <CheckCircleOutlineIcon sx={{ color: '#fb7185', fontSize: 20 }} />
+                    </Box>
+                    <Typography variant="body2" fontWeight="700" color="text.primary">{item}</Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={6} data-aos="fade-left">
+              <Box sx={{ 
+                position: 'relative', 
+                '&::before': {
+                  content: '""', position: 'absolute', inset: -20, 
+                  background: 'radial-gradient(circle, rgba(251, 113, 133, 0.1) 0%, transparent 70%)',
+                  filter: 'blur(40px)', zIndex: 0
+                }
+              }}>
+                <Box component="img" src="/assets/team_sync.png" sx={{ 
+                  width: '100%', height: 'auto', borderRadius: 3, 
+                  boxShadow: theme.palette.mode === 'dark' ? '0 40px 80px -20px rgba(0,0,0,0.5)' : '0 10px 20px rgba(0,0,0,0.05)',
+                  position: 'relative', zIndex: 1
+                }} />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
       {/* Features */}
       <Box id="features" sx={{ py: { xs: 10, md: 20 } }}>
         <Container maxWidth="xl">
