@@ -4,7 +4,7 @@ import {
   TableContainer, TableHead, TableRow, IconButton, Button,
   Dialog, DialogTitle, DialogContent, DialogActions, TextField,
   MenuItem, Chip, Avatar, Stack, Tooltip, Alert, CircularProgress,
-  Divider, useTheme, useMediaQuery
+  Divider, useTheme, useMediaQuery, Skeleton
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -104,7 +104,7 @@ const AdminUsersPage = () => {
     }
   };
 
-  if (loading) return <LoadingScreen />;
+  const API_URL = import.meta.env.VITE_API_URL || 'https://vsgrps-agile-backend.onrender.com';
 
   return (
     <Box>
@@ -171,13 +171,43 @@ const AdminUsersPage = () => {
         </Stack>
       </Stack>
 
-
-
       {error && <Alert severity="error" sx={{ mb: 3, borderRadius: 1.5 }}>{error}</Alert>}
       {successMsg && <Alert severity="success" sx={{ mb: 3, borderRadius: 1.5 }}>{successMsg}</Alert>}
 
-
-      {isMobile ? (
+      {loading ? (
+        isMobile ? (
+          <Stack spacing={2}>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Skeleton key={i} variant="rectangular" height={120} sx={{ borderRadius: 3.5, bgcolor: 'rgba(255,255,255,0.05)' }} />
+            ))}
+          </Stack>
+        ) : (
+          <TableContainer component={Paper} sx={{ borderRadius: 3, overflow: 'hidden' }}>
+            <Table>
+              <TableHead sx={{ bgcolor: 'action.hover' }}>
+                <TableRow>
+                  <TableCell>User</TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Joined At</TableCell>
+                  <TableCell align="right">Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <TableRow key={i}>
+                    <TableCell><Skeleton variant="text" width={150} height={40} /></TableCell>
+                    <TableCell><Skeleton variant="rectangular" width={80} height={24} sx={{ borderRadius: 2 }} /></TableCell>
+                    <TableCell><Skeleton variant="rectangular" width={80} height={24} sx={{ borderRadius: 2 }} /></TableCell>
+                    <TableCell><Skeleton variant="text" width={100} /></TableCell>
+                    <TableCell align="right"><Skeleton variant="circular" width={32} height={32} sx={{ display: 'inline-block', mr: 1 }} /><Skeleton variant="circular" width={32} height={32} sx={{ display: 'inline-block' }} /></TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )
+      ) : isMobile ? (
         <Stack spacing={2}>
           {users.map((user) => (
             <Paper 
@@ -200,7 +230,7 @@ const AdminUsersPage = () => {
                       fontSize: '0.9rem', 
                       fontWeight: 'bold' 
                     }} 
-                    src={user.avatar_url}
+                    src={`${API_URL}/users/avatar/${user.id}`}
                   >
                     {user.name.charAt(0)}
                   </Avatar>
@@ -301,7 +331,7 @@ const AdminUsersPage = () => {
                 <TableRow key={user.id} hover>
                   <TableCell>
                     <Stack direction="row" spacing={2} alignItems="center">
-                      <Avatar src={user.avatar_url} sx={{ width: 40, height: 40 }}>
+                      <Avatar src={`${API_URL}/users/avatar/${user.id}`} sx={{ width: 40, height: 40 }}>
                         {user.name.charAt(0)}
                       </Avatar>
                       <Box>
