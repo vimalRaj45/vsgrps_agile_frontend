@@ -17,16 +17,15 @@ import {
 import client from '../api/client';
 import LoadingScreen from '../components/shared/LoadingScreen';
 
-const ROLES = ['Admin', 'Product Owner', 'Scrum Master', 'Developer', 'Stakeholder'];
-
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [editUser, setEditUser] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [openBroadcast, setOpenBroadcast] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', role: 'Developer' });
+  const [formData, setFormData] = useState({ name: '', email: '', role: '' });
   const [broadcastData, setBroadcastData] = useState({ message: '', link: '' });
   const [isUpdating, setIsUpdating] = useState(false);
   const [isBroadcasting, setIsBroadcasting] = useState(false);
@@ -37,8 +36,33 @@ const AdminUsersPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [usersRes, rolesRes] = await Promise.all([
+        client.get('/users'),
+        client.get('/users/roles').catch(() => ({ data: [] })) // Fallback if roles fetch fails
+      ]);
+      setUsers(usersRes.data);
+      setRoles(rolesRes.data);
+    } catch (err) {
+      setError('Failed to fetch data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const res = await client.get('/users');
+      setUsers(res.data);
+    } catch (err) {
+      setError('Failed to fetch users');
+    }
+  };
 
   const handleBroadcast = async () => {
     if (!broadcastData.message) return;
@@ -54,17 +78,6 @@ const AdminUsersPage = () => {
       setError('Failed to send broadcast');
     } finally {
       setIsBroadcasting(false);
-    }
-  };
-
-  const fetchUsers = async () => {
-    try {
-      const res = await client.get('/users');
-      setUsers(res.data);
-    } catch (err) {
-      setError('Failed to fetch users');
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -420,8 +433,8 @@ const AdminUsersPage = () => {
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
             >
-              {ROLES.map((role) => (
-                <MenuItem key={role} value={role}>{role}</MenuItem>
+              {roles.map((role) => (
+                <MenuItem key={role.id} value={role.name}>{role.name}</MenuItem>
               ))}
             </TextField>
           </Stack>
