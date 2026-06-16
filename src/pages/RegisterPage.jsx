@@ -79,7 +79,7 @@ const RegisterPage = () => {
                   Create Your Workspace
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                  Join thousands of teams scaling with AI-powered agility.
+                  Get started and organize your team's projects.
                 </Typography>
               </Box>
 
@@ -189,10 +189,10 @@ const RegisterPage = () => {
             }}>
               <Box component="img" src="/assets/register_welcome.png" sx={{ width: '85%', height: 'auto', borderRadius: 3, mb: 4 }} />
               <Typography variant="h4" fontWeight="900" textAlign="center" gutterBottom sx={{ letterSpacing: '-1px' }}>
-                Build the Future.
+                Start Building.
               </Typography>
               <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ maxWidth: 350 }}>
-                From idea to execution, Sprintora provides the tools you need to ship faster and smarter.
+                Sprintora provides the tools you need to manage your tasks from idea to execution.
               </Typography>
             </Grid>
           )}

@@ -98,10 +98,10 @@ const LoginPage = () => {
             }}>
               <Box component="img" src="/assets/login_auth.png" sx={{ width: '80%', height: 'auto', borderRadius: 3, mb: 4 }} />
               <Typography variant="h4" fontWeight="900" textAlign="center" gutterBottom sx={{ letterSpacing: '-1px' }}>
-                Manage with Precision.
+                Welcome Back.
               </Typography>
               <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ maxWidth: 350 }}>
-                Log in to your AI-powered workspace and pick up exactly where you left off.
+                Log in to your workspace and pick up where you left off.
               </Typography>
             </Grid>
           )}
