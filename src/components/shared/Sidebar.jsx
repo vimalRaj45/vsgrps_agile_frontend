@@ -96,7 +96,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
                 }}
                 selected={active}
                 sx={{
-                  borderRadius: 2,
+                  borderRadius: 1,
                   py: 1.5,
                   px: 2.5,
                   transition: 'all 0.2s ease',
@@ -137,7 +137,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
         <Box sx={{ 
           mb: 2, 
           p: 2, 
-          borderRadius: 2, 
+          borderRadius: 1, 
           bgcolor: storage?.healthPercent > 80 ? 'rgba(34, 197, 94, 0.05)' : 'rgba(234, 179, 8, 0.05)',
           border: `1px solid ${storage?.healthPercent > 80 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(234, 179, 8, 0.1)'}`
         }}>
@@ -152,10 +152,10 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
             value={storage?.healthPercent || 98} 
             sx={{ 
               height: 6, 
-              borderRadius: 3,
+              borderRadius: 1.5,
               bgcolor: 'rgba(255,255,255,0.05)',
               '& .MuiLinearProgress-bar': {
-                borderRadius: 3,
+                borderRadius: 1.5,
                 background: storage?.healthPercent > 80 
                   ? 'linear-gradient(90deg, #22c55e 0%, #4ade80 100%)'
                   : 'linear-gradient(90deg, #eab308 0%, #facc15 100%)'
@@ -169,7 +169,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
           <Box sx={{ 
             mb: 2, 
             p: 2, 
-            borderRadius: 2, 
+            borderRadius: 1, 
             bgcolor: 'rgba(59, 130, 246, 0.05)',
             border: '1px solid rgba(59, 130, 246, 0.1)'
           }}>
@@ -184,10 +184,10 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
               value={Math.min(storage.percent, 100)} 
               sx={{ 
                 height: 4, 
-                borderRadius: 2,
+                borderRadius: 1,
                 bgcolor: 'rgba(255,255,255,0.05)',
                 '& .MuiLinearProgress-bar': {
-                  borderRadius: 2,
+                  borderRadius: 1,
                   background: storage.percent > 90 
                     ? 'linear-gradient(90deg, #ef4444 0%, #f87171 100%)'
                     : 'linear-gradient(90deg, #3b82f6 0%, #0ea5e9 100%)'
@@ -202,7 +202,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
 
         <Box sx={{ 
           p: 2, 
-          borderRadius: 2, 
+          borderRadius: 1, 
           bgcolor: 'rgba(255, 255, 255, 0.03)',
           border: '1px solid rgba(255, 255, 255, 0.06)'
         }}>

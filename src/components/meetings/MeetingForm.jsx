@@ -93,17 +93,20 @@ const MeetingForm = ({ open, onClose, onSuccess, projectId }) => {
               <TextField {...params} label="Attendees" margin="normal" />
             )}
             renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip label={option.name} {...getTagProps({ index })} size="small" />
-              ))
+              value.map((option, index) => {
+                const { key, ...tagProps } = getTagProps({ index });
+                return <Chip key={key} label={option.name} {...tagProps} size="small" />;
+              })
             }
           />
           <TextField
             fullWidth
-            label="Meeting Link (e.g., Zoom, Google Meet)"
+            label="Meeting Link (Optional)"
             margin="normal"
+            placeholder="Leave empty for auto-generated Google Meet"
             value={formData.meeting_link}
             onChange={(e) => setFormData({ ...formData, meeting_link: e.target.value })}
+            helperText="If left empty, a Google Meet link will be automatically generated and sent to attendees."
           />
           <TextField
             fullWidth

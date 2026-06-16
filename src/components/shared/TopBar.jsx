@@ -171,7 +171,7 @@ const TopBar = ({ handleDrawerToggle }) => {
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Stack direction="row" alignItems="center" spacing={{ xs: 1.5, sm: 2.5 }}>
+        <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 1.5 }}>
 
           {storage && (
             <Tooltip title={`Global Storage Used: ${storage.usedFormatted} of ${storage.limitFormatted}`}>
@@ -182,7 +182,7 @@ const TopBar = ({ handleDrawerToggle }) => {
                 bgcolor: 'rgba(59, 130, 246, 0.05)',
                 px: 2,
                 py: 0.8,
-                borderRadius: 4,
+                borderRadius: 1.5,
                 border: '1px solid rgba(59, 130, 246, 0.1)'
               }}>
                 <StorageIcon sx={{ fontSize: 16, color: storage.percent > 90 ? 'error.main' : 'primary.main' }} />
@@ -197,10 +197,10 @@ const TopBar = ({ handleDrawerToggle }) => {
                     value={Math.min(storage.percent, 100)} 
                     sx={{ 
                       height: 4, 
-                      borderRadius: 2,
+                      borderRadius: 1.5,
                       bgcolor: 'rgba(255,255,255,0.05)',
                       '& .MuiLinearProgress-bar': {
-                        borderRadius: 2,
+                        borderRadius: 1.5,
                         background: 'linear-gradient(90deg, #3b82f6 0%, #0ea5e9 100%)'
                       }
                     }}
@@ -224,6 +224,8 @@ const TopBar = ({ handleDrawerToggle }) => {
                     textTransform: 'none',
                     fontWeight: '700',
                     height: 36,
+                    whiteSpace: 'nowrap',
+                    minWidth: 'max-content',
                     borderColor: 'rgba(59, 130, 246, 0.3)',
                     color: 'primary.main',
                     '&.Mui-disabled': {
@@ -250,6 +252,8 @@ const TopBar = ({ handleDrawerToggle }) => {
                     textTransform: 'none',
                     fontWeight: '700',
                     height: 36,
+                    whiteSpace: 'nowrap',
+                    minWidth: 'max-content',
                     borderColor: 'rgba(16, 185, 129, 0.3)',
                     color: '#10b981',
                     '&.Mui-disabled': {
@@ -266,8 +270,8 @@ const TopBar = ({ handleDrawerToggle }) => {
 
           <Tooltip title="Toggle light/dark mode">
             <IconButton onClick={toggleTheme} color="inherit" sx={{ 
-              bgcolor: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              bgcolor: mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+              border: `1px solid ${mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
               p: { xs: 0.5, sm: 1 },
               width: { xs: 32, sm: 40 },
               height: { xs: 32, sm: 40 },
@@ -281,8 +285,8 @@ const TopBar = ({ handleDrawerToggle }) => {
           
           <Tooltip title="Help & Support">
             <IconButton onClick={() => setHelpDialogOpen(true)} color="inherit" sx={{ 
-              bgcolor: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              bgcolor: mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+              border: `1px solid ${mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
               p: { xs: 0.5, sm: 1 },
               width: { xs: 32, sm: 40 },
               height: { xs: 32, sm: 40 },
@@ -348,7 +352,7 @@ const TopBar = ({ handleDrawerToggle }) => {
             sx: {
               mt: 1.5,
               minWidth: 200,
-              borderRadius: 4,
+              borderRadius: 2,
               boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
               border: '1px solid rgba(255,255,255,0.08)'
             }
@@ -369,7 +373,7 @@ const TopBar = ({ handleDrawerToggle }) => {
           </MenuItem>
         </Menu>
 
-        <Dialog open={helpDialogOpen} onClose={() => setHelpDialogOpen(false)} maxWidth="sm" fullWidth PaperProps={{ sx: { borderRadius: 4 } }}>
+        <Dialog open={helpDialogOpen} onClose={() => setHelpDialogOpen(false)} maxWidth="sm" fullWidth PaperProps={{ sx: { borderRadius: 2 } }}>
           <DialogTitle sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
             <HelpOutlineIcon color="primary" />
             Help & Support

@@ -19,6 +19,7 @@ const MeetingDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
 
   useEffect(() => {
     const fetchMeeting = async () => {
@@ -138,6 +139,38 @@ const MeetingDetailPage = () => {
     }
   };
 
+  const handleGenerateSummary = async () => {
+    setIsGeneratingSummary(true);
+    setError('');
+    try {
+      // First fetch the meeting notes to send to AI
+      const notesRes = await client.get(`/meetings/${id}/notes`);
+      const notes = notesRes.data;
+      
+      if (!notes || notes.length === 0) {
+        setError('Please add some Meeting Notes first so the AI has something to summarize!');
+        return;
+      }
+
+      const aiRes = await client.post('/ai/meeting-summary', {
+        agenda: meeting.agenda,
+        notes: notes.map(n => `[${n.section}] ${n.content}`)
+      });
+
+      // Update local state so user can edit BEFORE saving
+      setMeeting({
+        ...meeting,
+        summary: aiRes.data.summary || meeting.summary,
+        outcome: aiRes.data.outcome || meeting.outcome
+      });
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.error || 'Failed to generate AI summary');
+    } finally {
+      setIsGeneratingSummary(false);
+    }
+  };
+
   if (loading) return <LoadingScreen />;
   if (error && !meeting) return <Alert severity="error">{error}</Alert>;
 
@@ -220,11 +253,21 @@ const MeetingDetailPage = () => {
               }}
             />
             
-            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
+            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end', gap: 2, flexWrap: 'wrap' }}>
+              <Button 
+                variant="outlined" 
+                size="large"
+                color="secondary"
+                disabled={isGeneratingSummary || isUpdating}
+                onClick={handleGenerateSummary}
+                sx={{ borderRadius: 3, px: 3, fontWeight: 'bold' }}
+              >
+                {isGeneratingSummary ? 'Generating...' : '✨ Generate AI Summary'}
+              </Button>
               <Button 
                 variant="contained" 
                 size="large" 
-                disabled={isUpdating}
+                disabled={isUpdating || isGeneratingSummary}
                 startIcon={isUpdating ? <CircularProgress size={20} color="inherit" /> : null}
                 onClick={() => handleUpdate({ 
                   outcome: meeting.outcome, 
