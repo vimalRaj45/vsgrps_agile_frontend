@@ -9,15 +9,26 @@ import MeetingList from '../components/meetings/MeetingList';
 import FileList from '../components/files/FileList';
 import ProjectMembers from '../components/projects/ProjectMembers';
 import ProjectProcess from '../components/projects/ProjectProcess';
-import client from '../api/client';
+import { useAuth } from '../context/AuthContext';
+import { can } from '../utils/rbac';
 import LoadingScreen from '../components/shared/LoadingScreen';
 
 const ProjectDetailPage = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [tabValue, setTabValue] = useState(0);
+  
+  // Determine initial tab based on permissions
+  const getInitialTab = () => {
+    if (can(user, 'task:view')) return 'tasks';
+    if (can(user, 'meeting:view')) return 'meetings';
+    if (can(user, 'file:view') || can(user, 'link:view')) return 'files';
+    return 'process';
+  };
+  
+  const [tabValue, setTabValue] = useState(getInitialTab());
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -54,19 +65,19 @@ const ProjectDetailPage = () => {
         scrollButtons="auto"
         allowScrollButtonsMobile
       >
-        <Tab label="Tasks" />
-        <Tab label="Meetings" />
-        <Tab label="Files & Links" />
-        <Tab label="Process" />
-        <Tab label="Team" />
+        {can(user, 'task:view') && <Tab value="tasks" label="Tasks" />}
+        {can(user, 'meeting:view') && <Tab value="meetings" label="Meetings" />}
+        {(can(user, 'file:view') || can(user, 'link:view')) && <Tab value="files" label="Files & Links" />}
+        <Tab value="process" label="Process" />
+        <Tab value="team" label="Team" />
       </Tabs>
 
       <Box sx={{ mt: 2 }}>
-        {tabValue === 0 && <TaskList projectId={id} />}
-        {tabValue === 1 && <MeetingList projectId={id} />}
-        {tabValue === 2 && <FileList projectId={id} />}
-        {tabValue === 3 && <ProjectProcess projectId={id} />}
-        {tabValue === 4 && <ProjectMembers projectId={id} />}
+        {tabValue === 'tasks' && <TaskList projectId={id} />}
+        {tabValue === 'meetings' && <MeetingList projectId={id} />}
+        {tabValue === 'files' && <FileList projectId={id} />}
+        {tabValue === 'process' && <ProjectProcess projectId={id} />}
+        {tabValue === 'team' && <ProjectMembers projectId={id} />}
       </Box>
     </Box>
   );

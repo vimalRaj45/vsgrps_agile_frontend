@@ -85,8 +85,8 @@ const FilesPage = () => {
           <Typography variant="body2" color="text.secondary">Manage project assets and documentation</Typography>
         </Box>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ width: { xs: '100%', sm: 'auto' } }}>
-          <LinkInput onLinkAdded={() => { fetchData(); setSnackbar({ open: true, message: 'Link added successfully!' }); }} />
-          <FileUpload onUploadSuccess={() => { fetchData(); setSnackbar({ open: true, message: 'File uploaded successfully!' }); }} />
+          {can(user, 'link:create') && <LinkInput onLinkAdded={() => { fetchData(); setSnackbar({ open: true, message: 'Link added successfully!' }); }} />}
+          {can(user, 'file:create') && <FileUpload onUploadSuccess={() => { fetchData(); setSnackbar({ open: true, message: 'File uploaded successfully!' }); }} />}
         </Stack>
       </Box>
 

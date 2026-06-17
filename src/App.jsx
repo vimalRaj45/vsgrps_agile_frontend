@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { AppThemeProvider } from './context/ThemeContext';
 import LoadingScreen from './components/shared/LoadingScreen';
+import { can } from './utils/rbac';
+import { Box, Typography, Button } from '@mui/material';
+import LockPersonIcon from '@mui/icons-material/LockPerson';
 
 // Pages
 import LoginPage from './pages/LoginPage';
@@ -48,6 +51,29 @@ const PrivateRoute = ({ children }) => {
   return user ? <AppLayout>{children}</AppLayout> : <Navigate to="/" replace />;
 };
 
+const ProtectedRoute = ({ children, permission }) => {
+  const { user, loading } = useAuth();
+  if (loading) return <LoadingScreen />;
+  
+  if (!user) return <Navigate to="/" replace />;
+  
+  if (permission && !can(user, permission)) {
+    return (
+      <AppLayout>
+        <Box sx={{ textAlign: 'center', py: 10 }}>
+          <LockPersonIcon sx={{ fontSize: 80, color: 'text.secondary', mb: 2, opacity: 0.5 }} />
+          <Typography variant="h4" fontWeight="900" gutterBottom>Access Denied</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+            You don't have permission to view this page.
+          </Typography>
+        </Box>
+      </AppLayout>
+    );
+  }
+  
+  return <AppLayout>{children}</AppLayout>;
+};
+
 const AppRoutes = () => {
   const { user, loading } = useAuth();
 
@@ -68,18 +94,18 @@ const AppRoutes = () => {
         <Route path="/auth-success" element={<AuthSuccessPage />} />
         <Route path="/complete-signup" element={<CompleteSignupPage />} />
         
-        <Route path="/tasks" element={<PrivateRoute><TasksPage /></PrivateRoute>} />
-        <Route path="/projects" element={<PrivateRoute><ProjectsPage /></PrivateRoute>} />
-        <Route path="/meetings" element={<PrivateRoute><MeetingsPage /></PrivateRoute>} />
-        <Route path="/meetings/:id" element={<PrivateRoute><MeetingDetailPage /></PrivateRoute>} />
-        <Route path="/projects/:id" element={<PrivateRoute><ProjectDetailPage /></PrivateRoute>} />
-        <Route path="/projects/:id/report" element={<PrivateRoute><ProjectReportPage /></PrivateRoute>} />
-        <Route path="/files" element={<PrivateRoute><FilesPage /></PrivateRoute>} />
+        <Route path="/tasks" element={<ProtectedRoute permission="task:view"><TasksPage /></ProtectedRoute>} />
+        <Route path="/projects" element={<ProtectedRoute permission="project:view"><ProjectsPage /></ProtectedRoute>} />
+        <Route path="/meetings" element={<ProtectedRoute permission="meeting:view"><MeetingsPage /></ProtectedRoute>} />
+        <Route path="/meetings/:id" element={<ProtectedRoute permission="meeting:view"><MeetingDetailPage /></ProtectedRoute>} />
+        <Route path="/projects/:id" element={<ProtectedRoute permission="project:view"><ProjectDetailPage /></ProtectedRoute>} />
+        <Route path="/projects/:id/report" element={<ProtectedRoute permission="project:view"><ProjectReportPage /></ProtectedRoute>} />
+        <Route path="/files" element={<ProtectedRoute permission="file:view"><FilesPage /></ProtectedRoute>} />
         <Route path="/settings" element={<PrivateRoute><SettingsPage /></PrivateRoute>} />
         <Route path="/guide" element={<PrivateRoute><UserGuidePage /></PrivateRoute>} />
-        <Route path="/audit" element={<PrivateRoute><AuditLogPage /></PrivateRoute>} />
-        <Route path="/users" element={<PrivateRoute><AdminUsersPage /></PrivateRoute>} />
-        <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
+        <Route path="/audit" element={<ProtectedRoute permission="audit:view"><AuditLogPage /></ProtectedRoute>} />
+        <Route path="/users" element={<ProtectedRoute permission="user:view"><AdminUsersPage /></ProtectedRoute>} />
+        <Route path="/reports" element={<ProtectedRoute permission="report:view"><ReportsPage /></ProtectedRoute>} />
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/mission" element={<MissionPage />} />
         <Route path="/features" element={<FeaturesPage />} />

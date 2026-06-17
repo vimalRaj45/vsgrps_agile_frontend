@@ -11,7 +11,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import client from '../api/client';
 import { useAuth } from '../context/AuthContext';
-import { can } from '../utils/rbac';
 import InviteDialog from '../components/auth/InviteDialog';
 import LoadingScreen from '../components/shared/LoadingScreen';
 import RoleManagement from '../components/settings/RoleManagement';
@@ -54,8 +53,8 @@ const SettingsPage = () => {
         }
       }
 
-      // 2. Only fetch roles if user has permission to manage roles
-      if (can(user, 'role:manage')) {
+      // 2. Only fetch roles if user is Admin (requires role:manage)
+      if (user?.role === 'Admin') {
         try {
           const rolesRes = await client.get('/users/roles');
           setRoles(rolesRes.data);
@@ -162,9 +161,7 @@ const SettingsPage = () => {
 
   if (loading && team.length === 0) return <LoadingScreen />;
 
-  const canManageRoles = can(user, 'role:manage');
-  const canInvite = can(user, 'user:invite');
-  const canEditUsers = can(user, 'audit:view');
+  const isAdmin = user?.role === 'Admin';
 
   return (
     <Box>
@@ -260,7 +257,7 @@ const SettingsPage = () => {
             <CardContent>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Typography variant="h6" fontWeight="bold">Team Members</Typography>
-                {canInvite && (
+                {isAdmin && (
                   <Button
                     variant="outlined"
                     startIcon={<PersonAddIcon />}
@@ -300,7 +297,7 @@ const SettingsPage = () => {
                     </Box>
                     
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ width: { xs: '100%', sm: 'auto' }, justifyContent: { xs: 'space-between', sm: 'flex-end' }, mt: { xs: 1, sm: 0 }, ml: { xs: 0, sm: 2 } }}>
-                      {canEditUsers && member.id !== user?.id ? (
+                      {isAdmin && member.id !== user?.id ? (
                         <TextField
                           select
                           size="small"
@@ -318,7 +315,7 @@ const SettingsPage = () => {
                       )}
 
                       <Box sx={{ minWidth: 40, textAlign: 'right' }}>
-                        {canEditUsers && member.id !== user?.id && (
+                        {isAdmin && member.id !== user?.id && (
                           <IconButton 
                             color="error" 
                             size="small" 
@@ -336,7 +333,7 @@ const SettingsPage = () => {
           </Card>
         </Grid>
 
-        {canManageRoles && (
+        {isAdmin && (
           <Grid item xs={12}>
             <Card sx={{ borderRadius: 3, mt: 1 }}>
               <CardContent>

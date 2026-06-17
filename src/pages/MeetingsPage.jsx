@@ -7,10 +7,13 @@ import AddIcon from '@mui/icons-material/Add';
 import GroupsIcon from '@mui/icons-material/Groups';
 import MeetingForm from '../components/meetings/MeetingForm';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { can } from '../utils/rbac';
 import client from '../api/client';
 import LoadingScreen from '../components/shared/LoadingScreen';
 
 const MeetingsPage = () => {
+  const { user } = useAuth();
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -50,14 +53,16 @@ const MeetingsPage = () => {
           </Typography>
           <Typography variant="body2" color="text.secondary">Sync with your team and stakeholders</Typography>
         </Box>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => setOpenForm(true)}
-          sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 3 }}
-        >
-          Schedule Meeting
-        </Button>
+        {can(user, 'meeting:create') && (
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => setOpenForm(true)}
+            sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 3 }}
+          >
+            Schedule Meeting
+          </Button>
+        )}
       </Box>
 
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
@@ -77,7 +82,9 @@ const MeetingsPage = () => {
           <Grid item="true" xs={12}>
             <Box sx={{ textAlign: 'center', py: 10, bgcolor: 'background.paper', borderRadius: 3 }}>
               <Typography variant="h6" color="text.secondary">No meetings scheduled</Typography>
-              <Button sx={{ mt: 2 }} onClick={() => setOpenForm(true)}>Schedule your first meeting</Button>
+              {can(user, 'meeting:create') && (
+                <Button sx={{ mt: 2 }} onClick={() => setOpenForm(true)}>Schedule your first meeting</Button>
+              )}
             </Box>
           </Grid>
         ) : (

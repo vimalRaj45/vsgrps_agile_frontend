@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import {
   Box, Typography, Card, CardContent, Button, Stack, Chip,
   IconButton, Dialog, DialogTitle, DialogContent, DialogActions,
-  TextField, Checkbox, FormControlLabel, Grid, Divider,
-  CircularProgress, Alert, Tooltip
+  TextField, Checkbox, Grid, Alert, Tooltip, CircularProgress,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 } from '@mui/material';
 import {
   Add as AddIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
   Security as SecurityIcon,
-  InfoOutlined as InfoIcon
+  InfoOutlined as InfoIcon,
+  Check as CheckIcon
 } from '@mui/icons-material';
 import client from '../../api/client';
 
@@ -21,13 +22,23 @@ const RoleManagement = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Dialog state
   const [open, setOpen] = useState(false);
   const [editingRole, setEditingRole] = useState(null);
   const [roleForm, setRoleForm] = useState({ name: '', description: '', selectedPermissions: [] });
   const [saving, setSaving] = useState(false);
 
   const [deleteConfirm, setDeleteConfirm] = useState({ open: false, id: null });
+
+  // Group permissions by module
+  const groupedPermissions = React.useMemo(() => {
+    const groups = {};
+    permissions.forEach(perm => {
+      const [module, action] = perm.split(':');
+      if (!groups[module]) groups[module] = {};
+      groups[module][action] = perm;
+    });
+    return groups;
+  }, [permissions]);
 
   const fetchData = async () => {
     try {
@@ -168,22 +179,24 @@ const RoleManagement = () => {
                     </Box>
                   </Box>
                   <Box>
-                    {!role.is_system ? (
-                      <Stack direction="row" spacing={0.5}>
+                    <Stack direction="row" spacing={0.5}>
+                      <Tooltip title="Edit Permissions">
                         <IconButton size="small" onClick={() => handleOpen(role)}>
                           <EditIcon fontSize="small" />
                         </IconButton>
+                      </Tooltip>
+                      {!role.is_system ? (
                         <IconButton size="small" color="error" onClick={() => handleDeleteClick(role.id)}>
                           <DeleteIcon fontSize="small" />
                         </IconButton>
-                      </Stack>
-                    ) : (
-                      <Tooltip title="System roles cannot be modified">
-                        <IconButton size="small" disabled>
-                          <SecurityIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    )}
+                      ) : (
+                        <Tooltip title="System roles cannot be deleted">
+                          <IconButton size="small" disabled>
+                            <SecurityIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                    </Stack>
                   </Box>
                 </Box>
               </CardContent>
@@ -220,24 +233,63 @@ const RoleManagement = () => {
             
             <Box>
               <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                Permissions <InfoIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
+                Role Permissions <InfoIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
               </Typography>
-              <Grid container spacing={1}>
-                {permissions.map((perm) => (
-                  <Grid item xs={12} sm={6} md={4} key={perm}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox 
-                          size="small"
-                          checked={roleForm.selectedPermissions.includes(perm)}
-                          onChange={() => handlePermissionToggle(perm)}
-                        />
-                      }
-                      label={<Typography variant="body2">{perm}</Typography>}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+              
+              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: 2 }}>
+                <Table size="small">
+                  <TableHead sx={{ bgcolor: 'rgba(255,255,255,0.02)' }}>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Module</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 'bold' }}>View</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 'bold' }}>Create</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 'bold' }}>Update</TableCell>
+                      <TableCell align="center" sx={{ fontWeight: 'bold' }}>Delete</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Other</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {Object.keys(groupedPermissions).map(module => {
+                      const actions = groupedPermissions[module];
+                      const standardActions = ['view', 'create', 'update', 'delete', 'manage']; // map manage to update typically, but we'll show it separate
+                      const otherActions = Object.keys(actions).filter(a => !['view', 'create', 'update', 'delete'].includes(a));
+
+                      return (
+                        <TableRow key={module} hover>
+                          <TableCell sx={{ textTransform: 'capitalize', fontWeight: 600 }}>{module}</TableCell>
+                          {['view', 'create', 'update', 'delete'].map(action => (
+                            <TableCell align="center" key={action}>
+                              {actions[action] ? (
+                                <Checkbox
+                                  size="small"
+                                  checked={roleForm.selectedPermissions.includes(actions[action])}
+                                  onChange={() => handlePermissionToggle(actions[action])}
+                                  sx={{ p: 0.5 }}
+                                />
+                              ) : '-'}
+                            </TableCell>
+                          ))}
+                          <TableCell>
+                            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                              {otherActions.map(action => (
+                                <Chip
+                                  key={action}
+                                  label={action}
+                                  size="small"
+                                  onClick={() => handlePermissionToggle(actions[action])}
+                                  color={roleForm.selectedPermissions.includes(actions[action]) ? 'primary' : 'default'}
+                                  variant={roleForm.selectedPermissions.includes(actions[action]) ? 'filled' : 'outlined'}
+                                  sx={{ height: 24, fontSize: '0.7rem', cursor: 'pointer' }}
+                                />
+                              ))}
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Box>
           </Stack>
         </DialogContent>
@@ -248,7 +300,7 @@ const RoleManagement = () => {
             onClick={handleSave} 
             disabled={saving || (!editingRole && !roleForm.name)}
           >
-            {saving ? <CircularProgress size={24} color="inherit" /> : editingRole ? 'Save Changes' : 'Create Role'}
+            {saving ? 'Saving...' : editingRole ? 'Save Changes' : 'Create Role'}
           </Button>
         </DialogActions>
       </Dialog>

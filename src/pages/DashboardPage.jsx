@@ -15,7 +15,6 @@ import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 import LoadingScreen from '../components/shared/LoadingScreen';
 import ScrollReveal from '../components/shared/ScrollReveal';
 import { useAuth } from '../context/AuthContext';
-import { can } from '../utils/rbac';
 
 import TeamPerformance from '../components/dashboard/TeamPerformance';
 import ProjectHealth from '../components/dashboard/ProjectHealth';
@@ -31,8 +30,7 @@ const DashboardPage = () => {
   const [showInstallBtn, setShowInstallBtn] = useState(!!window.deferredPWAEvent);
 
   const isStakeholder = user?.role === 'Stakeholder';
-  const canCreateProject = can(user, 'project:create');
-  const canBackup = can(user, 'system:backup');
+  const isAdmin = user?.role === 'Admin' || user?.role === 'Product Owner';
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -131,7 +129,7 @@ const DashboardPage = () => {
       )}
 
       {/* AI Architect Tool - Available for Admins and POs */}
-      {canCreateProject && (
+      {isAdmin && (
         <ScrollReveal delay={0.1}>
           <Box sx={{ mb: 6 }}>
             <AIArchitect />
@@ -210,7 +208,7 @@ const DashboardPage = () => {
       </Grid>
 
       {/* Administration Section - Admin Only */}
-      {canBackup && (
+      {isAdmin && (
         <ScrollReveal delay={0.7}>
           <Box className="glass-card" sx={{ mt: 6, p: 4, borderRadius: 3, border: '1px solid rgba(99, 102, 241, 0.2)' }}>
             <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 3 }}>

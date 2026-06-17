@@ -28,7 +28,7 @@ const ProjectCard = ({ project, onUpdate }) => {
   const [statusAnchor, setStatusAnchor] = React.useState(null);
 
   const progress = project.total_tasks > 0 ? (project.done_tasks / project.total_tasks) * 100 : 0;
-  const isAdmin = can(user, 'project:update') || can(user, 'project:delete');
+  const isAdmin = user?.role === 'Admin' || user?.role === 'Product Owner';
 
   const handlePin = async (e) => {
     e.stopPropagation();
