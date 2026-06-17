@@ -65,7 +65,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle, drawerWidth }) => {
     { text: 'User Guide', icon: <HelpIcon sx={{ fontSize: 22 }} />, path: '/guide' },
   ];
 
-  const filteredMenuItems = menuItems.filter(item => !item.permission || can(user?.role, item.permission));
+  const filteredMenuItems = menuItems.filter(item => !item.permission || can(user, item.permission));
 
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 2 }}>

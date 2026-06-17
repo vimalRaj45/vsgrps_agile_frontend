@@ -59,7 +59,7 @@ const ProjectsPage = () => {
           </Typography>
           <Typography variant="body2" color="text.secondary">Organize and monitor your organizational goals</Typography>
         </Box>
-        {can(user?.role, 'project:create') && (
+        {can(user, 'project:create') && (
           <Button 
             variant="contained" 
             startIcon={<AddIcon />}

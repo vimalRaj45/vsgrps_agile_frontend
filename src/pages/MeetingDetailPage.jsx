@@ -12,9 +12,11 @@ import MeetingNotes from '../components/meetings/MeetingNotes';
 import { jsPDF } from 'jspdf';
 import client from '../api/client';
 import LoadingScreen from '../components/shared/LoadingScreen';
+import { useAuth } from '../context/AuthContext';
 
 const MeetingDetailPage = () => {
   const { id } = useParams();
+  const { user } = useAuth();
   const [meeting, setMeeting] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -316,7 +318,7 @@ const MeetingDetailPage = () => {
               <Button
                 variant="contained"
                 fullWidth
-                href={meeting.meeting_link}
+                href={meeting.meeting_link.includes('jit.si') ? `${meeting.meeting_link}#userInfo.displayName="${encodeURIComponent(user?.name || 'Guest')}"` : meeting.meeting_link}
                 target="_blank"
                 sx={{ mb: 2, borderRadius: 3, fontWeight: 'bold' }}
               >

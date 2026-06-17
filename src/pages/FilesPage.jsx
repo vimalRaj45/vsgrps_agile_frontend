@@ -11,6 +11,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import DeleteIcon from '@mui/icons-material/Delete';
 import client from '../api/client';
 import { useAuth } from '../context/AuthContext';
+import { can } from '../utils/rbac';
 import LoadingScreen from '../components/shared/LoadingScreen';
 import FileUpload from '../components/files/FileUpload';
 import LinkInput from '../components/files/LinkInput';
@@ -108,7 +109,7 @@ const FilesPage = () => {
                           <IconButton edge="end" onClick={() => handleDownload(file.id, file.filename)}>
                             <DownloadIcon />
                           </IconButton>
-                          {(file.uploaded_by === user?.id || user?.role === 'Admin') && (
+                          {(file.uploaded_by === user?.id || can(user, 'file:delete')) && (
                             <IconButton edge="end" color="error" onClick={() => handleDeleteClick(file.id, 'file', file.filename)}>
                               <DeleteIcon />
                             </IconButton>
@@ -207,7 +208,7 @@ const FilesPage = () => {
                           secondaryTypographyProps={{ component: 'div' }}
                         />
                       </ListItemButton>
-                      {(link.added_by === user?.id || user?.role === 'Admin') && (
+                      {(link.added_by === user?.id || can(user, 'link:delete')) && (
                         <IconButton 
                           edge="end" 
                           color="error" 

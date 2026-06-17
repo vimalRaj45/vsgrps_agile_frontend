@@ -71,7 +71,7 @@ const TasksPage = () => {
         mb: 4 
       }}>
         <Typography variant="h4" fontWeight="800" letterSpacing="-1px">Tasks</Typography>
-        {can(user?.role, 'task:create') && (
+        {can(user, 'task:create') && (
           <Button 
             variant="contained" 
             startIcon={<AddIcon />}

@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import client from '../../api/client';
 import dayjs from 'dayjs';
 import { useAuth } from '../../context/AuthContext';
+import { can } from '../../utils/rbac';
 import TaskComments from './TaskComments';
 import SubtaskList from './SubtaskList';
 import TaskActivityLog from './TaskActivityLog';
@@ -27,10 +28,10 @@ const TaskDetail = ({ task, onClose, onUpdate }) => {
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const isAdmin = currentUser?.role === 'Admin';
+  const canDeleteTask = can(currentUser, 'task:delete');
+  const canEditCore = can(currentUser, 'task:update');
   const isAssigned = currentUser?.id === currentTask.assigned_to;
-  const canEditCore = isAdmin;
-  const canUpdateStatus = isAdmin || isAssigned;
+  const canUpdateStatus = canEditCore || isAssigned;
 
   const handleUpdate = async (updates) => {
     setLoading(true);
@@ -65,7 +66,7 @@ const TaskDetail = ({ task, onClose, onUpdate }) => {
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} sx={{ p: 2, borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <Typography variant="h6" fontWeight="bold">Task Details</Typography>
         <Stack direction="row" spacing={1}>
-          {currentUser?.role === 'Admin' && (
+          {canDeleteTask && (
             <IconButton color="error" onClick={() => setDeleteDialogOpen(true)} title="Delete Task" disabled={loading}>
               {loading ? <CircularProgress size={20} color="inherit" /> : <DeleteIcon />}
             </IconButton>

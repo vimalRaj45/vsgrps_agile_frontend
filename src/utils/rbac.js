@@ -31,8 +31,17 @@ const permissions = {
   'settings:manage': [ROLES.ADMIN]
 };
 
-export const can = (userRole, permission) => {
-  if (!userRole) return false;
+export const can = (user, permission) => {
+  if (!user) return false;
+  
+  // If the user object contains active permissions list from backend
+  if (user && Array.isArray(user.permissions)) {
+    return user.permissions.includes(permission);
+  }
+  
+  // Fallback to legacy/static role matching
+  const roleName = typeof user === 'string' ? user : user.role;
+  if (!roleName) return false;
   if (!permissions[permission]) return false;
-  return permissions[permission].includes(userRole);
+  return permissions[permission].includes(roleName);
 };
