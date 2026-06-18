@@ -17,75 +17,122 @@ import StorageIcon from '@mui/icons-material/Storage';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const UserGuidePage = () => {
   const steps = [
     {
-      title: "Getting Started & Team Setup",
+      title: "Workspace Activation & Team Setup",
       icon: <GroupsIcon color="primary" />,
-      description: "Initialize your secure workspace and assemble your high-performance team.",
+      description: "Initialize your secure organization, invite your colleagues, and establish roles.",
       details: [
-        "Create your Organization profile to centralize operations.",
-        "Invite team members via the Users dashboard.",
-        "Assign Admin or Developer roles to manage permissions.",
-        "Verify your account via the secure activation link in your inbox."
+        "Organization Creation: The first registering user automatically sets up the company workspace as an Admin.",
+        "Role Hierarchy: Assign Admin (full controls), Product Owner/Scrum Master (scope management), Developer (execution), or Stakeholder (read-only).",
+        "Secure Invites: Generate secure registration links to onboard team members directly.",
+        "Email Verification: Protect your workspace; all users must verify their email addresses before logging in."
       ]
     },
     {
-      title: "Project Lifecycle Management",
+      title: "Agile Project Governance & Archiving",
       icon: <RocketLaunchIcon color="primary" />,
-      description: "Define clear objectives and establish a roadmap for your team's success.",
+      description: "Organize tasks by projects, pin critical priorities, and archive completed cycles.",
       details: [
-        "Create projects with specific, actionable goals.",
-        "Add members to projects to enable collaboration.",
-        "Set project status (Planning, In Progress, On Hold) for transparency.",
-        "Toggle Public vs Private visibility for organizational privacy."
+        "Project Scope: Set clear goals, timelines, and status (Planning, In Progress, On Hold).",
+        "Project Pinning: Pinned projects automatically float to the top of your workspace dashboard.",
+        "Team Assignment: Explicitly assign team members to control workspace access.",
+        "Project Archiving: Keep the active workspace clean by archiving closed projects."
       ]
     },
     {
-      title: "Intelligent Task Orchestration",
+      title: "Kanban Board & Workflows",
       icon: <AssignmentIcon color="primary" />,
-      description: "Break down complex requirements into manageable units of work.",
+      description: "Track execution with custom Kanban board swimlanes and role-based permissions.",
       details: [
-        "Create tasks with clear, action-driven titles.",
-        "Assign task ownership to ensure accountability.",
-        "Set priorities (Critical to Low) and hard deadlines.",
-        "Use real-time comments to keep communication context-aware."
+        "State Transitions: Move tasks from 'To Do', 'In Progress', 'Review', to 'Done'.",
+        "Quality Gate Enforcement: Only Admins can officially transition tasks to 'Done' to ensure verification.",
+        "Developer Status Updates: Developers can update the status of tasks assigned specifically to them.",
+        "Subtask Breakdown: Divide complex items into granular, checkable subtask checklists."
       ]
     },
     {
-      title: "Smart AI-Driven Insights",
+      title: "AI Architect & Neural Planning",
       icon: <PsychologyIcon color="primary" />,
-      description: "Leverage our built-in intelligence to stay ahead of technical bottlenecks.",
+      description: "Leverage the Llama-3.3 powered AI Architect to automate task design and roadmapping.",
       details: [
-        "AI-Powered Prioritization based on deadlines and velocity.",
-        "Predictive risk scores for complex task dependencies.",
-        "Automated subtask generation from high-level requirements.",
-        "Productivity summaries delivered via the Intelligence Hub."
+        "AI Task Breakdown: Generate technical tasks automatically from simple prompt requirements.",
+        "Smart Estimation: Receive suggestions for task complexity, estimated hours, and ideal roles.",
+        "Bulk Board Population: Click 'Create All' to instantly push AI tasks and subtasks to your board.",
+        "Predictive Scheduling: AI analyzes velocity trends to forecast realistic project delivery dates."
       ]
     },
     {
-      title: "Real-Time Notifications",
-      icon: <NotificationsActiveIcon color="primary" />,
-      description: "Stay synchronized with your team without the distraction of noise.",
+      title: "Task Comments & Real-Time @Mentions",
+      icon: <LightbulbIcon color="primary" />,
+      description: "Keep collaboration context-aware with threaded discussions directly inside tasks.",
       details: [
-        "In-app alerts for assignments, mentions, and updates.",
-        "Secure Web Push notifications for off-tab awareness.",
-        "Automated email digests for critical milestones.",
-        "Customizable preference settings in your Profile."
+        "Contextual Threads: Centralize all technical decisions inside task comments instead of external chat apps.",
+        "Real-Time @Mentions: Tag users using @username in comments to trigger instant notifications.",
+        "Notification Bell: Stay updated on assignments, mentions, and system alerts via the smart bell icon.",
+        "One-Click Clear: Use 'Mark All as Read' to clean your notification queue instantly."
       ]
     },
     {
-      title: "Global Asset Storage (R2)",
+      title: "Meetings, Agendas & Interactive Notes",
+      icon: <EventNoteIcon color="primary" />,
+      description: "Schedule, coordinate, and log technical syncs inside your team workspace.",
+      details: [
+        "Meeting Scheduling: Organize sprint planning, standups, or reviews with clear descriptions.",
+        "Attendance Logging: Track attendee presence to ensure team alignment.",
+        "Interactive Notes: Store meeting notes and action items directly in the project context.",
+        "Contextual Linking: Reference tasks directly in meeting notes to maintain history."
+      ]
+    },
+    {
+      title: "Global Asset Storage & Link Vault",
       icon: <CloudUploadIcon color="primary" />,
-      description: "Centralize your organizational knowledge with high-speed asset management.",
+      description: "Manage private file uploads and centralize bookmarks with automatic meta preview.",
       details: [
-        "Upload files up to 50MB with industrial encryption.",
-        "Independent 200MB organization storage quota.",
-        "Scrape and pin research links with automated metadata.",
-        "Directly link assets to tasks, projects, and meetings."
+        "Industrial Encryption: Upload project documents, design assets, and files up to 50MB.",
+        "R2 Storage Quota: Benefit from 200MB of high-speed organizational storage.",
+        "Link Vaulting: Save Figma, documentation, or staging links with rich automatic metadata scraping.",
+        "Asset Linking: Attach uploaded files and link vault cards to specific tasks and meetings."
       ]
     },
+    {
+      title: "Analytics, Velocity & Performance",
+      icon: <BarChartIcon color="primary" />,
+      description: "Track execution metrics and team velocity through visual interactive dashboards.",
+      details: [
+        "Executive Health Cards: Get rapid metrics on project status, pending items, and overall health.",
+        "Team Velocity Charting: A rolling 12-week velocity graph showing task completion speed.",
+        "Work Distribution: Visual breakdown comparing assigned work versus completed tasks.",
+        "Storage Quota Tracking: Real-time progress bar of organizational storage usage."
+      ]
+    },
+    {
+      title: "Governance, Audit Trail & Backups",
+      icon: <AdminPanelSettingsIcon color="primary" />,
+      description: "Enforce company security policies with custom RBAC, full audit logging, and data exports.",
+      details: [
+        "Custom RBAC Roles: Create custom roles with granular permissions (e.g. system:backup, role:manage).",
+        "Audit Logging: Track sensitive actions like project deletions, role creation, or backup downloads.",
+        "Database Portability: Admins can download a full backup file containing all organization data.",
+        "OTP Master Portal: Secure, secondary authentication panel for system administrators."
+      ]
+    },
+    {
+      title: "PWA Offline Readiness & Push Alerts",
+      icon: <NotificationsActiveIcon color="primary" />,
+      description: "Install Sprintora on desktop or mobile and stay connected with browser push alerts.",
+      details: [
+        "Desktop & Mobile Installation: Add the app to your home screen for a distraction-free experience.",
+        "Browser Push Notifications: Get real-time notifications even when the Sprintora tab is closed.",
+        "Responsive Flow: Responsive grids dynamically adapt layout for mobile, tablet, and desktop.",
+        "Offline Shell: Fast loads with service worker caching for unreliable connections."
+      ]
+    }
   ];
 
   const proTips = [
@@ -140,7 +187,7 @@ const UserGuidePage = () => {
                 <CardContent sx={{ p: { xs: 3, md: 4 } }}>
                   <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, sm: 3 }} alignItems="flex-start">
                     <Box sx={{ 
-                      p: 2, borderRadius: 3, bgcolor: 'rgba(59, 130, 246, 0.1)', 
+                       p: 2, borderRadius: 3, bgcolor: 'rgba(59, 130, 246, 0.1)', 
                       display: 'flex', alignItems: 'center', justifyContent: 'center'
                     }}>
                       {step.icon}
@@ -243,3 +290,4 @@ const UserGuidePage = () => {
 };
 
 export default UserGuidePage;
+
