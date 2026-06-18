@@ -150,7 +150,7 @@ const AdminUsersPage = () => {
           sx={{ width: { xs: '100%', md: 'auto' } }}
         >
           <Button 
-            variant="contained" 
+            variant="outlined" 
             startIcon={<BroadcastIcon />}
             onClick={() => setOpenBroadcast(true)}
             sx={{ 
@@ -158,10 +158,10 @@ const AdminUsersPage = () => {
               height: { xs: 44, sm: 48 }, 
               px: 3,
               fontSize: '0.85rem',
-              bgcolor: 'rgba(59, 130, 246, 0.1)',
-              color: '#3b82f6',
-              border: '1px solid rgba(59, 130, 246, 0.2)',
-              '&:hover': { bgcolor: 'rgba(59, 130, 246, 0.15)' },
+              background: 'rgba(59, 130, 246, 0.1) !important',
+              color: '#3b82f6 !important',
+              border: '1px solid rgba(59, 130, 246, 0.2) !important',
+              '&:hover': { background: 'rgba(59, 130, 246, 0.15) !important' },
               boxShadow: 'none'
             }}
           >
