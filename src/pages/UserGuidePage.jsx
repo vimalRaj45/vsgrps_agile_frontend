@@ -234,7 +234,16 @@ const UserGuidePage = () => {
                 <Button 
                   variant="contained" 
                   fullWidth
-                  sx={{ bgcolor: 'white', color: 'primary.main', fontWeight: 900, borderRadius: 3, py: 1.2, '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' } }}
+                  sx={{ 
+                    background: '#ffffff !important', 
+                    color: '#1d4ed8 !important', 
+                    fontWeight: 900, 
+                    borderRadius: 3, 
+                    py: 1.2, 
+                    '&:hover': { 
+                      background: 'rgba(255,255,255,0.9) !important' 
+                    } 
+                  }}
                   onClick={() => window.open('mailto:support@vsgrps.com', '_blank')}
                 >
                   Request Quota Increase
